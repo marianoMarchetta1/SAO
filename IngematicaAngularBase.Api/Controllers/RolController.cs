@@ -10,7 +10,7 @@ using AutoMapper;
 using IngematicaAngularBase.Api.Common;
 using IngematicaAngularBase.Model.Common;
 using IngematicaAngularBase.Api.Common;
-//prueba commit 
+
 namespace IngematicaAngularBase.Api.Controllers
 {
     [Authorize]
