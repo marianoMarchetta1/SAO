@@ -52,7 +52,10 @@ angular.module('appBase').controller('headerController', ['$scope', '$location',
         .then(function () {
             $scope.apellidoNombre = securityFactory.getApellidoNombre();
             $scope.menu = createMenu();
-            $scope.menu          
+            $scope.menu
+            .addItem("configuracion", "Configuracion", "")
+                .addItem("mueble", "Mueble", "Mueble_CanList", "app.mueble-list").back()
+            .back()
             .addItem("seguridad", "Seguridad", "")
                 .addItem("usuarios", "Usuarios", "Usuario_CanList", "app.usuario-list").back()
                 .addItem("roles", "Roles", "Rol_CanList", "app.rol-list").back()
