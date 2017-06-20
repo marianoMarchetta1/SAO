@@ -15,7 +15,7 @@ namespace IngematicaAngularBase.Api.Controllers
 {
     [Authorize]
     [HandleApiException]
-    public class RolController : ApiController
+    public class RolController : ApiController 
     {
         [Route("api/rol/list")]
         [AuthorizeRule(Rule = "Rol_CanList")]
