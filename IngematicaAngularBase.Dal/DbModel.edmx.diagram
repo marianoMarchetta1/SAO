@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1eba2306b074cae804dad7bccdfeb98" Name="Diagram1">
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Cliente" Width="1.5" PointX="8.25" PointY="61" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ClienteDireccionEntrega" Width="1.5" PointX="13.5" PointY="60.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ColaImpresion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Color" Width="1.5" PointX="5.25" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Despacho" Width="1.5" PointX="15.75" PointY="60.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoBulto" Width="1.5" PointX="18" PointY="80.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoTercero" Width="1.5" PointX="15.75" PointY="83" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoTerceroBulto" Width="1.5" PointX="18" PointY="92.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoTerceroBultoEstado" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoTerceroBultoRespuesta" Width="1.5" PointX="20.25" PointY="94.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.DespachoTerceroRespuesta" Width="1.5" PointX="18" PointY="87.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Embalaje" Width="1.5" PointX="7.5" PointY="100.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.EmbalajeBulto" Width="1.5" PointX="23.25" PointY="95.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Empresa" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.EmpresaCai" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ExcedenteHabilitado" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Genero" Width="1.5" PointX="18.5" PointY="76.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.HistoricoProgramacionPedidoProducto" Width="1.5" PointX="7.5" PointY="82.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Impresora" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Inserto" Width="1.5" PointX="11.25" PointY="64.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InsertoClase" Width="1.5" PointX="9" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Inyeccion" Width="1.5" PointX="10.5" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InyeccionEstacion" Width="1.5" PointX="12.75" PointY="69.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InyeccionEstacionCajon" Width="1.5" PointX="25.5" PointY="78.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InyeccionEstacionPedido" Width="1.5" PointX="23.25" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Inyectora" Width="1.5" PointX="5.25" PointY="67.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InyectoraEstacion" Width="1.5" PointX="7.5" PointY="67.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.InyectoraOperario" Width="1.5" PointX="7.5" PointY="70.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Laca" Width="1.5" PointX="5.25" PointY="74" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Localidad" Width="1.5" PointX="11.25" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Log" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Material" Width="1.5" PointX="5.25" PointY="82.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MaterialColor" Width="1.5" PointX="10.5" PointY="69.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MaterialInyectora" Width="1.5" PointX="7.5" PointY="76.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MaterialMateriaPrima" Width="1.5" PointX="10.5" PointY="83.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MaterialTipo" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MateriaPrima" Width="1.5" PointX="10.5" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MateriaPrimaClase" Width="1.5" PointX="8.25" PointY="79.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MateriaPrimaMarca" Width="1.5" PointX="5.25" PointY="92.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Medida" Width="1.5" PointX="7.5" PointY="108.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Modulo" Width="1.5" PointX="1.5" PointY="50.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Molde" Width="1.5" PointX="13.5" PointY="81.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MoldeInyectora" Width="1.5" PointX="15.75" PointY="75.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.MoldeMedida" Width="1.5" PointX="15.75" PointY="95.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Pais" Width="1.5" PointX="5.25" PointY="96.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Pedido" Width="1.5" PointX="15.75" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoEstado" Width="1.5" PointX="13.5" PointY="57.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoEstadoProceso" Width="1.5" PointX="10.5" PointY="101.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoProductoCajon" Width="1.5" PointX="27.5" PointY="92.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoProductoMedida" Width="1.5" PointX="21" PointY="85.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoProductoMedidaEstado" Width="1.5" PointX="23.25" PointY="85.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoProductoProceso" Width="1.5" PointX="25.25" PointY="91.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PedidoTipo" Width="1.5" PointX="13.5" PointY="73.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Proceso" Width="1.5" PointX="5.25" PointY="99.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Producto" Width="1.5" PointX="20.75" PointY="75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProductoInserto" Width="1.5" PointX="23" PointY="72.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProductoMaterial" Width="1.5" PointX="23" PointY="69.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProductoMedida" Width="1.5" PointX="23" PointY="92" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProductoProceso" Width="1.5" PointX="24" PointY="88.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProductoTipo" Width="1.5" PointX="18.5" PointY="74.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProgramacionDevolucion" Width="1.5" PointX="26.25" PointY="96" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProgramacionPedidoProducto" Width="1.5" PointX="26.25" PointY="82" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Proveedor" Width="1.5" PointX="13.5" PointY="64.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.ProveedorProceso" Width="1.5" PointX="18.75" PointY="83.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Provincia" Width="1.5" PointX="10.5" PointY="73.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.PuntoVenta" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Regla" Width="1.5" PointX="3.75" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Reinyeccion" Width="1.5" PointX="23.25" PointY="99.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Reprogramacion" Width="1.5" PointX="5.25" PointY="105.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Rol" Width="1.5" PointX="0.75" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.RolRegla" Width="1.5" PointX="6" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityClient" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityRefreshToken" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.TipoMedida" Width="1.5" PointX="5.25" PointY="108.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Usuario" Width="1.5" PointX="3" PointY="61.25" IsExpanded="true" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Localidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ClienteDireccionEntrega_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Molde_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ClienteDireccionEntrega_Localidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Despacho_ClienteDireccionEntrega" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_ClienteDireccionEntrega" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Color_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Color_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialColor_Colores" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Color" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoMaterial_Colores" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoBulto_Despacho" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoBulto_Embalaje" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTercero_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTercero_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroBulto_DespachoTercero" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroRespuesta_DespachoTercero" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroBulto_Embalaje" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroBultoRespuesta_DespachoTerceroRespuesta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroBultoRespuesta_Embalaje1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_DespachoTerceroBultoRespuesta_Embalaje2" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Embalaje_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_EmbalajeBulto_Embalaje" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_EmbalajeBulto_IdPedidoProductoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_EmpresaCai_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PuntoVenta_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_EmpresaCai_PuntoVenta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Molde_Genero" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Genero" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_HistoricoProgramacionPedidoProducto_Reprogramacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_HistoricoProgramacionPedidoProducto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Inserto_InsertoClase" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Inserto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Inserto_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoInserto_Inserto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacion_Inyeccion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacion_InyectoraEstacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacionPedido_InyeccionEstacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacionCajon_InyeccionPedido" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacionPedido_Medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyeccionEstacionPedido_ProgramacionPedidoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Inyectora_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Inyectora_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyectoraEstacion_Inyectora" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_InyectoraOperario_Inyectora" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialInyectora_Inyectora" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MoldeInyectora_Inyectora" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionPedidoProducto_InyectoraEstacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Laca_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Laca_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Laca" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidades_Provincias" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Proveedor_Localidad" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Material_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Material_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialColor_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialInyectora_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialMateriaPrima_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoMaterial_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MaterialMateriaPrima_MateriaPrima" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrima_MateriaPrimaClase" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrima_MateriaPrimaMarca" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrima_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrima_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrimaMarca_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MateriaPrimaMarca_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Medida_TipoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MoldeMedida_Medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProducto_Medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoMedida_Medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Regla_Modulo" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Molde_TipoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Molde_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Molde_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MoldeInyectora_Molde" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_MoldeMedida_Molde" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Molde" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Pais" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_PedidoEstado" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_PedidoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pedido_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProducto_Pedido" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoEstadoProceso_PedidoEstado" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoMedidaEstado_PedidoEstado" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoEstadoProceso_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoCajon_PedidoProductoProceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoMedidaEstado_PedidoProductoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoProceso_Medida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionDevolucion_PedidoProductoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionPedidoProducto_PedidoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Reinyeccion_PedidoProductoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoProceso_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_PedidoProductoProceso_ProgramacionPedidoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Proceso_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Proceso_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoProceso_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionDevolucion_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProveedorProceso_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Reinyeccion_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_ProductoTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_TipoMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Producto_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoInserto_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoMaterial_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoMedida_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProductoProceso_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionPedidoProducto_Reprogramacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProgramacionPedidoProducto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Proveedor_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Proveedor_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_ProveedorProceso_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Alta" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Regla" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Reprogramacion_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_TipoMedida_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_TipoMedida_Usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

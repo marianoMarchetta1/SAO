@@ -1,0 +1,105 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a ui-sref="app.usuario-list">Usuarios</a></li>
+        <li ng-if="vm.mode == 'add'" class="active">Agregar</li>
+        <li ng-if="vm.mode == 'update'" class="active">Editar</li>
+    </ol>   
+    <form name="vm.usuarioForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          add="vm.add()"
+          update="vm.update()"
+          return-state="app.usuario-list"
+          save-and-new="vm.saveAndNew"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="Nombre" ng-model="vm.usuario.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Apellido</label>
+                    <input class="form-control" name="Apellido" ng-model="vm.usuario.apellido" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Usuario</label>
+                    <input class="form-control" ng-disabled="vm.mode == 'update' || vm.usuario.interno" name="Usuario" ng-model="vm.usuario.nombreUsuario" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input class="form-control" name="Email" validate-email ng-model="vm.usuario.email" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Rol</label>
+                    <select class="form-control" ng-model="vm.usuario.idRol" name="Rol" select-required
+                            ng-options="rol.id as rol.desc for rol in vm.roles" ng-model-options="{ updateOn: 'blur' }" ng-disabled="vm.usuario.interno"></select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Activo</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Activo" ng-model="vm.usuario.activo">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div ng-show="vm.mode == 'update'">
+            <h4>Auditoría</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Usuario Alta</label>
+                        <input class="form-control" value="{{vm.usuario.usuarioAlta}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Usuario Últ Modificación</label>
+                        <input class="form-control" value="{{vm.usuario.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Fecha de Alta</label>
+                        <input class="form-control" value="{{vm.usuario.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Fecha Última Modificación</label>
+                    <input class="form-control" value="{{vm.usuario.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">ID</label>
+                        <input class="form-control text-right" value="{{vm.usuario.idUsuario}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" broadcast="vm.usuarioForm" broadcast-arg="submit" ng-click="vm.saveAndNew = false">Guardar</button>
+                <button class="btn btn-primary" type="button" broadcast="vm.usuarioForm" broadcast-arg="submit" ng-click="vm.saveAndNew = true" ng-show="vm.mode == 'add'">Guardar y agregar nuevo</button>
+                <button class="btn btn-primary " type="button" go-state="app.usuario-list">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+

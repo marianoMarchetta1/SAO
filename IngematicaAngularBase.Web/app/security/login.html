@@ -1,0 +1,38 @@
+﻿    <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="loginController as vm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content  ">
+                <div class="modal-header">
+                    <h4 class="text-center">{{vm.applicationName}} - Login</h4>
+                </div>
+                <div block-ui="myBlockUI">
+                    <div class="modal-body">
+                        <form ng-submit="vm.login()">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Usuario" ng-model="vm.loginData.userName">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Contraseña" ng-model="vm.loginData.password">
+                            </div>
+                            <!--<div class="checkbox"> <label> <input type="checkbox">Permanecer logueado</label> </div>-->
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block">Iniciar sesión</button>
+                            </div>
+
+                            <div class="form-group">
+                                <a href="" ng-click="vm.enviarPassword()">¿Olvido su contraseña?</a>
+                            </div>
+                            <div class="form-group" ng-hide="vm.loginData.msg == ''">
+                                <uib-alert type="{{vm.loginData.msgType}}">{{vm.loginData.msg}}</uib-alert>
+                            </div>
+                        </form>
+
+                    </div>
+                    
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+

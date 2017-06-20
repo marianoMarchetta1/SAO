@@ -1,0 +1,23 @@
+﻿<header ng-cloak role="navigation">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="pull-left h4"><img src="images/logo.png" /></div>
+				<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+					<ul class="nav navbar-nav pull-right">
+						<li class="uib-dropdown" uib-dropdown ng-repeat="pitem in menu.items" ng-if="pitem.visible">
+							<a ng-if="pitem.items.length > 0" href="" data-toggle="dropdown" uib-dropdown-toggle>{{pitem.title}}<b class="caret"></b></a>
+							<a ng-if="pitem.items.length == 0" ng-click="routeTo(pitem.action)">{{pitem.title}}</a>
+							<ul ng-if="pitem.items.length > 0" class="dropdown-menu">
+								<li class="uib-dropdown" ng-repeat="item in pitem.items" ng-if="item.visible">
+									<a ng-click="routeTo(item.action)">{{item.title}}</a>
+								</li>
+							</ul>
+						</li>						
+						<li><a href="" ng-click="logOut()">Cerrar Sesion</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>

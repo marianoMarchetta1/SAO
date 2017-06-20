@@ -1,0 +1,90 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a ui-sref="app.usuario-list">Usuarios</a></li>
+        <li class="active">Ver</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Nombre</label>
+                <input class="form-control" value="{{vm.usuario.nombre}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Apellido</label>
+                <input class="form-control" value="{{vm.usuario.apellido}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Usuario</label>
+                <input class="form-control" value="{{vm.usuario.nombreUsuario}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input class="form-control" value="{{vm.usuario.email}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Rol</label>
+                <input class="form-control" value="{{vm.usuario.rolNombre}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Activo</label>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="vm.usuario.activo" ng-disabled="true" tabindex="-1">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <h4>Auditoría</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Usuario Alta</label>
+                <input class="form-control" value="{{vm.usuario.usuarioAlta}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Usuario Últ Modificación</label>
+                <input class="form-control" value="{{vm.usuario.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Fecha de Alta</label>
+                <input class="form-control" value="{{vm.usuario.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Fecha Última Modificación</label>
+                <input class="form-control" value="{{vm.usuario.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">ID</label>
+                <input class="form-control text-right" value="{{vm.usuario.idUsuario}}" readonly="readonly" tabindex="-1">
+            </div>
+        </div>
+    </div>
+
+    <div class="nav navBorder">
+        <div class="navbar-right">
+            <button class="btn btn-primary " type="button" go-state="app.usuario-list">Cerrar</button>
+        </div>
+    </div>
+</div>
+

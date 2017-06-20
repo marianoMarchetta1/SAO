@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="es" ng-app="appBase">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-custom.css">
+    <link rel="stylesheet" href="scripts/angular-block-ui/angular-block-ui.css">
+    <link rel="stylesheet" href="scripts/code-mirror/codemirror.css">
+    <title>Ingematica Angular Base</title>
+
+</head>
+<body>
+    <div class="block-ui-main">
+        <div ui-view="header"></div>
+        <div ui-view="content"></div>
+        <div ui-view="footer"></div>
+    </div>
+        <script src="scripts/angular.js"></script>
+        <script src="scripts/angular-ui-router.js"></script>
+        <script src="scripts/angular-locale_es-ar.js"></script>
+        <script src="scripts/angular-local-storage.min.js"></script>
+        <script src="scripts/ui-bootstrap-tpls.js"></script>
+        <script src="scripts/angular-block-ui/angular-block-ui.js"></script>
+        <script src="scripts/ng-file-upload.js"></script>
+        <script src="scripts/code-mirror/codemirror.js"></script>
+        <script src="scripts/code-mirror/ui-codemirror.js"></script>
+        <script src="scripts/code-mirror/cypher.js"></script>
+        <script src="scripts/angular-sanitize.js"></script>
+
+        <script src="scripts/to-iso-string.js"></script>
+        <script src="app.js"></script>
+        <script src="config-routing.js"></script>
+
+        <script src="index-controller.js"></script>
+
+        <script src="layout/header-controller.js"></script>
+
+        <script src="common/directives/custom-submit.js"></script>
+        <script src="common/directives/common-directives.js"></script>
+
+        <script src="common/services/modal-dialog-service.js"></script>
+        <script src="common/services/handle-error-service.js"></script>
+        <script src="common/services/entity-ui.js"></script>
+        <script src="common/services/framework-ui.js"></script>
+        
+        <script src="security/auth-interceptor-service.js"></script>
+        <script src="security/auth-service-factory.js"></script>
+        <script src="security/http-buffer-factory.js"></script>
+        <script src="security/security-factory.js"></script>
+        <script src="security/login-controller.js"></script>    
+        <script src="security/cambiar-password-controller.js"></script>
+        <script src="security/cambiar-password-anonimo-controller.js"></script>
+        <script src="security/cambiar-password-config.js"></script> 
+        
+        <script src="configuration/usuario/usuario-factory.js"></script>
+        <script src="configuration/usuario/usuario-list-controller.js"></script>
+        <script src="configuration/usuario/usuario-add-update-controller.js"></script>
+        <script src="configuration/usuario/usuario-detail-controller.js"></script>
+        <script src="configuration/usuario/usuario-config.js"></script>
+
+        <script src="configuration/rol/rol-factory.js"></script>
+        <script src="configuration/rol/rol-list-controller.js"></script>
+        <script src="configuration/rol/rol-add-update-controller.js"></script>
+        <script src="configuration/rol/rol-detail-controller.js"></script>
+        <script src="configuration/rol/rol-config.js"></script>
+    
+</body>
+</html>

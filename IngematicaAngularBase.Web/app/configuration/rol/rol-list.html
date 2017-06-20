@@ -1,0 +1,98 @@
+﻿<div class="container">
+    <ol class="breadcrumb buscar">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li class="active">Roles</li>
+    </ol>   
+    <form name="vm.rolForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          list="vm.queryUI.search()"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Nombre</label>
+                        <input class="form-control" name="nombre" ng-model="vm.queryUI.query.nombre" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Estado</label>
+                        <select class="form-control" ng-model="vm.queryUI.query.activo"
+                                ng-options="item.value as item.desc for item in vm.estados" ng-model-options="{ updateOn: 'blur' }"></select>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="nav">
+                <div class="navbar-right">
+                    <button ng-disabled="!vm.rules.rolCanAdd" class="btn btn-primary" type="button" go-state="app.rol-add">Agregar</button>
+                    <button class="btn btn-primary" type="reset" broadcast="vm.rolForm" broadcast-arg="clear">Limpiar</button>
+                    <button class="btn btn-primary" type="button" broadcast="vm.rolForm" broadcast-arg="submit">Buscar</button>
+                </div>
+            </div>
+    </form>
+
+
+
+    <div class="row" ng-hide="vm.queryUI.isListEmpty()">
+        <div class="col-md-8 ">
+            <uib-pagination items-per-page="vm.queryUI.lastQuery.take"
+                            total-items="vm.queryUI.list.totalCount"
+                            ng-model="vm.queryUI.lastQuery.currentPage"
+                            ng-change="vm.queryUI.pageChanged()"
+                            num-pages="vm.queryUI.numPages">
+
+            </uib-pagination>
+        </div>
+        <div class="col-md-2">
+            <pre>Página: {{vm.queryUI.lastQuery.currentPage}} / {{vm.queryUI.numPages}} </pre>
+        </div>
+        <div class="col-md-2">
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Cantidad</span>
+                <select class="form-control" ng-model="vm.queryUI.query.take" ng-change="vm.queryUI.refresh()" ng-options="i for i in vm.queryUI.takeList"></select>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="vm.queryUI.isListEmpty()">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><orderby field="idRol" title="ID" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="nombre" title="Nombre" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="activo" title="Activo" query-ui="vm.queryUI"></orderby></th>
+                    <th class="size-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.queryUI.list.data">
+                    <td class="text-right">{{item.idRol}}</td>
+                    <td>{{item.nombre}}</td>
+                    <td class="text-center"><input type="checkbox" name="checked" ng-model="item.activo" ng-disabled="true"></td>
+                    <td class="text-right">
+                        <a ng-if="!item.interno" ui-sref="app.rol-detail({ id: item.idRol })" class="btn btn-sm btn-link pull-left"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <a ng-if="item.interno" class="btn btn-sm btn-link pull-left disabled"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <a ng-if="vm.rules.rolCanEdit && !item.interno" ui-sref="app.rol-update({ id: item.idRol })" class="btn btn-sm btn-link pull-left "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a ng-if="!vm.rules.rolCanEdit || item.interno" class="btn btn-sm btn-link pull-left disabled"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a ng-if="vm.rules.rolCanDelete && !item.interno" href="" ng-click="vm.delete(item.idRol)" class="btn btn-sm btn-link pull-left"><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
+                        <a ng-if="!vm.rules.rolCanDelete || item.interno" class="btn btn-sm btn-link pull-left disabled"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="vm.queryUI.isCleared()">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">
+
+            </span> No se han encontrado registros
+        </div>
+    </div>
+</div>
+

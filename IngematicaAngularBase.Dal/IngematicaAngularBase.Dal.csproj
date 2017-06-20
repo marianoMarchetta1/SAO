@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49AB900B-97F3-417C-90D8-84274C1FFCA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IngematicaAngularBase.Dal</RootNamespace>
+    <AssemblyName>IngematicaAngularBase.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LinqExtensions.cs" />
+    <Compile Include="LogDataAccess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModuloDataAccess.cs" />
+    <Compile Include="RolDataAccess.cs" />
+    <Compile Include="Specification\Cliente.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ClienteDireccionEntrega.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ColaImpresion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Color.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DataAccess.Specification.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Despacho.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoBulto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoTercero.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoTerceroBulto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoTerceroBultoEstado.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoTerceroBultoRespuesta.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\DespachoTerceroRespuesta.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Embalaje.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\EmbalajeBulto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Empresa.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\EmpresaCai.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ExcedenteHabilitado.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Genero.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\HistoricoProgramacionPedidoProducto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Impresora.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Inserto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InsertoClase.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Inyeccion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InyeccionEstacion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InyeccionEstacionCajon.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InyeccionEstacionPedido.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Inyectora.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InyectoraEstacion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\InyectoraOperario.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Laca.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Localidad.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Log.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Material.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MaterialColor.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MaterialInyectora.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MaterialMateriaPrima.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MaterialTipo.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MateriaPrima.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MateriaPrimaClase.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MateriaPrimaMarca.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Medida.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Modulo.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Molde.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MoldeInyectora.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\MoldeMedida.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Pais.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Pedido.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoEstado.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoEstadoProceso.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoProductoCajon.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoProductoMedida.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoProductoMedidaEstado.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoProductoProceso.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PedidoTipo.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Proceso.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Producto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProductoInserto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProductoMaterial.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProductoMedida.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProductoProceso.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProductoTipo.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProgramacionDevolucion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProgramacionPedidoProducto.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Proveedor.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\ProveedorProceso.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Provincia.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\PuntoVenta.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Regla.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Reinyeccion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Reprogramacion.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Rol.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\RolRegla.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\SecurityClient.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\SecurityRefreshToken.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\sysdiagrams.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\TipoMedida.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\Usuario.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioDataAccess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="DbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DbModel.edmx.diagram">
+      <DependentUpon>DbModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Specification\DataAccess.Specification.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DataAccess.Specification.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IngematicaAngularBase.Model\IngematicaAngularBase.Model.csproj">
+      <Project>{b5992ad1-07af-4924-8233-7dd0dcf34e17}</Project>
+      <Name>IngematicaAngularBase.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.Context.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

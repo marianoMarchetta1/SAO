@@ -1,0 +1,67 @@
+﻿<root>
+  <output path="js\libs.js">
+    
+    <arguments>-minify:false</arguments>
+    
+    <input path="app\scripts\angular.min.js"/>
+    <input path="app\scripts\angular-locale_es-ar.js"/>
+    <input path="app\scripts\angular-ui-router.min.js"/>
+    <input path="app\scripts\angular-local-storage.min.js"/>
+    <input path="app\scripts\angular-sanitize.js"/>
+    <input path="app\scripts\angular-block-ui\angular-block-ui.js"/>
+    <input path="app\scripts\ui-bootstrap-tpls.min.js"/>
+    <input path="app\scripts\ng-file-upload.js"/>
+    
+  </output>
+  
+  <output path="js\application.js">
+
+    <input path="app\scripts\to-iso-string.js"/>
+    <input path="app\config-routing.js"/>
+    
+    <input path="app\index-controller.js"/>
+    <input path="app\layout\header-controller.js"/>
+    
+    <input path="app\security\auth-interceptor-service.js"/>
+    <input path="app\security\auth-service-factory.js"/>
+    <input path="app\security\http-buffer-factory.js"/>
+    <input path="app\security\security-factory.js"/>
+    <input path="app\security\login-controller.js"/>
+    <input path="app\security\cambiar-password-controller.js"/>
+    <input path="app\security\cambiar-password-anonimo-controller.js"/>
+    <input path="app\security\cambiar-password-config.js"/>
+    
+    <input path="app\common\directives\custom-submit.js"/>
+    <input path="app\common\directives\common-directives.js"/>
+    
+    <input path="app\common\services\modal-dialog-service.js"/>
+    <input path="app\common\services\handle-error-service.js"/>
+    <input path="app\common\services\entity-ui.js"/>
+    <input path="app\common\services\framework-ui.js"/>
+
+    <input path="app\configuration\usuario\usuario-factory.js"/>
+    <input path="app\configuration\usuario\usuario-list-controller.js"/>
+    <input path="app\configuration\usuario\usuario-add-update-controller.js"/>
+    <input path="app\configuration\usuario\usuario-detail-controller.js"/>
+    <input path="app\configuration\usuario\usuario-config.js"/>
+
+    <input path="app\configuration\rol\rol-factory.js"/>
+    <input path="app\configuration\rol\rol-list-controller.js"/>
+    <input path="app\configuration\rol\rol-add-update-controller.js"/>
+    <input path="app\configuration\rol\rol-detail-controller.js"/>
+    <input path="app\configuration\rol\rol-config.js"/>
+    
+  </output>
+
+  <output path="css\style.css" type="css">
+    <input path="app\css\bootstrap-custom.css"/>
+    <input path="app\scripts\code-mirror\codemirror.css"/>
+    <input path="app\scripts\angular-block-ui\angular-block-ui.css"/>
+  </output>
+
+  <output path="css\style-m.css" type="css">
+    <arguments>-minify:false</arguments>
+    <input path="app\css\bootstrap.min.css"/>
+  </output>
+
+</root>

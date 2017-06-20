@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <h4>{{model.headerText}}<a data-ng-click="model.ok();" class="navbar-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></h4>
+</div>
+<div class="modal-body">
+    <p>{{model.bodyText}}</p>
+    <br />
+    <ul>
+        <li ng-repeat="item in model.items track by $index">
+            {{ item }}
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <!--<button type="button" class="btn"
+            data-ng-click="model.close()">
+        {{model.closeButtonText}}
+    </button>-->
+    <button class="btn btn-primary"
+            data-ng-click="model.ok();">
+        {{model.actionButtonText}}
+    </button>
+</div>

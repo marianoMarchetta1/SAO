@@ -1,0 +1,17 @@
+﻿<div class="modal-header">
+    <h4>{{model.headerText}}<a data-ng-click="model.cancel()" class="navbar-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></h4>
+</div>
+<div class="modal-body">
+    <p>{{model.bodyText}}</p>
+    <br />
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            data-ng-click="model.ok();">
+        {{model.actionButtonText}}
+    </button>
+    <button type="button" class="btn btn-primary " data-ng-show="model.showCancel"
+            data-ng-click="model.cancel()">
+        {{model.cancelButtonText}}
+    </button>
+</div>
