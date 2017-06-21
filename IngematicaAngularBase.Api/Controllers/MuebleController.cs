@@ -24,5 +24,20 @@ namespace IngematicaAngularBase.Api.Controllers
             MuebleBusiness bs = new MuebleBusiness();
             return Ok(bs.GetList(query));
         }
+
+        [AuthorizeRule(Rule = "Mueble_CanDelete")]
+        public IHttpActionResult Delete(int id)
+        {
+            MuebleBusiness bs = new MuebleBusiness();
+            bs.Delete(id);
+            return Ok();
+        }
+
+        [AuthorizeRule(Rule = "Mueble_CanList")]
+        public IHttpActionResult Get(int id)
+        {
+            MuebleBusiness bs = new MuebleBusiness();
+            return Ok(bs.GetById(id));
+        }
     }
 }

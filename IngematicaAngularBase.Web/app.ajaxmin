@@ -54,6 +54,7 @@
     <input path="app\configuration\mueble\mueble-factory.js"/>
     <input path="app\configuration\mueble\mueble-list-controller.js"/>
     <input path="app\configuration\mueble\mueble-config.js"/>
+    <input path="app\configuration\mueble\mueble-add-update-controller.js"/>
     
   </output>
 

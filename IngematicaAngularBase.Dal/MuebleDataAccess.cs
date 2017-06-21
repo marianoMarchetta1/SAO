@@ -35,5 +35,34 @@ namespace IngematicaAngularBase.Dal
                          };
             return result.ToQueryResult(query);
         }
+
+        public MuebleViewModel GetById(int id)
+        {
+            //IQueryable<Pais> tPais = context.Set<Pais>().AsNoTracking();
+            //IQueryable<Usuario> tUsuario = context.Set<Usuario>().AsNoTracking();
+            //IQueryable<Usuario> tUsuarioModif = context.Set<Usuario>().AsNoTracking();
+
+            //var result = from pais in tPais
+            //             join usuarioalta in tUsuario on pais.IdUsuarioAlta equals usuarioalta.IdUsuario
+            //             join usuariomod in tUsuarioModif on pais.IdUsuarioModificacion equals usuariomod.IdUsuario
+            //                    into _usuariomod
+            //             from usuariomod in _usuariomod.DefaultIfEmpty()
+            //             where pais.IdPais == id
+            //             select new MuebleViewModel
+            //             {
+            //                 IdPais = pais.IdPais,
+            //                 Nombre = pais.Nombre,
+            //                 Activo = pais.Activo,
+            //                 IdUsuarioAlta = pais.IdUsuarioAlta,
+            //                 UsuarioAlta = (usuarioalta.Nombre != null && usuarioalta.Apellido != null ? usuarioalta.Apellido + ", " + usuarioalta.Nombre : string.Empty),
+            //                 FechaAlta = pais.FechaAlta,
+            //                 FechaModificacion = pais.FechaModificacion,
+            //                 IdUsuarioModificacion = pais.IdUsuarioModificacion,
+            //                 UsuarioModificacion = (usuariomod.Nombre != null && usuariomod.Apellido != null ? usuariomod.Apellido + ", " + usuariomod.Nombre : string.Empty)
+            //             };
+            //return result.FirstOrDefault();
+
+            return null;
+        }
     }
 }

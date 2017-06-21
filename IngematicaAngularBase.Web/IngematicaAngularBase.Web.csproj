@@ -133,6 +133,8 @@
     <Content Include="app\common\services\modal-dialog-service.js" />
     <Content Include="app\common\services\modal-dialog-errors.html" />
     <Content Include="app\config-routing.js" />
+    <Content Include="app\configuration\mueble\mueble-add-update-controller.js" />
+    <Content Include="app\configuration\mueble\mueble-add-update.html" />
     <Content Include="app\configuration\mueble\mueble-config.js" />
     <Content Include="app\configuration\mueble\mueble-factory.js" />
     <Content Include="app\configuration\mueble\mueble-list-controller.js" />

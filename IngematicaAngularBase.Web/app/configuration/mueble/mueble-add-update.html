@@ -1,0 +1,81 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a ui-sref="app.mueble-list">Muebles</a></li>
+        <li ng-if="vm.mode == 'add'" class="active">Agregar</li>
+        <li ng-if="vm.mode == 'update'" class="active">Editar</li>
+    </ol>
+    <form name="vm.muebleForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          add="vm.add()"
+          update="vm.update()"
+          return-state="app.mueble-list"
+          save-and-new="vm.saveAndNew"
+          set-default-model="vm.setDefaultModel()"> 
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label name="lblNombre" class="control-label">Nombre</label>
+                    <input class="form-control" lblMessage="lblNombre" name="Nombre" ng-model="vm.mueble.nombre" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Activo</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Activo" ng-model="vm.mueble.activo">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div ng-show="vm.mode == 'update'">
+            <h4>Auditoría</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Usuario Alta</label>
+                        <input class="form-control" value="{{vm.mueble.usuarioAlta}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Usuario Últ Modificación</label>
+                        <input class="form-control" value="{{vm.mueble.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Fecha de Alta</label>
+                        <input class="form-control" value="{{vm.mueble.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Fecha Última Modificación</label>
+                    <input class="form-control" value="{{vm.mueble.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">ID</label>
+                        <input class="form-control text-right" value="{{vm.mueble.idMueble}}" readonly="readonly" tabindex="-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = false">Guardar</button>
+                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = true" ng-show="vm.mode == 'add'">Guardar y agregar nuevo</button>
+                <button class="btn btn-primary" type="button" go-state="app.mueble-list">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

@@ -1,8 +1,10 @@
 ﻿using IngematicaAngularBase.Dal;
 using IngematicaAngularBase.Model.Common;
+using IngematicaAngularBase.Model.Entities;
 using IngematicaAngularBase.Model.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,25 @@ namespace IngematicaAngularBase.Bll
             {
                 MuebleDataAccess muebleDataAccess = new MuebleDataAccess(context);
                 return muebleDataAccess.GetList(query);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (var context = new Entities())
+            {
+                Mueble entity = context.Set<Mueble>().FirstOrDefault(x => x.IdMueble == id);
+                context.Entry(entity).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+        }
+
+        public MuebleViewModel GetById(int id)
+        {
+            using (var context = new Entities())
+            {
+                MuebleDataAccess muebleDataAccess = new MuebleDataAccess(context);
+                return muebleDataAccess.GetById(id);
             }
         }
     }
