@@ -17,8 +17,6 @@ namespace IngematicaAngularBase.Model.Entities
         public Localidad()
         {
             this.Cliente = new HashSet<Cliente>();
-            this.ClienteDireccionEntrega = new HashSet<ClienteDireccionEntrega>();
-            this.Proveedor = new HashSet<Proveedor>();
         }
     
         public int IdLocalidad { get; set; }
@@ -32,10 +30,8 @@ namespace IngematicaAngularBase.Model.Entities
         public bool Activo { get; set; }
     
         public virtual ICollection<Cliente> Cliente { get; set; }
-        public virtual ICollection<ClienteDireccionEntrega> ClienteDireccionEntrega { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
         public virtual Provincia Provincia { get; set; }
-        public virtual ICollection<Proveedor> Proveedor { get; set; }
     }
 }

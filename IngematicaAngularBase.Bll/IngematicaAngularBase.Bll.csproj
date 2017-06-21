@@ -71,6 +71,7 @@
     <Compile Include="Common\Cascade.cs" />
     <Compile Include="ModuloBusiness.cs" />
     <Compile Include="LogBusiness.cs" />
+    <Compile Include="MuebleBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolBusiness.cs" />
     <Compile Include="SecurityBusiness.cs" />

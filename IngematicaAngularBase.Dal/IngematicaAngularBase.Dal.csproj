@@ -66,99 +66,16 @@
     </Compile>
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="LogDataAccess.cs" />
+    <Compile Include="MuebleDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModuloDataAccess.cs" />
     <Compile Include="RolDataAccess.cs" />
     <Compile Include="Specification\Cliente.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
-    <Compile Include="Specification\ClienteDireccionEntrega.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ColaImpresion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Color.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
     <Compile Include="Specification\DataAccess.Specification.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Despacho.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoBulto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoTercero.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoTerceroBulto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoTerceroBultoEstado.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoTerceroBultoRespuesta.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\DespachoTerceroRespuesta.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Embalaje.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\EmbalajeBulto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Empresa.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\EmpresaCai.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ExcedenteHabilitado.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Genero.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\HistoricoProgramacionPedidoProducto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Impresora.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Inserto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InsertoClase.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Inyeccion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InyeccionEstacion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InyeccionEstacionCajon.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InyeccionEstacionPedido.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Inyectora.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InyectoraEstacion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\InyectoraOperario.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Laca.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
     <Compile Include="Specification\Localidad.cs">
@@ -167,118 +84,19 @@
     <Compile Include="Specification\Log.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
-    <Compile Include="Specification\Material.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MaterialColor.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MaterialInyectora.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MaterialMateriaPrima.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MaterialTipo.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MateriaPrima.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MateriaPrimaClase.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MateriaPrimaMarca.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Medida.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
     <Compile Include="Specification\Modulo.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
-    <Compile Include="Specification\Molde.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MoldeInyectora.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\MoldeMedida.cs">
+    <Compile Include="Specification\Mueble.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
     <Compile Include="Specification\Pais.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
-    <Compile Include="Specification\Pedido.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoEstado.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoEstadoProceso.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoProductoCajon.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoProductoMedida.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoProductoMedidaEstado.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoProductoProceso.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\PedidoTipo.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Proceso.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Producto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProductoInserto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProductoMaterial.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProductoMedida.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProductoProceso.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProductoTipo.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProgramacionDevolucion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProgramacionPedidoProducto.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Proveedor.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\ProveedorProceso.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
     <Compile Include="Specification\Provincia.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
-    <Compile Include="Specification\PuntoVenta.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
     <Compile Include="Specification\Regla.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Reinyeccion.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\Reprogramacion.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
     <Compile Include="Specification\Rol.cs">
@@ -294,9 +112,6 @@
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
     <Compile Include="Specification\sysdiagrams.cs">
-      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Specification\TipoMedida.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
     <Compile Include="Specification\Usuario.cs">

@@ -12,26 +12,24 @@ namespace IngematicaAngularBase.Model.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Inserto
+    public partial class Mueble
     {
-        public Inserto()
-        {
-            this.ProductoInserto = new HashSet<ProductoInserto>();
-        }
-    
-        public int IdInserto { get; set; }
-        public int IdInsertoClase { get; set; }
+        public int IdMueble { get; set; }
         public string Nombre { get; set; }
-        public string Comentario { get; set; }
-        public bool Activo { get; set; }
-        public int IdUsuarioAlta { get; set; }
-        public System.DateTime FechaAlta { get; set; }
+        public Nullable<decimal> Largo { get; set; }
+        public Nullable<decimal> Ancho { get; set; }
+        public bool PoseeRadio { get; set; }
+        public Nullable<decimal> RadioMayor { get; set; }
+        public Nullable<decimal> RadioMenor { get; set; }
+        public Nullable<decimal> Precio { get; set; }
+        public Nullable<int> IdUsuarioAlta { get; set; }
+        public Nullable<System.DateTime> FechaAlta { get; set; }
         public Nullable<int> IdUsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public decimal DistanciaProximoMueble { get; set; }
+        public bool Activo { get; set; }
     
-        public virtual InsertoClase InsertoClase { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
-        public virtual ICollection<ProductoInserto> ProductoInserto { get; set; }
     }
 }

@@ -14,13 +14,6 @@ namespace IngematicaAngularBase.Model.Entities
     
     public partial class Cliente
     {
-        public Cliente()
-        {
-            this.ClienteDireccionEntrega = new HashSet<ClienteDireccionEntrega>();
-            this.Molde = new HashSet<Molde>();
-            this.Pedido = new HashSet<Pedido>();
-        }
-    
         public int IdCliente { get; set; }
         public string RazonSocial { get; set; }
         public string Email { get; set; }
@@ -40,8 +33,5 @@ namespace IngematicaAngularBase.Model.Entities
         public virtual Localidad Localidad { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
-        public virtual ICollection<ClienteDireccionEntrega> ClienteDireccionEntrega { get; set; }
-        public virtual ICollection<Molde> Molde { get; set; }
-        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }
