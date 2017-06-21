@@ -43,7 +43,7 @@ function ($rootScope, $location, $state, $stateParams, $timeout, authServiceFact
 .constant('constants', {
     apiServiceBaseUri: document.location.protocol + '//' + document.location.host + '/',
     clientId: 'IngematicaAngularBase',
-    applicationName: 'Ingematica Angular Base',
+    applicationName: 'SAO',
     clientName: 'Ingematica Angular Base'
 })
 .provider('version', function () {
