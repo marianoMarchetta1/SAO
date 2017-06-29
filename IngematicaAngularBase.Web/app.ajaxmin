@@ -55,6 +55,14 @@
     <input path="app\configuration\mueble\mueble-list-controller.js"/>
     <input path="app\configuration\mueble\mueble-config.js"/>
     <input path="app\configuration\mueble\mueble-add-update-controller.js"/>
+
+    <input path="app\dxf\AutoCadColorIndex.js"/>
+    <input path="app\dxf\browserify.js"/>
+    <input path="app\dxf\dxf-parser.js"/>
+    <input path="app\dxf\DxfArrayScanner.js"/>
+    <input path="app\dxf\DxfParser.js"/>
+    <input path="app\dxf\parse-sync.js"/>
+   <!-- <input path="app\dxf\three-dxf.js"/>  -->
     
   </output>
 

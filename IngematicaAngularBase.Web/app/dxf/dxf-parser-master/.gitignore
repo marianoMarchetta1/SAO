@@ -1,0 +1,9 @@
+node_modules/
+.idea/
+.settings/
+private/
+typings/
+out.json
+*.log
+*.actual.json
+.vscode/

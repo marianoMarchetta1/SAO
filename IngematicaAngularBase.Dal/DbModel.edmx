@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Proyecto.FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Proyecto.FinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="IdCliente" />
@@ -626,605 +626,27 @@
             <End Role="Usuario1" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Proyecto.FinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Cliente">
-          <Key>
-            <PropertyRef Name="IdCliente" />
-          </Key>
-          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RazonSocial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NombreContacto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CUIT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdLocalidad" Type="Int32" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="CodigoPostal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CodigoCliente" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Localidad" Relationship="Self.FK_Cliente_Localidades" FromRole="Cliente" ToRole="Localidad" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Cliente_Usuario1" FromRole="Cliente" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Localidad">
-          <Key>
-            <PropertyRef Name="IdLocalidad" />
-          </Key>
-          <Property Name="IdLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="85" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CodigoPostal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Localidades" FromRole="Localidad" ToRole="Cliente" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Localidad_Usuario_Alta" FromRole="Localidad" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Localidad_Usuario_Modificacion" FromRole="Localidad" ToRole="Usuario" />
-          <NavigationProperty Name="Provincia" Relationship="Self.FK_Localidades_Provincias" FromRole="Localidad" ToRole="Provincia" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="IdLog" />
-          </Key>
-          <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Descripcion2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Controller" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Accion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="OtrosDatos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Usuario" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Modulo">
-          <Key>
-            <PropertyRef Name="IdModulo" />
-          </Key>
-          <Property Name="IdModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Regla" Relationship="Self.FK_Regla_Modulo" FromRole="Modulo" ToRole="Regla" />
-        </EntityType>
-        <EntityType Name="Mueble">
-          <Key>
-            <PropertyRef Name="IdMueble" />
-          </Key>
-          <Property Name="IdMueble" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Largo" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Ancho" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PoseeRadio" Type="Boolean" Nullable="false" />
-          <Property Name="RadioMayor" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="RadioMenor" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IdUsuarioAlta" Type="Int32" />
-          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="DistanciaProximoMueble" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Mueble_Usuario" FromRole="Mueble" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Mueble_Usuario1" FromRole="Mueble" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Pais">
-          <Key>
-            <PropertyRef Name="IdPais" />
-          </Key>
-          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Pais_Usuario_Alta" FromRole="Pais" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Pais_Usuario_Modificacion" FromRole="Pais" ToRole="Usuario" />
-          <NavigationProperty Name="Provincia" Relationship="Self.FK_Provincia_Pais" FromRole="Pais" ToRole="Provincia" />
-        </EntityType>
-        <EntityType Name="Provincia">
-          <Key>
-            <PropertyRef Name="IdProvincia" />
-          </Key>
-          <Property Name="IdProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdPais" Type="Int32" Nullable="false" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Localidad" Relationship="Self.FK_Localidades_Provincias" FromRole="Provincia" ToRole="Localidad" />
-          <NavigationProperty Name="Pais" Relationship="Self.FK_Provincia_Pais" FromRole="Provincia" ToRole="Pais" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Provincia_Usuario_Alta" FromRole="Provincia" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Provincia_Usuario_Modificacion" FromRole="Provincia" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Regla">
-          <Key>
-            <PropertyRef Name="IdRegla" />
-          </Key>
-          <Property Name="IdRegla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdModulo" Type="Int32" />
-          <NavigationProperty Name="Modulo" Relationship="Self.FK_Regla_Modulo" FromRole="Regla" ToRole="Modulo" />
-          <NavigationProperty Name="RolRegla" Relationship="Self.FK_RolRegla_Regla" FromRole="Regla" ToRole="RolRegla" />
-        </EntityType>
-        <EntityType Name="Rol">
-          <Key>
-            <PropertyRef Name="IdRol" />
-          </Key>
-          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="Interno" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Rol_Usuario" FromRole="Rol" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Rol_Usuario1" FromRole="Rol" ToRole="Usuario" />
-          <NavigationProperty Name="RolRegla" Relationship="Self.FK_RolRegla_Rol" FromRole="Rol" ToRole="RolRegla" />
-          <NavigationProperty Name="Usuario2" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="RolRegla">
-          <Key>
-            <PropertyRef Name="IdRolRegla" />
-          </Key>
-          <Property Name="IdRolRegla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdRegla" Type="Int32" Nullable="false" />
-          <Property Name="IdRol" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Regla" Relationship="Self.FK_RolRegla_Regla" FromRole="RolRegla" ToRole="Regla" />
-          <NavigationProperty Name="Rol" Relationship="Self.FK_RolRegla_Rol" FromRole="RolRegla" ToRole="Rol" />
-        </EntityType>
-        <EntityType Name="SecurityClient">
-          <Key>
-            <PropertyRef Name="IdSecurityClient" />
-          </Key>
-          <Property Name="IdSecurityClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Secret" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ApplicationType" Type="Int32" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
-          <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="SecurityRefreshToken">
-          <Key>
-            <PropertyRef Name="IdSecurityRefreshToken" />
-          </Key>
-          <Property Name="IdSecurityRefreshToken" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Token" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IssuedUtc" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpiresUtc" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProtectedTicket" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="IdUsuario" />
-          </Key>
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdRol" Type="Int32" />
-          <Property Name="ResetPasswordGuid" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ResetPasswordFecha" Type="DateTime" Precision="3" />
-          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
-          <Property Name="IdUsuarioModificacion" Type="Int32" />
-          <Property Name="Interno" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
-          <NavigationProperty Name="Cliente1" Relationship="Self.FK_Cliente_Usuario1" FromRole="Usuario" ToRole="Cliente" />
-          <NavigationProperty Name="Localidad" Relationship="Self.FK_Localidad_Usuario_Alta" FromRole="Usuario" ToRole="Localidad" />
-          <NavigationProperty Name="Localidad1" Relationship="Self.FK_Localidad_Usuario_Modificacion" FromRole="Usuario" ToRole="Localidad" />
-          <NavigationProperty Name="Mueble" Relationship="Self.FK_Mueble_Usuario" FromRole="Usuario" ToRole="Mueble" />
-          <NavigationProperty Name="Mueble1" Relationship="Self.FK_Mueble_Usuario1" FromRole="Usuario" ToRole="Mueble" />
-          <NavigationProperty Name="Pais" Relationship="Self.FK_Pais_Usuario_Alta" FromRole="Usuario" ToRole="Pais" />
-          <NavigationProperty Name="Pais1" Relationship="Self.FK_Pais_Usuario_Modificacion" FromRole="Usuario" ToRole="Pais" />
-          <NavigationProperty Name="Provincia" Relationship="Self.FK_Provincia_Usuario_Alta" FromRole="Usuario" ToRole="Provincia" />
-          <NavigationProperty Name="Provincia1" Relationship="Self.FK_Provincia_Usuario_Modificacion" FromRole="Usuario" ToRole="Provincia" />
-          <NavigationProperty Name="Rol" Relationship="Self.FK_Rol_Usuario" FromRole="Usuario" ToRole="Rol" />
-          <NavigationProperty Name="Rol1" Relationship="Self.FK_Rol_Usuario1" FromRole="Usuario" ToRole="Rol" />
-          <NavigationProperty Name="Rol2" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
-          <NavigationProperty Name="Usuario1" Relationship="Self.FK_Usuario_Usuario" FromRole="Usuario" ToRole="Usuario1" />
-          <NavigationProperty Name="Usuario2" Relationship="Self.FK_Usuario_Usuario" FromRole="Usuario1" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario11" Relationship="Self.FK_Usuario_Usuario1" FromRole="Usuario" ToRole="Usuario1" />
-          <NavigationProperty Name="Usuario3" Relationship="Self.FK_Usuario_Usuario1" FromRole="Usuario1" ToRole="Usuario" />
-        </EntityType>
-        <Association Name="FK_Cliente_Localidades">
-          <End Role="Localidad" Type="Self.Localidad" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Localidad">
-              <PropertyRef Name="IdLocalidad" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="IdLocalidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Usuario1">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Localidad_Usuario_Alta">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Localidad" Type="Self.Localidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Localidad">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Localidad_Usuario_Modificacion">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Localidad" Type="Self.Localidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Localidad">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Localidades_Provincias">
-          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
-          <End Role="Localidad" Type="Self.Localidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provincia">
-              <PropertyRef Name="IdProvincia" />
-            </Principal>
-            <Dependent Role="Localidad">
-              <PropertyRef Name="IdProvincia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Regla_Modulo">
-          <End Role="Modulo" Type="Self.Modulo" Multiplicity="0..1" />
-          <End Role="Regla" Type="Self.Regla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Modulo">
-              <PropertyRef Name="IdModulo" />
-            </Principal>
-            <Dependent Role="Regla">
-              <PropertyRef Name="IdModulo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mueble_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Mueble" Type="Self.Mueble" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Mueble">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mueble_Usuario1">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Mueble" Type="Self.Mueble" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Mueble">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pais_Usuario_Alta">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Pais">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pais_Usuario_Modificacion">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Pais" Type="Self.Pais" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Pais">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Provincia_Pais">
-          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
-          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pais">
-              <PropertyRef Name="IdPais" />
-            </Principal>
-            <Dependent Role="Provincia">
-              <PropertyRef Name="IdPais" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Provincia_Usuario_Alta">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Provincia">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Provincia_Usuario_Modificacion">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Provincia">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RolRegla_Regla">
-          <End Role="Regla" Type="Self.Regla" Multiplicity="1" />
-          <End Role="RolRegla" Type="Self.RolRegla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Regla">
-              <PropertyRef Name="IdRegla" />
-            </Principal>
-            <Dependent Role="RolRegla">
-              <PropertyRef Name="IdRegla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rol_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Rol">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rol_Usuario1">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Rol">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RolRegla_Rol">
-          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
-          <End Role="RolRegla" Type="Self.RolRegla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rol">
-              <PropertyRef Name="IdRol" />
-            </Principal>
-            <Dependent Role="RolRegla">
-              <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_Rol">
-          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rol">
-              <PropertyRef Name="IdRol" />
-            </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_Usuario">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Usuario1" Type="Self.Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Usuario1">
-              <PropertyRef Name="IdUsuarioAlta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_Usuario1">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Usuario1" Type="Self.Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="IdUsuario" />
-            </Principal>
-            <Dependent Role="Usuario1">
-              <PropertyRef Name="IdUsuarioModificacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
-          <EntitySet Name="Localidad" EntityType="Self.Localidad" />
-          <EntitySet Name="Log" EntityType="Self.Log" />
-          <EntitySet Name="Modulo" EntityType="Self.Modulo" />
-          <EntitySet Name="Mueble" EntityType="Self.Mueble" />
-          <EntitySet Name="Pais" EntityType="Self.Pais" />
-          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
-          <EntitySet Name="Regla" EntityType="Self.Regla" />
-          <EntitySet Name="Rol" EntityType="Self.Rol" />
-          <EntitySet Name="RolRegla" EntityType="Self.RolRegla" />
-          <EntitySet Name="SecurityClient" EntityType="Self.SecurityClient" />
-          <EntitySet Name="SecurityRefreshToken" EntityType="Self.SecurityRefreshToken" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_Cliente_Localidades" Association="Self.FK_Cliente_Localidades">
-            <End Role="Localidad" EntitySet="Localidad" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Usuario" Association="Self.FK_Cliente_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Usuario1" Association="Self.FK_Cliente_Usuario1">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Cliente" EntitySet="Cliente" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Localidad_Usuario_Alta" Association="Self.FK_Localidad_Usuario_Alta">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Localidad" EntitySet="Localidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Localidad_Usuario_Modificacion" Association="Self.FK_Localidad_Usuario_Modificacion">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Localidad" EntitySet="Localidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Localidades_Provincias" Association="Self.FK_Localidades_Provincias">
-            <End Role="Provincia" EntitySet="Provincia" />
-            <End Role="Localidad" EntitySet="Localidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Regla_Modulo" Association="Self.FK_Regla_Modulo">
-            <End Role="Modulo" EntitySet="Modulo" />
-            <End Role="Regla" EntitySet="Regla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mueble_Usuario" Association="Self.FK_Mueble_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Mueble" EntitySet="Mueble" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mueble_Usuario1" Association="Self.FK_Mueble_Usuario1">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Mueble" EntitySet="Mueble" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pais_Usuario_Alta" Association="Self.FK_Pais_Usuario_Alta">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Pais" EntitySet="Pais" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pais_Usuario_Modificacion" Association="Self.FK_Pais_Usuario_Modificacion">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Pais" EntitySet="Pais" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Provincia_Pais" Association="Self.FK_Provincia_Pais">
-            <End Role="Pais" EntitySet="Pais" />
-            <End Role="Provincia" EntitySet="Provincia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Provincia_Usuario_Alta" Association="Self.FK_Provincia_Usuario_Alta">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Provincia" EntitySet="Provincia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Provincia_Usuario_Modificacion" Association="Self.FK_Provincia_Usuario_Modificacion">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Provincia" EntitySet="Provincia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RolRegla_Regla" Association="Self.FK_RolRegla_Regla">
-            <End Role="Regla" EntitySet="Regla" />
-            <End Role="RolRegla" EntitySet="RolRegla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rol_Usuario" Association="Self.FK_Rol_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Rol" EntitySet="Rol" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rol_Usuario1" Association="Self.FK_Rol_Usuario1">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Rol" EntitySet="Rol" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RolRegla_Rol" Association="Self.FK_RolRegla_Rol">
-            <End Role="Rol" EntitySet="Rol" />
-            <End Role="RolRegla" EntitySet="RolRegla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
-            <End Role="Rol" EntitySet="Rol" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Usuario" Association="Self.FK_Usuario_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Usuario1" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Usuario1" Association="Self.FK_Usuario_Usuario1">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Usuario1" EntitySet="Usuario" />
-          </AssociationSet>
           <FunctionImport Name="ChangeUsuarioPassword">
             <Parameter Name="NombreUsuario" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="PasswordSalt" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetSecurityClient" ReturnType="Collection(Proyecto.FinalModel.GetSecurityClient_Result)">
-            <Parameter Name="Name" Mode="In" Type="String" />
+          <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetSecurityRefreshToken" ReturnType="Collection(Proyecto.FinalModel.GetSecurityRefreshToken_Result)">
-            <Parameter Name="Token" Mode="In" Type="String" />
+          <Parameter Name="Token" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUsuarioGuid" ReturnType="Collection(Proyecto.FinalModel.GetUsuarioGuid_Result)">
-            <Parameter Name="ResetPasswordGuid" Mode="In" Type="String" />
+          <Parameter Name="ResetPasswordGuid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUsuarioLogin" ReturnType="Collection(Proyecto.FinalModel.GetUsuarioLogin_Result)">
-            <Parameter Name="NombreUsuario" Mode="In" Type="String" />
+          <Parameter Name="NombreUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertInterfaceLog">
             <Parameter Name="Fecha" Mode="In" Type="DateTime" />
@@ -1292,6 +714,104 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Cliente" EntityType="Proyecto.FinalModel.Cliente" />
+          <EntitySet Name="Localidad" EntityType="Proyecto.FinalModel.Localidad" />
+          <EntitySet Name="Log" EntityType="Proyecto.FinalModel.Log" />
+          <EntitySet Name="Modulo" EntityType="Proyecto.FinalModel.Modulo" />
+          <EntitySet Name="Mueble" EntityType="Proyecto.FinalModel.Mueble" />
+          <EntitySet Name="Pais" EntityType="Proyecto.FinalModel.Pais" />
+          <EntitySet Name="Provincia" EntityType="Proyecto.FinalModel.Provincia" />
+          <EntitySet Name="Regla" EntityType="Proyecto.FinalModel.Regla" />
+          <EntitySet Name="Rol" EntityType="Proyecto.FinalModel.Rol" />
+          <EntitySet Name="RolRegla" EntityType="Proyecto.FinalModel.RolRegla" />
+          <EntitySet Name="SecurityClient" EntityType="Proyecto.FinalModel.SecurityClient" />
+          <EntitySet Name="SecurityRefreshToken" EntityType="Proyecto.FinalModel.SecurityRefreshToken" />
+          <EntitySet Name="sysdiagrams" EntityType="Proyecto.FinalModel.sysdiagrams" />
+          <EntitySet Name="Usuario" EntityType="Proyecto.FinalModel.Usuario" />
+          <AssociationSet Name="FK_Cliente_Localidades" Association="Proyecto.FinalModel.FK_Cliente_Localidades">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario" Association="Proyecto.FinalModel.FK_Cliente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Usuario1" Association="Proyecto.FinalModel.FK_Cliente_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidad_Usuario_Alta" Association="Proyecto.FinalModel.FK_Localidad_Usuario_Alta">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidad_Usuario_Modificacion" Association="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidades_Provincias" Association="Proyecto.FinalModel.FK_Localidades_Provincias">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Localidad" EntitySet="Localidad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Regla_Modulo" Association="Proyecto.FinalModel.FK_Regla_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Regla" EntitySet="Regla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mueble_Usuario" Association="Proyecto.FinalModel.FK_Mueble_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Mueble" EntitySet="Mueble" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mueble_Usuario1" Association="Proyecto.FinalModel.FK_Mueble_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Mueble" EntitySet="Mueble" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pais_Usuario_Alta" Association="Proyecto.FinalModel.FK_Pais_Usuario_Alta">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pais_Usuario_Modificacion" Association="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pais" EntitySet="Pais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia_Pais" Association="Proyecto.FinalModel.FK_Provincia_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia_Usuario_Alta" Association="Proyecto.FinalModel.FK_Provincia_Usuario_Alta">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia_Usuario_Modificacion" Association="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolRegla_Regla" Association="Proyecto.FinalModel.FK_RolRegla_Regla">
+            <End Role="Regla" EntitySet="Regla" />
+            <End Role="RolRegla" EntitySet="RolRegla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rol_Usuario" Association="Proyecto.FinalModel.FK_Rol_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rol_Usuario1" Association="Proyecto.FinalModel.FK_Rol_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolRegla_Rol" Association="Proyecto.FinalModel.FK_RolRegla_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolRegla" EntitySet="RolRegla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Proyecto.FinalModel.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Usuario" Association="Proyecto.FinalModel.FK_Usuario_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Usuario1" Association="Proyecto.FinalModel.FK_Usuario_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario1" EntitySet="Usuario" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetSecurityClient_Result">
           <Property Type="Int32" Name="IdSecurityClient" Nullable="false" />
@@ -1333,211 +853,491 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NombreContacto" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdLocalidad" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localidad" Relationship="Proyecto.FinalModel.FK_Cliente_Localidades" FromRole="Cliente" ToRole="Localidad" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Cliente_Usuario1" FromRole="Cliente" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Localidad">
+          <Key>
+            <PropertyRef Name="IdLocalidad" />
+          </Key>
+          <Property Name="IdLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="85" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Proyecto.FinalModel.FK_Cliente_Localidades" FromRole="Localidad" ToRole="Cliente" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Localidad_Usuario_Alta" FromRole="Localidad" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion" FromRole="Localidad" ToRole="Usuario" />
+          <NavigationProperty Name="Provincia" Relationship="Proyecto.FinalModel.FK_Localidades_Provincias" FromRole="Localidad" ToRole="Provincia" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Controller" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Accion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OtrosDatos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="IdModulo" />
+          </Key>
+          <Property Name="IdModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Regla" Relationship="Proyecto.FinalModel.FK_Regla_Modulo" FromRole="Modulo" ToRole="Regla" />
+        </EntityType>
+        <EntityType Name="Mueble">
+          <Key>
+            <PropertyRef Name="IdMueble" />
+          </Key>
+          <Property Name="IdMueble" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Largo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Ancho" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PoseeRadio" Type="Boolean" Nullable="false" />
+          <Property Name="RadioMayor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RadioMenor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IdUsuarioAlta" Type="Int32" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="DistanciaProximoMueble" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario" FromRole="Mueble" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario1" FromRole="Mueble" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Pais_Usuario_Alta" FromRole="Pais" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion" FromRole="Pais" ToRole="Usuario" />
+          <NavigationProperty Name="Provincia" Relationship="Proyecto.FinalModel.FK_Provincia_Pais" FromRole="Pais" ToRole="Provincia" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdPais" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Localidad" Relationship="Proyecto.FinalModel.FK_Localidades_Provincias" FromRole="Provincia" ToRole="Localidad" />
+          <NavigationProperty Name="Pais" Relationship="Proyecto.FinalModel.FK_Provincia_Pais" FromRole="Provincia" ToRole="Pais" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Provincia_Usuario_Alta" FromRole="Provincia" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion" FromRole="Provincia" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Regla">
+          <Key>
+            <PropertyRef Name="IdRegla" />
+          </Key>
+          <Property Name="IdRegla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IdModulo" Type="Int32" />
+          <NavigationProperty Name="Modulo" Relationship="Proyecto.FinalModel.FK_Regla_Modulo" FromRole="Regla" ToRole="Modulo" />
+          <NavigationProperty Name="RolRegla" Relationship="Proyecto.FinalModel.FK_RolRegla_Regla" FromRole="Regla" ToRole="RolRegla" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Interno" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Rol_Usuario" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Rol_Usuario1" FromRole="Rol" ToRole="Usuario" />
+          <NavigationProperty Name="RolRegla" Relationship="Proyecto.FinalModel.FK_RolRegla_Rol" FromRole="Rol" ToRole="RolRegla" />
+          <NavigationProperty Name="Usuario2" Relationship="Proyecto.FinalModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="RolRegla">
+          <Key>
+            <PropertyRef Name="IdRolRegla" />
+          </Key>
+          <Property Name="IdRolRegla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRegla" Type="Int32" Nullable="false" />
+          <Property Name="IdRol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Regla" Relationship="Proyecto.FinalModel.FK_RolRegla_Regla" FromRole="RolRegla" ToRole="Regla" />
+          <NavigationProperty Name="Rol" Relationship="Proyecto.FinalModel.FK_RolRegla_Rol" FromRole="RolRegla" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="SecurityClient">
+          <Key>
+            <PropertyRef Name="IdSecurityClient" />
+          </Key>
+          <Property Name="IdSecurityClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Secret" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationType" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SecurityRefreshToken">
+          <Key>
+            <PropertyRef Name="IdSecurityRefreshToken" />
+          </Key>
+          <Property Name="IdSecurityRefreshToken" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IssuedUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiresUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProtectedTicket" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="ResetPasswordGuid" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPasswordFecha" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuarioModificacion" Type="Int32" />
+          <Property Name="Interno" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Proyecto.FinalModel.FK_Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente1" Relationship="Proyecto.FinalModel.FK_Cliente_Usuario1" FromRole="Usuario" ToRole="Cliente" />
+          <NavigationProperty Name="Localidad" Relationship="Proyecto.FinalModel.FK_Localidad_Usuario_Alta" FromRole="Usuario" ToRole="Localidad" />
+          <NavigationProperty Name="Localidad1" Relationship="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion" FromRole="Usuario" ToRole="Localidad" />
+          <NavigationProperty Name="Mueble" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario" FromRole="Usuario" ToRole="Mueble" />
+          <NavigationProperty Name="Mueble1" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario1" FromRole="Usuario" ToRole="Mueble" />
+          <NavigationProperty Name="Pais" Relationship="Proyecto.FinalModel.FK_Pais_Usuario_Alta" FromRole="Usuario" ToRole="Pais" />
+          <NavigationProperty Name="Pais1" Relationship="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion" FromRole="Usuario" ToRole="Pais" />
+          <NavigationProperty Name="Provincia" Relationship="Proyecto.FinalModel.FK_Provincia_Usuario_Alta" FromRole="Usuario" ToRole="Provincia" />
+          <NavigationProperty Name="Provincia1" Relationship="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion" FromRole="Usuario" ToRole="Provincia" />
+          <NavigationProperty Name="Rol" Relationship="Proyecto.FinalModel.FK_Rol_Usuario" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Rol1" Relationship="Proyecto.FinalModel.FK_Rol_Usuario1" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Rol2" Relationship="Proyecto.FinalModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Usuario_Usuario" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="Usuario2" Relationship="Proyecto.FinalModel.FK_Usuario_Usuario" FromRole="Usuario1" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario11" Relationship="Proyecto.FinalModel.FK_Usuario_Usuario1" FromRole="Usuario" ToRole="Usuario1" />
+          <NavigationProperty Name="Usuario3" Relationship="Proyecto.FinalModel.FK_Usuario_Usuario1" FromRole="Usuario1" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Cliente_Localidades">
+          <End Type="Proyecto.FinalModel.Localidad" Role="Localidad" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Cliente" Role="Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="IdLocalidad" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Cliente" Role="Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Usuario1">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Cliente" Role="Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidad_Usuario_Alta">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Localidad" Role="Localidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Localidad">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidad_Usuario_Modificacion">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Localidad" Role="Localidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Localidad">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidades_Provincias">
+          <End Type="Proyecto.FinalModel.Provincia" Role="Provincia" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Localidad" Role="Localidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Localidad">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Regla_Modulo">
+          <End Type="Proyecto.FinalModel.Modulo" Role="Modulo" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Regla" Role="Regla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="IdModulo" />
+            </Principal>
+            <Dependent Role="Regla">
+              <PropertyRef Name="IdModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mueble_Usuario">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Mueble" Role="Mueble" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Mueble">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mueble_Usuario1">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Mueble" Role="Mueble" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Mueble">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pais_Usuario_Alta">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Pais" Role="Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pais_Usuario_Modificacion">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Pais" Role="Pais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Pais">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincia_Pais">
+          <End Type="Proyecto.FinalModel.Pais" Role="Pais" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Provincia" Role="Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincia_Usuario_Alta">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Provincia" Role="Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincia_Usuario_Modificacion">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Provincia" Role="Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolRegla_Regla">
+          <End Type="Proyecto.FinalModel.Regla" Role="Regla" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.RolRegla" Role="RolRegla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regla">
+              <PropertyRef Name="IdRegla" />
+            </Principal>
+            <Dependent Role="RolRegla">
+              <PropertyRef Name="IdRegla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rol_Usuario">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Rol" Role="Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Rol">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rol_Usuario1">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Rol" Role="Rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Rol">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolRegla_Rol">
+          <End Type="Proyecto.FinalModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.RolRegla" Role="RolRegla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="RolRegla">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Type="Proyecto.FinalModel.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Usuario">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IdUsuarioAlta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Usuario1">
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+          <End Type="Proyecto.FinalModel.Usuario" Role="Usuario1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Usuario1">
+              <PropertyRef Name="IdUsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProyectoFinalModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Cliente">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Cliente">
-              <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-                <ScalarProperty Name="NombreContacto" ColumnName="NombreContacto" />
-                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
-                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
-                <ScalarProperty Name="CodigoCliente" ColumnName="CodigoCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Localidad">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Localidad">
-              <MappingFragment StoreEntitySet="Localidad">
-                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Log">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Descripcion2" ColumnName="Descripcion2" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="Accion" ColumnName="Accion" />
-                <ScalarProperty Name="OtrosDatos" ColumnName="OtrosDatos" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Modulo">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Modulo">
-              <MappingFragment StoreEntitySet="Modulo">
-                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Mueble">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Mueble">
-              <MappingFragment StoreEntitySet="Mueble">
-                <ScalarProperty Name="IdMueble" ColumnName="IdMueble" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Largo" ColumnName="Largo" />
-                <ScalarProperty Name="Ancho" ColumnName="Ancho" />
-                <ScalarProperty Name="PoseeRadio" ColumnName="PoseeRadio" />
-                <ScalarProperty Name="RadioMayor" ColumnName="RadioMayor" />
-                <ScalarProperty Name="RadioMenor" ColumnName="RadioMenor" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="DistanciaProximoMueble" ColumnName="DistanciaProximoMueble" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pais">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Pais">
-              <MappingFragment StoreEntitySet="Pais">
-                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provincia">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Provincia">
-              <MappingFragment StoreEntitySet="Provincia">
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Regla">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Regla">
-              <MappingFragment StoreEntitySet="Regla">
-                <ScalarProperty Name="IdRegla" ColumnName="IdRegla" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rol">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Rol">
-              <MappingFragment StoreEntitySet="Rol">
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="Interno" ColumnName="Interno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RolRegla">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.RolRegla">
-              <MappingFragment StoreEntitySet="RolRegla">
-                <ScalarProperty Name="IdRolRegla" ColumnName="IdRolRegla" />
-                <ScalarProperty Name="IdRegla" ColumnName="IdRegla" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SecurityClient">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.SecurityClient">
-              <MappingFragment StoreEntitySet="SecurityClient">
-                <ScalarProperty Name="IdSecurityClient" ColumnName="IdSecurityClient" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Secret" ColumnName="Secret" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="RefreshTokenLifeTime" ColumnName="RefreshTokenLifeTime" />
-                <ScalarProperty Name="AllowedOrigin" ColumnName="AllowedOrigin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SecurityRefreshToken">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.SecurityRefreshToken">
-              <MappingFragment StoreEntitySet="SecurityRefreshToken">
-                <ScalarProperty Name="IdSecurityRefreshToken" ColumnName="IdSecurityRefreshToken" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="IssuedUtc" ColumnName="IssuedUtc" />
-                <ScalarProperty Name="ExpiresUtc" ColumnName="ExpiresUtc" />
-                <ScalarProperty Name="ProtectedTicket" ColumnName="ProtectedTicket" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="Proyecto.FinalModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="ResetPasswordGuid" ColumnName="ResetPasswordGuid" />
-                <ScalarProperty Name="ResetPasswordFecha" ColumnName="ResetPasswordFecha" />
-                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
-                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
-                <ScalarProperty Name="Interno" ColumnName="Interno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ChangeUsuarioPassword" FunctionName="Proyecto.FinalModel.Store.ChangeUsuarioPassword" />
           <FunctionImportMapping FunctionImportName="GetSecurityClient" FunctionName="Proyecto.FinalModel.Store.GetSecurityClient">
             <ResultMapping>
@@ -1613,6 +1413,205 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Proyecto.FinalModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Proyecto.FinalModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="CodigoCliente" ColumnName="CodigoCliente" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="NombreContacto" ColumnName="NombreContacto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidad">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Localidad">
+              <MappingFragment StoreEntitySet="Localidad">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="OtrosDatos" ColumnName="OtrosDatos" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Descripcion2" ColumnName="Descripcion2" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulo">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Modulo">
+              <MappingFragment StoreEntitySet="Modulo">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mueble">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Mueble">
+              <MappingFragment StoreEntitySet="Mueble">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="DistanciaProximoMueble" ColumnName="DistanciaProximoMueble" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="RadioMenor" ColumnName="RadioMenor" />
+                <ScalarProperty Name="RadioMayor" ColumnName="RadioMayor" />
+                <ScalarProperty Name="PoseeRadio" ColumnName="PoseeRadio" />
+                <ScalarProperty Name="Ancho" ColumnName="Ancho" />
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdMueble" ColumnName="IdMueble" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regla">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Regla">
+              <MappingFragment StoreEntitySet="Regla">
+                <ScalarProperty Name="IdModulo" ColumnName="IdModulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRegla" ColumnName="IdRegla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Interno" ColumnName="Interno" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolRegla">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.RolRegla">
+              <MappingFragment StoreEntitySet="RolRegla">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="IdRegla" ColumnName="IdRegla" />
+                <ScalarProperty Name="IdRolRegla" ColumnName="IdRolRegla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityClient">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.SecurityClient">
+              <MappingFragment StoreEntitySet="SecurityClient">
+                <ScalarProperty Name="AllowedOrigin" ColumnName="AllowedOrigin" />
+                <ScalarProperty Name="RefreshTokenLifeTime" ColumnName="RefreshTokenLifeTime" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Secret" ColumnName="Secret" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdSecurityClient" ColumnName="IdSecurityClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityRefreshToken">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.SecurityRefreshToken">
+              <MappingFragment StoreEntitySet="SecurityRefreshToken">
+                <ScalarProperty Name="ProtectedTicket" ColumnName="ProtectedTicket" />
+                <ScalarProperty Name="ExpiresUtc" ColumnName="ExpiresUtc" />
+                <ScalarProperty Name="IssuedUtc" ColumnName="IssuedUtc" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="IdSecurityRefreshToken" ColumnName="IdSecurityRefreshToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Interno" ColumnName="Interno" />
+                <ScalarProperty Name="IdUsuarioModificacion" ColumnName="IdUsuarioModificacion" />
+                <ScalarProperty Name="IdUsuarioAlta" ColumnName="IdUsuarioAlta" />
+                <ScalarProperty Name="ResetPasswordFecha" ColumnName="ResetPasswordFecha" />
+                <ScalarProperty Name="ResetPasswordGuid" ColumnName="ResetPasswordGuid" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

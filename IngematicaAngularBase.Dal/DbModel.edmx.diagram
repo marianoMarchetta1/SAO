@@ -4,42 +4,42 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="84e7ca87f57142f5a075114c2fda873d" Name="Diagram1">
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Cliente" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Localidad" Width="1.5" PointX="8.25" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Log" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Modulo" Width="1.5" PointX="1.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Mueble" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Pais" Width="1.5" PointX="5.25" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Provincia" Width="1.5" PointX="7.5" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Regla" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Rol" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.RolRegla" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityClient" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityRefreshToken" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Usuario" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Localidades" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario1" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Alta" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidades_Provincias" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Regla_Modulo" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Mueble_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Mueble_Usuario1" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Alta" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Pais" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Alta" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Regla" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario1" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Rol" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Rol" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario1" ManuallyRouted="false" />
+      <Diagram DiagramId="84e7ca87f57142f5a075114c2fda873d" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Cliente" Width="1.5" PointX="5.25" PointY="15.5" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Localidad" Width="1.5" PointX="9.75" PointY="13" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Log" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Modulo" Width="1.5" PointX="1.5" PointY="4.125" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Mueble" Width="1.5" PointX="5.25" PointY="24.125" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Pais" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Provincia" Width="1.5" PointX="7.5" PointY="13" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Regla" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Rol" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.RolRegla" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityClient" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityRefreshToken" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Usuario" Width="1.5" PointX="3" PointY="11.125" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Localidades" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario1" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Alta" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidad_Usuario_Modificacion" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Localidades_Provincias" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Regla_Modulo" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Mueble_Usuario" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Mueble_Usuario1" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Alta" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Pais_Usuario_Modificacion" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Pais" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Alta" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Provincia_Usuario_Modificacion" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Regla" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Rol_Usuario1" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_RolRegla_Rol" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Rol" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario" />
+        <AssociationConnector Association="Proyecto.FinalModel.FK_Usuario_Usuario1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

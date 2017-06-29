@@ -31,13 +31,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" ngf-select ngf-change="vm.upload($files)">Seleccionar Archivo</button>
+                    <button class="btn btn-primary" type="button" id="file-field" ngf-select ngf-change="vm.upload()">Seleccionar Archivo</button>
                 </div> 
-            </div>  
+            </div>-->  
         </div>
 
+
+        <input id="file-field" type="file" />
+
+        <!--<pre id="output" stlye="font-family: monospace;">
+			
+		</pre>-->
 
 
         <div ng-show="vm.mode == 'update'">

@@ -155,6 +155,15 @@
     <Content Include="app\configuration\usuario\usuario-factory.js" />
     <Content Include="app\configuration\usuario\usuario-list-controller.js" />
     <Content Include="app\configuration\usuario\usuario-list.html" />
+    <Content Include="app\css\ng-embed.min.css" />
+    <Content Include="app\dxf\AutoCadColorIndex.js" />
+    <Content Include="app\dxf\browserify.js" />
+    <Content Include="app\dxf\dxf-parser.js" />
+    <Content Include="app\dxf\DxfArrayScanner.js" />
+    <Content Include="app\dxf\DxfParser.js" />
+    <Content Include="app\dxf\ng-embed.min.js" />
+    <Content Include="app\dxf\parse-sync.js" />
+    <Content Include="app\dxf\three-dxf.js" />
     <Content Include="app\scripts\code-mirror\autorefresh.js" />
     <Content Include="app\css\bootstrap-custom.css" />
     <Content Include="app\scripts\angular-sanitize.js" />
