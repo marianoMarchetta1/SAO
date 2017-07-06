@@ -199,5 +199,47 @@ namespace IngematicaAngularBase.Dal.Specification
 			
 			return source;
 		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithCodigo(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Codigo == value);
+			
+			return source;
+		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithContainsCodigo(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Codigo.Contains(value));
+			
+			return source;
+		}
+
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithImagen(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Imagen == value);
+			
+			return source;
+		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithContainsImagen(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Imagen.Contains(value));
+			
+			return source;
+		}
+
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithDistanciaParedes(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, decimal? value)
+		{
+			if (value != null)
+				return source.Where(p => p.DistanciaParedes == value);
+			
+			return source;
+		}
 	}
 }

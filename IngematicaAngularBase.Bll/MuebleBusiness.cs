@@ -40,5 +40,19 @@ namespace IngematicaAngularBase.Bll
                 return muebleDataAccess.GetById(id);
             }
         }
+
+        public void Add(Mueble entity)
+        {
+            using (var context = new Entities())
+            {
+                var item = context.Set<Mueble>().AsNoTracking().FirstOrDefault(x => x.Nombre == entity.Nombre);
+                if (item != null && item.Nombre.ToLower() == entity.Nombre.ToLower())
+                    throw new CustomApplicationException("Ya existe un mueble con el mismo nombre.");
+
+                entity.FechaAlta = DateTime.Now;
+                context.Mueble.Add(entity);
+                context.SaveChanges();
+            }
+        }
     }
 }

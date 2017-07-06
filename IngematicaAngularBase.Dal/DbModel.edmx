@@ -78,6 +78,9 @@
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="DistanciaProximoMueble" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Imagen" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DistanciaParedes" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -812,7 +815,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Usuario1" EntitySet="Usuario" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="GetSecurityClient_Result">
           <Property Type="Int32" Name="IdSecurityClient" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
@@ -934,6 +937,9 @@
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="DistanciaProximoMueble" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DistanciaParedes" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario" FromRole="Mueble" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario1" FromRole="Mueble" ToRole="Usuario" />
         </EntityType>
@@ -1332,7 +1338,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1475,6 +1481,9 @@
           <EntitySetMapping Name="Mueble">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.Mueble">
               <MappingFragment StoreEntitySet="Mueble">
+                <ScalarProperty Name="DistanciaParedes" ColumnName="DistanciaParedes" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="DistanciaProximoMueble" ColumnName="DistanciaProximoMueble" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
@@ -1612,7 +1621,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

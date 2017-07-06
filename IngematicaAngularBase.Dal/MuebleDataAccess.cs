@@ -31,7 +31,9 @@ namespace IngematicaAngularBase.Dal
                          {
                              IdMueble = mueble.IdMueble,
                              Nombre = mueble.Nombre,
-                             Activo = mueble.Activo
+                             Activo = mueble.Activo,
+                             Codigo = mueble.Codigo,
+                             Imagen = mueble.Imagen
                          };
             return result.ToQueryResult(query);
         }

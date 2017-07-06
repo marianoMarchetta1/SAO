@@ -12,9 +12,14 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Nombre</label>
-                    <!--input class="form-control" name="nombre" ng-model="vm.queryUI.query.nombre" valid-number2 focus-me="true"-->
-
                     <input class="form-control" name="nombre" ng-model="vm.queryUI.query.nombre" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label name="lblCodigo" class="control-label">Código</label>
+                    <input class="form-control" lblMessage="lblCodigo" name="Codigo" ng-model="vm.queryUI.query.codigo" maxlength="256" ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
 
@@ -66,14 +71,20 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
+                    <th><orderby field="imagen" title="Imagen" query-ui="vm.queryUI"></orderby></th>
                     <th><orderby field="nombre" title="Mueble" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="codigo" title="Código" query-ui="vm.queryUI"></orderby></th>
                     <th><orderby field="activo" title="Estado" query-ui="vm.queryUI"></orderby></th>
                     <th class="size-4"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in vm.queryUI.list.data">
+                    <td class="text-center">
+                        <img style="width: 50px; height: 50px;" data-ng-src="{{item.imagen}}" />
+                    </td>
                     <td>{{item.nombre}}</td>
+                    <td>{{item.codigo}}</td>
                     <td class="text-center"><input type="checkbox" name="checked" ng-model="item.activo" ng-disabled="true"></td>
                     <td class="text-right">
                         <a ui-sref="app.mueble-detail({ id: item.idMueble})" class="btn btn-sm btn-link"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>

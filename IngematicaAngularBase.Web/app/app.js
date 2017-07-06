@@ -1,4 +1,4 @@
-﻿angular.module('appBase', ['ui.router', 'LocalStorageModule', 'ui.bootstrap', 'blockUI', 'ngFileUpload', 'ngSanitize', 'ui.codemirror'])
+﻿angular.module('appBase', ['ui.router', 'LocalStorageModule', 'ui.bootstrap', 'blockUI', 'ngFileUpload', 'ngSanitize', 'ui.codemirror','flow'])
 .run(['$rootScope', '$location', '$state', '$stateParams', '$timeout', 'authServiceFactory',
 function ($rootScope, $location, $state, $stateParams, $timeout, authServiceFactory) {
 

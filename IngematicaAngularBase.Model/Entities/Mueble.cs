@@ -28,6 +28,9 @@ namespace IngematicaAngularBase.Model.Entities
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public decimal DistanciaProximoMueble { get; set; }
         public bool Activo { get; set; }
+        public string Codigo { get; set; }
+        public string Imagen { get; set; }
+        public decimal DistanciaParedes { get; set; }
     
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }

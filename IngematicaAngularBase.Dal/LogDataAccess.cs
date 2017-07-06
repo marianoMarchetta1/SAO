@@ -24,7 +24,7 @@ namespace IngematicaAngularBase.Dal
         public int InsertLog(LogDTO log)
         {
             int idError = 0;
-            SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["IngematicaAngularBase"].ConnectionString);
+            SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Proyecto.Final"].ConnectionString);
             Conn.Open();
             try
             {
