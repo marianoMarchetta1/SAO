@@ -40,31 +40,39 @@ namespace IngematicaAngularBase.Dal
 
         public MuebleViewModel GetById(int id)
         {
-            //IQueryable<Pais> tPais = context.Set<Pais>().AsNoTracking();
-            //IQueryable<Usuario> tUsuario = context.Set<Usuario>().AsNoTracking();
-            //IQueryable<Usuario> tUsuarioModif = context.Set<Usuario>().AsNoTracking();
+            IQueryable<Mueble> tMueble = context.Set<Mueble>().AsNoTracking();
+            IQueryable<Usuario> tUsuario = context.Set<Usuario>().AsNoTracking();
+            IQueryable<Usuario> tUsuarioModif = context.Set<Usuario>().AsNoTracking();
 
-            //var result = from pais in tPais
-            //             join usuarioalta in tUsuario on pais.IdUsuarioAlta equals usuarioalta.IdUsuario
-            //             join usuariomod in tUsuarioModif on pais.IdUsuarioModificacion equals usuariomod.IdUsuario
-            //                    into _usuariomod
-            //             from usuariomod in _usuariomod.DefaultIfEmpty()
-            //             where pais.IdPais == id
-            //             select new MuebleViewModel
-            //             {
-            //                 IdPais = pais.IdPais,
-            //                 Nombre = pais.Nombre,
-            //                 Activo = pais.Activo,
-            //                 IdUsuarioAlta = pais.IdUsuarioAlta,
-            //                 UsuarioAlta = (usuarioalta.Nombre != null && usuarioalta.Apellido != null ? usuarioalta.Apellido + ", " + usuarioalta.Nombre : string.Empty),
-            //                 FechaAlta = pais.FechaAlta,
-            //                 FechaModificacion = pais.FechaModificacion,
-            //                 IdUsuarioModificacion = pais.IdUsuarioModificacion,
-            //                 UsuarioModificacion = (usuariomod.Nombre != null && usuariomod.Apellido != null ? usuariomod.Apellido + ", " + usuariomod.Nombre : string.Empty)
-            //             };
-            //return result.FirstOrDefault();
+            var result = from mueble in tMueble
+                         join usuarioalta in tUsuario on mueble.IdUsuarioAlta equals usuarioalta.IdUsuario
+                         join usuariomod in tUsuarioModif on mueble.IdUsuarioModificacion equals usuariomod.IdUsuario
+                                into _usuariomod
+                         from usuariomod in _usuariomod.DefaultIfEmpty()
+                         where mueble.IdMueble == id
+                         select new MuebleViewModel
+                         {
+                             IdMueble = mueble.IdMueble,
+                             Largo = mueble.Largo,
+                             Ancho = mueble.Ancho,
+                             RadioMayor = mueble.RadioMayor,
+                             RadioMenor = mueble.RadioMenor,
+                             Precio = mueble.Precio,
+                             IdUsuarioAlta = mueble.IdUsuarioAlta,
+                             UsuarioAlta = (usuarioalta.Nombre != null && usuarioalta.Apellido != null ? usuarioalta.Apellido + ", " + usuarioalta.Nombre : string.Empty),
+                             Imagen = mueble.Imagen,
+                             Codigo = mueble.Codigo,
+                             Nombre = mueble.Nombre,
+                             Activo = mueble.Activo,
+                             DistanciaProximoMueble = mueble.DistanciaProximoMueble,
+                             PoseeRadio = mueble.PoseeRadio,
+                             FechaAlta = mueble.FechaAlta,
+                             FechaModificacion = mueble.FechaModificacion,
+                             IdUsuarioModificacion = mueble.IdUsuarioModificacion,
+                             UsuarioModificacion = (usuariomod.Nombre != null && usuariomod.Apellido != null ? usuariomod.Apellido + ", " + usuariomod.Nombre : string.Empty)
+                         };
 
-            return null;
+            return result.FirstOrDefault();
         }
     }
 }

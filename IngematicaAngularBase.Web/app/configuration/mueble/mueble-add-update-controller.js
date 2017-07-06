@@ -8,7 +8,7 @@
         };
 
         vm.update = function () {
-            return muebleFactory.update(vm.mueble);
+            return muebleFactory.update(vm.mueble); //TODO: Terminar la parte del servidor
         };
 
         vm.validate = function () {
@@ -34,13 +34,17 @@
 
             if (vm.mode == 'add')
                 vm.setDefaultModel();
-            else if (vm.mode == 'update')
+            else if (vm.mode == 'update') {
                 vm.mueble = entity;
+                //TODO: Cargar la imagen que viene de la base
+            }
         };
 
 
-        //Bibliografia: https://codepen.io/Zveg/pen/JorwJo
+        
 
+
+        //TODO: Si se carga otra imagen, se pisa la anterior
         vm.imageStrings = [];
         vm.processFiles = function (files) {
             angular.forEach(files, function (flowFile, i) {

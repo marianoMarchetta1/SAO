@@ -55,38 +55,38 @@
                     }
                 }
             }
+        })
+        .state('app.mueble-update', {
+            url: '/mueble/update/:id',
+            views: {
+                'content@': {
+                    templateUrl: 'configuration/mueble/mueble-add-update.html?',
+                    controller: 'muebleAddOrUpdateController',
+                    controllerAs: 'vm',
+                    resolve: {
+                        parameters: ['$q', '$stateParams', 'blockUI', 'muebleFactory', 'handleErrorService',
+                            function ($q, $stateParams, blockUI, muebleFactory, handleErrorService) {
+
+                                blockUI.start();
+                                var deferred = $q.defer();
+
+                                muebleFactory.get($stateParams.id)
+                                    .then(function (dataEntity) {
+                                        deferred.resolve({ entity: dataEntity, mode: 'update' });
+                                    })
+                                    .catch(function (error) {
+                                        handleErrorService.handleErrorConfig(error);
+                                        deferred.reject();
+                                    })
+                                    .finally(function () {
+                                        blockUI.stop();
+                                    });
+
+                                return deferred.promise;
+                            }]
+                    }
+                }
+            }
         });
-        //.state('app.mueble-update', {
-        //    url: '/mueble/update/:id',
-        //    views: {
-        //        'content@': {
-        //            templateUrl: 'configuration/mueble/mueble-add-update.html?' + versionProvider.versionGuid,
-        //            controller: 'muebleAddOrUpdateController',
-        //            controllerAs: 'vm',
-        //            resolve: {
-        //                parameters: ['$q', '$stateParams', 'blockUI', 'muebleFactory', 'handleErrorService',
-        //                    function ($q, $stateParams, blockUI, muebleFactory, handleErrorService) {
-
-        //                        blockUI.start();
-        //                        var deferred = $q.defer();
-
-        //                        muebleFactory.get($stateParams.id)
-        //                            .then(function (dataEntity) {
-        //                                deferred.resolve({ entity: dataEntity, mode: 'update' });
-        //                            })
-        //                            .catch(function (error) {
-        //                                handleErrorService.handleErrorConfig(error);
-        //                                deferred.reject();
-        //                            })
-        //                            .finally(function () {
-        //                                blockUI.stop();
-        //                            });
-
-        //                        return deferred.promise;
-        //                    }]
-        //            }
-        //        }
-        //    }
-        //});
 
 }]);
