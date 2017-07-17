@@ -24,7 +24,8 @@ namespace IngematicaAngularBase.Dal
             IQueryable<Mueble> tMueble = context.Set<Mueble>().AsNoTracking();
             tMueble = tMueble
                         .WithContainsNombre(query.Nombre)
-                        .WithActivo(query.Activo);
+                        .WithActivo(query.Activo)
+                        .WithCodigo(query.Codigo);
 
             var result = from mueble in tMueble
                          select new MuebleListViewModel

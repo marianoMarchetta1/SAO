@@ -63,35 +63,22 @@ namespace IngematicaAngularBase.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("api/mueble/uploadFile")]
-        public async Task<HttpResponseMessage> Upload()
+        [AuthorizeRule(Rule = "Mueble_CanEdit")]
+        public IHttpActionResult Put(MuebleViewModel model)
         {
-            if (!Request.Content.IsMimeMultipartContent())
-                this.Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
+            if (!ModelState.IsValid)
+                throw new CustomApplicationException("ModelState Invalid.");
 
-            string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
+            MuebleBusiness bs = new MuebleBusiness();
 
-            var provider = new MultipartFormDataStreamProvider(path);
-            var result = await Request.Content.ReadAsMultipartAsync(provider);
+            Mapper.CreateMap<MuebleViewModel, Mueble>().IgnoreAllVirtual();
+            Mueble mueble = Mapper.Map<MuebleViewModel, Mueble>(model);
 
-            if (string.IsNullOrEmpty(result.FileData[0].Headers.ContentDisposition.FileName))
-            {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted"));
-            }
-            string fileName = result.FileData[0].Headers.ContentDisposition.FileName;
-            if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
-            {
-                fileName = fileName.Trim('"');
-            }
-            if (fileName.Contains(@"/") || fileName.Contains(@"\"))
-            {
-                fileName = Path.GetFileName(fileName);
-            }
+            mueble.IdUsuarioModificacion = SecurityManager.GetIdUsuario(User.Identity.Name);
 
-            var returnData = result.FileData[0].LocalFileName;
+            bs.Update(mueble);
 
-            return this.Request.CreateResponse(HttpStatusCode.OK, new { returnData });
+            return Ok();
         }
     }
 }

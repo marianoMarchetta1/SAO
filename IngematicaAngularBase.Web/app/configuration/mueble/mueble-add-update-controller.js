@@ -1,14 +1,15 @@
-﻿angular.module('appBase').controller('muebleAddOrUpdateController', ['$scope', '$state', '$stateParams', 'muebleFactory', 'blockUI', '$uibModal', 'entityUI', 'parameters', 'modalDialogService', 'UploadBase',
-    function ($scope, $state, $stateParams, muebleFactory, blockUI, $uibModal, entityUI, parameters, modalDialogService, UploadBase) {
+﻿angular.module('appBase').controller('muebleAddOrUpdateController', ['$scope', '$state', '$stateParams', 'muebleFactory', 'blockUI', '$uibModal',
+    'entityUI', 'parameters', 'modalDialogService', 'UploadBase','flowFactory',
+    function ($scope, $state, $stateParams, muebleFactory, blockUI, $uibModal, entityUI, parameters, modalDialogService, UploadBase, flowFactory) {
 
-        var vm = this;
+        var vm = this;    
 
         vm.add = function () {
             return muebleFactory.add(vm.mueble);                
         };
 
         vm.update = function () {
-            return muebleFactory.update(vm.mueble); //TODO: Terminar la parte del servidor
+            return muebleFactory.update(vm.mueble);
         };
 
         vm.validate = function () {
@@ -18,6 +19,8 @@
             } else {
                 return true;
             }
+
+            //TODO: Validar, si tiene radio que esten ingresados, sino que esten ingresados largo y ancho
         };
 
         vm.setDefaultModel = function () {
@@ -32,32 +35,38 @@
             vm.mode = parameters.mode; 
             vm.imageStrings = [];
 
+            vm.target = {};
+
             if (vm.mode == 'add')
                 vm.setDefaultModel();
             else if (vm.mode == 'update') {
                 vm.mueble = entity;
-                //TODO: Cargar la imagen que viene de la base
             }
         };
 
 
-        
-
-
-        //TODO: Si se carga otra imagen, se pisa la anterior
         vm.imageStrings = [];
         vm.processFiles = function (files) {
             angular.forEach(files, function (flowFile, i) {
-                var fileReader = new FileReader();
+               var fileReader = new FileReader();
                 fileReader.onload = function (event) {
                     var uri = event.target.result;
                     vm.imageStrings[i] = uri;
                     vm.mueble.imagen = uri;
+                    
                 };
-                fileReader.readAsDataURL(flowFile.file);
-            });
+               fileReader.readAsDataURL(flowFile.file);
+           });
         };
-		
+
+        vm.init();
+    }]);
+
+
+
+
+
+
 		//document.getElementById("file-field").onchange = function() {
   //          var reader = new FileReader();
 
@@ -78,14 +87,6 @@
   //          var csvFile = csvFileInput.files[0];
 
   //          reader.readAsText(csvFile);
-            
+
 
 		//};
-
-        vm.init();
-    }]);
-
-
-
-
-

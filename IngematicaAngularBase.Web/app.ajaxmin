@@ -11,7 +11,10 @@
     <input path="app\scripts\angular-block-ui\angular-block-ui.js"/>
     <input path="app\scripts\ui-bootstrap-tpls.min.js"/>
     <input path="app\scripts\ng-file-upload.js"/>
-    <input path="https://cdnjs.cloudflare.com/ajax/libs/ng-flow/2.7.7/ng-flow-standalone.js"/>
+  <!--  <input path="https://cdnjs.cloudflare.com/ajax/libs/ng-flow/2.7.7/ng-flow-standalone.js"/>  -->
+    <input path="app\scripts\flow\ng-flow-standalone.js"/>
+    <input path="app\scripts\flow\ng-flow.js"/>
+    <input path="app\scripts\flow\flow.js"/>
   </output>
   
   <output path="js\application.js">
@@ -53,6 +56,7 @@
     
     <input path="app\configuration\mueble\mueble-factory.js"/>
     <input path="app\configuration\mueble\mueble-list-controller.js"/>
+    <input path="app\configuration\mueble\mueble-detail-controller.js"/>
     <input path="app\configuration\mueble\mueble-config.js"/>
     <input path="app\configuration\mueble\mueble-add-update-controller.js"/>
 

@@ -48,8 +48,8 @@
                     controller: 'muebleAddOrUpdateController',
                     controllerAs: 'vm',
                     resolve: {
-                        parameters: ['$q', '$stateParams', 'blockUI', 'muebleFactory',
-                            function ($q, $stateParams, blockUI, muebleFactory) {
+                        parameters: ['$q', '$stateParams', 'blockUI', 'muebleFactory','flowFactory',
+                            function ($q, $stateParams, blockUI, muebleFactory, flowFactory) {
                                 return { mode: 'add' };
                             }]
                     }
@@ -73,6 +73,38 @@
                                 muebleFactory.get($stateParams.id)
                                     .then(function (dataEntity) {
                                         deferred.resolve({ entity: dataEntity, mode: 'update' });
+                                    })
+                                    .catch(function (error) {
+                                        handleErrorService.handleErrorConfig(error);
+                                        deferred.reject();
+                                    })
+                                    .finally(function () {
+                                        blockUI.stop();
+                                    });
+
+                                return deferred.promise;
+                            }]
+                    }
+                }
+            }
+        })
+        .state('app.mueble-detail', {
+            url: '/mueble/detail/:id',
+            views: {
+                'content@': {
+                    templateUrl: 'configuration/mueble/mueble-detail.html',
+                    controller: 'muebleDetailController',
+                    controllerAs: 'vm',
+                    resolve: {
+                        parameters: ['$q', '$stateParams', 'blockUI', 'muebleFactory', 'handleErrorService',
+                            function ($q, $stateParams, blockUI, muebleFactory, handleErrorService) {
+
+                                blockUI.start();
+                                var deferred = $q.defer();
+
+                                muebleFactory.get($stateParams.id)
+                                    .then(function (dataEntity) {
+                                        deferred.resolve({ entity: dataEntity, mode: 'detail' });
                                     })
                                     .catch(function (error) {
                                         handleErrorService.handleErrorConfig(error);

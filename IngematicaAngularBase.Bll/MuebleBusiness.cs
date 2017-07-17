@@ -54,5 +54,29 @@ namespace IngematicaAngularBase.Bll
                 context.SaveChanges();
             }
         }
+
+        public void Update(Mueble entity)
+        {
+            using (var context = new Entities())
+            {
+                var item = context.Set<Mueble>().AsNoTracking().FirstOrDefault(x => x.Nombre == entity.Nombre);
+                if (item != null && item.IdMueble != entity.IdMueble)
+                    throw new CustomApplicationException("Ya existe un mueble con el mismo nombre.");
+
+                if (!entity.PoseeRadio)
+                {
+                    entity.RadioMayor = 0;
+                    entity.RadioMenor = 0;
+                }else
+                {
+                    entity.Largo = 0;
+                    entity.Ancho = 0;
+                }
+
+                entity.FechaModificacion = DateTime.Now;
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
     }
 }

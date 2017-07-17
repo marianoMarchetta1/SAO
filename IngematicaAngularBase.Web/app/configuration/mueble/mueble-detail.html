@@ -3,8 +3,7 @@
     <ol class="breadcrumb">
         <li><a ui-sref="app.home">Inicio</a></li>
         <li><a ui-sref="app.mueble-list">Muebles</a></li>
-        <li ng-if="vm.mode == 'add'" class="active">Agregar</li>
-        <li ng-if="vm.mode == 'update'" class="active">Editar</li>
+        <li class="active">Ver</li>
     </ol>
     <form name="vm.muebleForm" novalidate
           custom-submit
@@ -19,40 +18,40 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label name="lblNombre" class="control-label">Nombre</label>
-                    <input class="form-control" lblMessage="lblNombre" name="Nombre" ng-model="vm.mueble.nombre" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                    <input class="form-control" lblMessage="lblNombre" name="Nombre" ng-disabled="true" ng-model="vm.mueble.nombre" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label name="lblCodigo" class="control-label">Código</label>
-                    <input class="form-control" lblMessage="lblCodigo" name="Codigo" ng-model="vm.mueble.codigo" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }">
+                    <input class="form-control" lblMessage="lblCodigo" name="Codigo" ng-disabled="true"  ng-model="vm.mueble.codigo" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4" ng-if="!vm.mueble.poseeRadio">
                 <div class="form-group">
                     <label class="control-label">Largo</label>
-                    <input class="form-control text-right" name="Largo" ng-model="vm.mueble.largo" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Largo" ng-model="vm.mueble.largo" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4" ng-if="!vm.mueble.poseeRadio">
                 <div class="form-group">
                     <label class="control-label">Ancho</label>
-                    <input class="form-control text-right" name="Ancho" ng-model="vm.mueble.ancho" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Ancho" ng-model="vm.mueble.ancho" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4" ng-if="vm.mueble.poseeRadio">
                 <div class="form-group">
                     <label class="control-label">Radio Mayor</label>
-                    <input class="form-control text-right" name="Radio Mayor" ng-model="vm.mueble.radioMayor" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Radio Mayor" ng-model="vm.mueble.radioMayor" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4" ng-if="vm.mueble.poseeRadio">
                 <div class="form-group">
                     <label class="control-label">Radio Menor</label>
-                    <input class="form-control text-right" name="Radio Menor" ng-model="vm.mueble.radioMenor" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Radio Menor" ng-model="vm.mueble.radioMenor" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
@@ -60,21 +59,21 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Precio</label>
-                    <input class="form-control text-right" name="Precio" ng-model="vm.mueble.precio" ng-required="true" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Precio" ng-model="vm.mueble.precio" ng-required="true" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Distancia Mínima al Próximo Mueble</label>
-                    <input class="form-control text-right" name="Distancia Mínima al Próximo Mueble" ng-model="vm.mueble.distanciaProximoMueble" ng-required="true" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Distancia Mínima al Próximo Mueble" ng-model="vm.mueble.distanciaProximoMueble" ng-disabled="true"  ng-required="true" validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Distancia a las Paredes</label>
-                    <input class="form-control text-right" name="Distancia a las Paredes" ng-model="vm.mueble.distanciaParedes" ng-required="true" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Distancia a las Paredes" ng-model="vm.mueble.distanciaParedes" ng-required="true" ng-disabled="true"  validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
@@ -83,7 +82,7 @@
                     <label>Posee Radio</label>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="Posee Radio" ng-model="vm.mueble.poseeRadio">
+                            <input type="checkbox" name="Posee Radio" ng-disabled="true"  ng-model="vm.mueble.poseeRadio">
                         </label>
                     </div>
                 </div>
@@ -93,37 +92,16 @@
                     <label>Activo</label>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="Activo" ng-model="vm.mueble.activo">
+                            <input type="checkbox" name="Activo" ng-disabled="true"  ng-model="vm.mueble.activo">
                         </label>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <!--Bibliografia: https://codepen.io/Zveg/pen/JorwJo    -->
-        <!--<div flow-init
-             flow-name="vm.uploader.flow"
-             flow-files-added="vm.processFiles($files)">
-            <button flow-btn class="btn btn-primary" type="file">Seleccionar Imagen</button>
-            <div ng-repeat="image in vm.uploader.flow.files track by $index">
-                <img class="preview" style="width: 300px; height: 300px;" flow-img="image" /><br>
-            </div>
-        </div>-->
-
-        <div flow-init="{target: '/upload', singleFile : 'true'}"
-             flow-files-submitted="$flow.upload()"
-             flow-file-success="$file.msg = $message"
-             flow-files-added="vm.processFiles($files)">
-
-            <button flow-btn class="btn btn-primary" type="file">Seleccionar Imagen</button>
-            <br>
-
-        </div>
-
         <img style="width: 300px; height: 300px;" ng-if="vm.mueble.imagen.length > 0" data-ng-src="{{vm.mueble.imagen}}" />
 
-        <div ng-show="vm.mode == 'update'">
+        <div>
             <h4>Auditoría</h4>
             <div class="row">
                 <div class="col-md-4">
@@ -158,9 +136,7 @@
         </div>
         <div class="nav navBorder">
             <div class="navbar-right">
-                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = false">Guardar</button>
-                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = true" ng-show="vm.mode == 'add'">Guardar y agregar nuevo</button>
-                <button class="btn btn-primary" type="button" go-state="app.mueble-list">Cancelar</button>
+                <button class="btn btn-primary" type="button" go-state="app.mueble-list">Atrás</button>
             </div>
         </div>
     </form>

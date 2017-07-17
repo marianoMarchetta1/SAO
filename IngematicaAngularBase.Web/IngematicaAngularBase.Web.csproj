@@ -136,6 +136,8 @@
     <Content Include="app\configuration\mueble\mueble-add-update-controller.js" />
     <Content Include="app\configuration\mueble\mueble-add-update.html" />
     <Content Include="app\configuration\mueble\mueble-config.js" />
+    <Content Include="app\configuration\mueble\mueble-detail-controller.js" />
+    <Content Include="app\configuration\mueble\mueble-detail.html" />
     <Content Include="app\configuration\mueble\mueble-factory.js" />
     <Content Include="app\configuration\mueble\mueble-list-controller.js" />
     <Content Include="app\configuration\mueble\mueble-list.html" />
@@ -175,6 +177,8 @@
     <Content Include="app\scripts\code-mirror\ui-codemirror.js" />
     <Content Include="app\scripts\code-mirror\ui-codemirror.min.js" />
     <Content Include="app\scripts\code-mirror\xml.js" />
+    <Content Include="app\scripts\flow\ng-flow-standalone.js" />
+    <Content Include="app\scripts\flow\ng-flow.js" />
     <Content Include="app\scripts\to-iso-string.js" />
     <Content Include="app\scripts\ui-bootstrap-tpls.js" />
     <Content Include="app\scripts\ui-bootstrap-tpls.min.js" />
