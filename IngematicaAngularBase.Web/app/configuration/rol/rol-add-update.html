@@ -5,8 +5,8 @@
         <li><a ui-sref="app.rol-list">Roles</a></li>
         <li ng-if="vm.mode == 'add'" class="active">Agregar</li>
         <li ng-if="vm.mode == 'update'" class="active">Editar</li>
-    </ol>   
-    
+    </ol>
+
     <form name="vm.rolForm" novalidate
           custom-submit
           mode="vm.mode"
@@ -19,7 +19,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Nombre</label>
-                    <input class="form-control" name="nombre" ng-model="vm.rol.nombre" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                    <input class="form-control" name="Nombre" ng-model="vm.rol.nombre" maxlength="256" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
                 </div>
             </div>
             <div class="col-md-4">
@@ -27,15 +27,9 @@
                     <label>Activo</label>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="activo" ng-model="vm.rol.activo">
+                            <input type="checkbox" name="Activo" ng-model="vm.rol.activo">
                         </label>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Modulo</label>
-                    <select name="Modulo" class="form-control" ng-model="vm.idModulo" ng-change="vm.changeModulo()" ng-options="item.id as item.desc for item in vm.moduloList"></select>
                 </div>
             </div>
         </div>

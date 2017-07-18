@@ -27,7 +27,6 @@ namespace IngematicaAngularBase.Bll
 
         }
 
-
         public RolViewModel GetById(int id)
         {
 
@@ -38,9 +37,8 @@ namespace IngematicaAngularBase.Bll
                 return rolDataAccess.GetById(id);
 
             }
-           
-        }
 
+        }
 
         public void Add(Rol entity)
         {
@@ -105,7 +103,7 @@ namespace IngematicaAngularBase.Bll
             using (var context = new Entities())
             {
                 Rol entity = context.Set<Rol>().FirstOrDefault(x => x.IdRol == id);
-                if(entity != null && entity.Interno == true)
+                if (entity != null && entity.Interno == true)
                     throw new CustomApplicationException("El rol no se puede eliminar.");
 
                 var items = from rolRegla in context.Set<RolRegla>()
@@ -117,7 +115,7 @@ namespace IngematicaAngularBase.Bll
                     context.Entry(rolRegla).State = EntityState.Deleted;
                 }
 
-                context.Entry(entity).State = EntityState.Deleted; 
+                context.Entry(entity).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }

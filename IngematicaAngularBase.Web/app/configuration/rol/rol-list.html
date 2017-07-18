@@ -2,7 +2,7 @@
     <ol class="breadcrumb buscar">
         <li><a ui-sref="app.home">Inicio</a></li>
         <li class="active">Roles</li>
-    </ol>   
+    </ol>
     <form name="vm.rolForm" novalidate
           custom-submit
           mode="vm.mode"
@@ -24,14 +24,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="nav">
+            <div class="navbar-right">
+                <button ng-disabled="!vm.rules.rolCanAdd" class="btn btn-primary" type="button" go-state="app.rol-add">Agregar</button>
+                <button class="btn btn-primary" type="reset" broadcast="vm.rolForm" broadcast-arg="clear">Limpiar</button>
+                <button class="btn btn-primary" type="button" broadcast="vm.rolForm" broadcast-arg="submit">Buscar</button>
             </div>
-            <div class="nav">
-                <div class="navbar-right">
-                    <button ng-disabled="!vm.rules.rolCanAdd" class="btn btn-primary" type="button" go-state="app.rol-add">Agregar</button>
-                    <button class="btn btn-primary" type="reset" broadcast="vm.rolForm" broadcast-arg="clear">Limpiar</button>
-                    <button class="btn btn-primary" type="button" broadcast="vm.rolForm" broadcast-arg="submit">Buscar</button>
-                </div>
-            </div>
+        </div>
     </form>
 
 

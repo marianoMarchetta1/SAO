@@ -26,8 +26,8 @@
             vm.queryUI.initialized = true;
         };
 
-        vm.init();  
-}]);
+        vm.init();
+    }]);
 
 
 

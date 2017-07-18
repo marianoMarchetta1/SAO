@@ -5,74 +5,78 @@
         <li><a ui-sref="app.rol-list">Roles</a></li>
         <li class="active">Ver</li>
     </ol>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">Nombre</label>
-                <input class="form-control" value="{{vm.rol.nombre}}" readonly="readonly" tabindex="-1">
+    <form name="vm.rolForm" novalidate
+          custom-submit="vm.save"
+          ng-model-options="{ updateOn: 'blur' }">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" value="{{vm.rol.nombre}}" readonly="readonly" tabindex="-1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Activo</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="vm.rol.activo" ng-disabled="true" tabindex="-1">
+                    </label>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <label>Activo</label>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-model="vm.rol.activo" ng-disabled="true" tabindex="-1">
-                </label>
+        <h4> Reglas </h4>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Regla</th>
+                    <th>Activo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.rol.rolRegla">
+                    <td>{{item.reglaNombre}}</td>
+                    <td><input type="checkbox" name="checked" ng-model="item.checked" ng-disabled="true"></td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Auditoría</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Usuario Alta</label>
+                    <input class="form-control" value="{{vm.rol.usuarioAlta}}" readonly="readonly" tabindex="-1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Usuario Últ Modificación</label>
+                    <input class="form-control" value="{{vm.rol.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Fecha de Alta</label>
+                    <input class="form-control" value="{{vm.rol.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Fecha Última Modificación</label>
+                    <input class="form-control" value="{{vm.rol.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">ID</label>
+                    <input class="form-control text-right" value="{{vm.rol.idRol}}" readonly="readonly" tabindex="-1">
+                </div>
             </div>
         </div>
-    </div>
-    <h4> Reglas </h4>
-    <table class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Regla</th>
-                <th>Activo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in vm.rol.rolRegla">
-                <td>{{item.reglaNombre}}</td>
-                <td><input type="checkbox" name="checked" ng-model="item.checked" ng-disabled="true"></td>
-            </tr>
-        </tbody>
-    </table>
-    <h4>Auditoría</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">Usuario Alta</label>
-                <input class="form-control" value="{{vm.rol.usuarioAlta}}" readonly="readonly" tabindex="-1">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">Usuario Últ Modificación</label>
-                <input class="form-control" value="{{vm.rol.usuarioModificacion}}" readonly="readonly" tabindex="-1">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">Fecha de Alta</label>
-                <input class="form-control" value="{{vm.rol.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">Fecha Última Modificación</label>
-                <input class="form-control" value="{{vm.rol.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label">ID</label>
-                <input class="form-control text-right" value="{{vm.rol.idRol}}" readonly="readonly" tabindex="-1">
-            </div>
-        </div>
-    </div>
 
-    <div class="nav navBorder">
-        <div class="navbar-right">
-            <button class="btn btn-primary " type="button" go-state="app.rol-list">Cerrar</button>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" ng-click="vm.cancel()">Cerrar</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>

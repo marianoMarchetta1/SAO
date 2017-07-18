@@ -15,7 +15,7 @@ namespace IngematicaAngularBase.Api.Controllers
 {
     [Authorize]
     [HandleApiException]
-    public class RolController : ApiController 
+    public class RolController : ApiController
     {
         [Route("api/rol/list")]
         [AuthorizeRule(Rule = "Rol_CanList")]
@@ -85,15 +85,6 @@ namespace IngematicaAngularBase.Api.Controllers
             return Ok(bs.CreateRolConReglas());
         }
 
-        [AuthorizeRule(Rule = "Rol_CanList")]
-        [Route("api/rol/getParamsAddUpdate")]
-        public IHttpActionResult getParamsAddUpdate()
-        {
-            ModuloBusiness bs = new ModuloBusiness();
-            Dictionary<string, object> result = new Dictionary<string, object>();
-            result.Add("moduloList", bs.GetModuloList());
-            return Ok(result);
-        }
     }
 }
 

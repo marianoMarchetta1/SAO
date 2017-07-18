@@ -1,6 +1,6 @@
 ﻿
 angular.module('appBase').factory('rolFactory', ['$http', '$q', 'handleErrorService', 'entityUI', 'frameworkUI',
-    function ($http, $q, handleErrorService,entityUI, frameworkUI) {
+    function ($http, $q, handleErrorService, entityUI, frameworkUI) {
 
         var urlBase = '/api/rol';
         var rolFactory = {};
@@ -32,11 +32,11 @@ angular.module('appBase').factory('rolFactory', ['$http', '$q', 'handleErrorServ
             entityUI.preparePost(postQUery);
             var deferred = $q.defer();
             $http.post(urlBase + '/' + 'list', postQUery)
-            .then(function (response) {
-                deferred.resolve({ list: response.data, query: postQUery });
-            }).catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve({ list: response.data, query: postQUery });
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
@@ -45,11 +45,11 @@ angular.module('appBase').factory('rolFactory', ['$http', '$q', 'handleErrorServ
             entityUI.preparePost(postModel);
             var deferred = $q.defer();
             $http.post(urlBase, postModel)
-             .then(function (response) {
-                 deferred.resolve(response.data);
-             }).catch(function (response) {
-                 deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-             });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
@@ -58,12 +58,12 @@ angular.module('appBase').factory('rolFactory', ['$http', '$q', 'handleErrorServ
             entityUI.preparePost(postModel);
             var deferred = $q.defer();
             $http.put(urlBase + '/' + model.idRol, postModel)
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                })
+                .catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
@@ -78,60 +78,48 @@ angular.module('appBase').factory('rolFactory', ['$http', '$q', 'handleErrorServ
         rolFactory.delete = function (id) {
             var deferred = $q.defer();
             $http.delete(urlBase + '/' + id)
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                })
+                .catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
         rolFactory.get = function (id) {
             var deferred = $q.defer();
             $http.get(urlBase + '/' + id)
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                })
+                .catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
         rolFactory.getParamsAddOrUpdate = function () {
             var deferred = $q.defer();
             $http.get(urlBase + '/' + 'getInitParamsAddOrUpdate')
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                })
+                .catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 
         rolFactory.getNew = function () {
             var deferred = $q.defer();
             $http.get(urlBase + '/' + 'getNew')
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
-            return deferred.promise;
-        };
-
-        rolFactory.getParamsAddUpdate = function () {
-            var deferred = $q.defer();
-            $http.get(urlBase + '/' + 'getParamsAddUpdate')
-            .then(function (response) {
-                deferred.resolve(response.data);
-            })
-            .catch(function (response) {
-                deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-            });
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                })
+                .catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
             return deferred.promise;
         };
 

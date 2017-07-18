@@ -1,17 +1,22 @@
 ﻿
 
-angular.module('appBase').controller('rolDetailController', ['$scope', '$state', 'rolFactory','parameters',
+angular.module('appBase').controller('rolDetailController', ['$scope', '$state', 'rolFactory', 'parameters',
     function ($scope, $state, rolFactory, parameters) {
 
-    var vm = this;
+        var vm = this;
 
-    vm.init = function () {
-        var entity = parameters.entity;
-        vm.rol = entity;
-    }
+        vm.cancel = function () {
+            $state.go('app.rol-list');
+        }
 
-    vm.init();
-}]);
+
+        vm.init = function () {
+            var entity = parameters.entity;
+            vm.rol = entity;
+        }
+
+        vm.init();
+    }]);
 
 
 

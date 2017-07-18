@@ -1,4 +1,4 @@
-﻿angular.module('appBase').controller('cambiarPasswordAnonimoController', ['$scope', '$state', 'authServiceFactory','modalDialogService','handleErrorService','blockUI',
+﻿angular.module('appBase').controller('cambiarPasswordController', ['$scope', '$state', 'authServiceFactory','modalDialogService','handleErrorService','blockUI',
 function ($scope, $state, authServiceFactory, modalDialogService, handleErrorService, blockUI) {
 
         var vm = this;

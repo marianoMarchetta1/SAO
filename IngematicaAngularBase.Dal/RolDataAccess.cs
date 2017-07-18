@@ -15,7 +15,7 @@ namespace IngematicaAngularBase.Dal
 
         public RolDataAccess(Entities context)
         {
-            this.context = context;                
+            this.context = context;
         }
 
         private readonly Entities context;
@@ -57,22 +57,18 @@ namespace IngematicaAngularBase.Dal
             {
                 IQueryable<RolRegla> tRolRegla = context.Set<RolRegla>().AsNoTracking();
                 IQueryable<Regla> tRegla = context.Set<Regla>().AsNoTracking();
-                IQueryable<Modulo> moduloSet = context.Set<Modulo>().AsNoTracking();
                 tRolRegla = tRolRegla.WithIdRol(rolViewModel.IdRol);
 
                 var resultRolRegla = from regla in tRegla
                                      join rolRegla in tRolRegla on regla.IdRegla equals rolRegla.IdRegla
                                      into _rolRegla
                                      from rr in _rolRegla.DefaultIfEmpty()
-                                     join modulo in moduloSet on regla.IdModulo equals modulo.IdModulo into _modulo from mm in _modulo.DefaultIfEmpty()
                                      orderby regla.Descripcion
                                      select new RolReglaViewModel()
                                      {
                                          IdRolRegla = rr.IdRolRegla == null ? 0 : rr.IdRolRegla,
                                          IdRegla = regla.IdRegla,
                                          IdRol = rr.IdRol == null ? 0 : rr.IdRol,
-                                         IdModulo = regla.IdModulo,
-                                         ModuloNombre = mm.Nombre,
                                          ReglaNombre = regla.Descripcion,
                                          Checked = (rr.IdRolRegla != null)
                                      };
@@ -111,19 +107,15 @@ namespace IngematicaAngularBase.Dal
 
             IQueryable<RolRegla> rolReglaSet = context.Set<RolRegla>().AsNoTracking();
             IQueryable<Regla> reglaSet = context.Set<Regla>().AsNoTracking();
-            IQueryable<Modulo> moduloSet = context.Set<Modulo>().AsNoTracking();
             rolReglaSet = rolReglaSet.WithIdRol(rolViewModel.IdRol);
 
             var resultRolRegla = from regla in reglaSet
-                                 join modulo in moduloSet on regla.IdModulo equals modulo.IdModulo into _modulo from mm in _modulo.DefaultIfEmpty()
                                  orderby regla.Descripcion
                                  select new RolReglaViewModel()
                                  {
                                      IdRolRegla = 0,
                                      IdRegla = regla.IdRegla,
                                      IdRol = 0,
-                                     IdModulo = regla.IdModulo,
-                                     ModuloNombre = mm.Nombre,
                                      ReglaNombre = regla.Descripcion,
                                      Checked = false
                                  };
