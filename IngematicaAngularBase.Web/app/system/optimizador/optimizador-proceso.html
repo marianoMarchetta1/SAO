@@ -1,0 +1,64 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a>Optimizador</a></li>
+        <li class="active">Optimizador</li>
+    </ol>
+    <form name="vm.optimizadorProcesoForm" novalidate
+          custom-submit
+          return-state="app.optimizador"
+          save-and-new="vm.saveAndNew"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4"> 
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="Nombre" ng-model="vm.optimizacion.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-if="vm.optimizacion.optimizarCosto">
+                <div class="form-group">
+                    <label class="control-label">Costo Máximo</label>
+                    <input class="form-control text-right" name="Costo Máximo" ng-model="vm.optimizacion.costoMaximo" validate-numeric numeric-type="decimal" precision="18,2"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Optimizar Costo</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Optimizar Costo" ng-model="vm.optimizacion.optimizarCosto">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Registrar en Historial</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Registrar en Historial" ng-model="vm.optimizacion.registrarEnHistorial">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button flow-btn class="btn btn-primary" type="file">Seleccionar Plano</button>
+        </div>
+
+
+
+
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" ng-click="vm.validate()">Generar Resultado</button>
+            </div>
+        </div>
+    </form>
+</div>
+

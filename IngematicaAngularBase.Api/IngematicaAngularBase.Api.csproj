@@ -82,6 +82,7 @@
     <Compile Include="Common\CacheManager.cs" />
     <Compile Include="Common\HandleApiExceptionAttribute.cs" />
     <Compile Include="Controllers\MuebleController.cs" />
+    <Compile Include="Controllers\OptimizadorController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />

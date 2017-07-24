@@ -123,6 +123,7 @@
     <Compile Include="Common\QueryObject.cs" />
     <Compile Include="Common\SelectionListSimple.cs" />
     <Compile Include="ViewModels\MuebleViewModel.cs" />
+    <Compile Include="ViewModels\OptimizadorViewModel.cs" />
     <Compile Include="ViewModels\RolListViewModel.cs" />
     <Compile Include="ViewModels\RolViewModel.cs" />
     <Compile Include="ViewModels\SecurityRolViewModel.cs" />

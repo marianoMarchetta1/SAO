@@ -1,0 +1,132 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a>Optimizador</a></li>
+        <li class="active">Optimizador</li>
+    </ol>
+    <form name="vm.optimizadorForm" novalidate
+          custom-submit
+          return-state="app.optimizador"
+          save-and-new="vm.saveAndNew"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="Nombre" ng-model="vm.optimizacion.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Registrar en Historial</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Registrar en Historial" ng-model="vm.optimizacion.registrarEnHistorial">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Optimizar Costo</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Optimizar Costo" ng-model="vm.optimizacion.optimizarCosto">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-if="vm.optimizacion.optimizarCosto">
+                <div class="form-group">
+                    <label class="control-label">Costo Máximo</label>
+                    <input class="form-control text-right" name="Costo Máximo" ng-model="vm.optimizacion.costoMaximo" validate-numeric numeric-type="decimal" precision="18,2"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <br />
+                    <button class="btn btn-primary" type="button" ngf-select ngf-change="vm.upload($files)">Seleccionar Plano</button>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-group">
+                        {{vm.log}}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <uib-progressbar value="vm.pg" type="success" ng-show="vm.showPg"><b>{{vm.pg}}%</b></uib-progressbar>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <h4>Muebles</h4>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Mueble</label>
+                    <select name="mueble" class="form-control" ng-model="vm.idMueble"
+                            ng-options="item.id as item.desc for item in vm.muebleList"></select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Cantidad</label>
+                    <input class="form-control text-right" name="Cantidad" ng-model="vm.cantidad" validate-numeric numeric-type="int64"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <br />
+                    <span class="input-group-btn">                       
+                        <button class="btn btn-primary" type="button" ng-click="vm.operationMueble('add')">Agregar</button>
+                    </span>
+                </div>
+            </div>
+
+
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Mueble</th>
+                    <th>Cantidad</th>
+                    <th class="size-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.optimizacion.muebleList">
+                    <td class="text-right">{{item.nombre}}</td>
+                    <td class="text-right">{{item.cantidad}}</td>
+                    <td class="text-right">
+                        <a href="" ng-click="vm.operationMueble('delete', item.idMueble)" class="btn btn-sm btn-link pull-left "><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" ng-click="vm.validate()">Generar Resultado</button>
+            </div>
+        </div>
+    </form>
+</div>
+

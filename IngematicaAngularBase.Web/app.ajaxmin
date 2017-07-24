@@ -60,6 +60,10 @@
     <input path="app\configuration\mueble\mueble-config.js"/>
     <input path="app\configuration\mueble\mueble-add-update-controller.js"/>
 
+    <input path="app\configuration\optimizador\optimizador-config.js"/>
+    <input path="app\configuration\optimizador\optimizador-factory.js"/>
+    <input path="app\configuration\optimizador\optimizador-proceso-controller.js"/>
+
     <input path="app\dxf\AutoCadColorIndex.js"/>
     <input path="app\dxf\browserify.js"/>
     <input path="app\dxf\dxf-parser.js"/>

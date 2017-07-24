@@ -141,6 +141,10 @@
     <Content Include="app\configuration\mueble\mueble-factory.js" />
     <Content Include="app\configuration\mueble\mueble-list-controller.js" />
     <Content Include="app\configuration\mueble\mueble-list.html" />
+    <Content Include="app\configuration\optimizador\optimizador-config.js" />
+    <Content Include="app\configuration\optimizador\optimizador-factory.js" />
+    <Content Include="app\configuration\optimizador\optimizador-proceso-controller.js" />
+    <Content Include="app\configuration\optimizador\optimizador-proceso.html" />
     <Content Include="app\configuration\rol\rol-add-update-controller.js" />
     <Content Include="app\configuration\rol\rol-add-update.html" />
     <Content Include="app\configuration\rol\rol-config.js" />
@@ -166,6 +170,7 @@
     <Content Include="app\dxf\ng-embed.min.js" />
     <Content Include="app\dxf\parse-sync.js" />
     <Content Include="app\dxf\three-dxf.js" />
+    <Content Include="app\images\logo.png" />
     <Content Include="app\scripts\code-mirror\autorefresh.js" />
     <Content Include="app\css\bootstrap-custom.css" />
     <Content Include="app\scripts\angular-sanitize.js" />
