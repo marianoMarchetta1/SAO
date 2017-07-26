@@ -19,6 +19,8 @@ namespace IngematicaAngularBase.Model.ViewModels
         public List<OptimizacionMueble> MuebleList { get; set; }
 
         public PlanoData Archivo { get; set; } 
+
+        public int? CantidadPersonas { get; set; }
     }
 
     public class OptimizacionMueble

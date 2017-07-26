@@ -106,7 +106,7 @@
                 optimizadorFactory.generate(vm.optimizacion)
                 .then(function (value) {
                     var a;
-                    a = 0;
+                    a = 0; //cargar el path resultado en una variable para mostrarlo
                 })
                 .catch(function (error) {
                     handleErrorService.handleErrorConfig(error);

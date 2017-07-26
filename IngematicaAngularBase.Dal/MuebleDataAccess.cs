@@ -75,5 +75,16 @@ namespace IngematicaAngularBase.Dal
 
             return result.FirstOrDefault();
         }
+
+        public List<Mueble> GetMuebleList(List<int> idsMueble)
+        {
+            IQueryable<Mueble> tMueble = context.Set<Mueble>().AsNoTracking();
+
+            var result = from mueble in tMueble
+                         where idsMueble.Contains(mueble.IdMueble)
+                         select mueble;
+
+            return result.ToList();
+        }
     }
 }

@@ -66,7 +66,8 @@ namespace IngematicaAngularBase.Api.Controllers
         [Route("api/optimizador/generate")]
         public IHttpActionResult Generate(OptimizadorOptimizacionViewModel file)
         {
-            return null;
+            OptimizadorBusiness optimizadorBusiness = new OptimizadorBusiness();
+            return Ok(optimizadorBusiness.Generate(file));
         }
     }
 }

@@ -16,6 +16,9 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using netDxf;
+using netDxf.Entities;
+using IngematicaAngularBase.Bll.Common;
 
 namespace IngematicaAngularBase.Bll
 {
@@ -27,6 +30,35 @@ namespace IngematicaAngularBase.Bll
             {
                 OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(context);
                 return optimizadorDataAccess.GetMuebleList(activo);
+            }
+        }
+
+        public string Generate(OptimizadorOptimizacionViewModel file)
+        {
+            using (var context = new Entities())
+            {
+                MuebleDataAccess muebleDataAcces = new MuebleDataAccess(context);
+
+                DxfDocument dxfInitial = DxfDocument.Load(file.Archivo.Path);
+
+                Optimizer optimizer = new Optimizer(dxfInitial, 
+                                                    file.OptimizarCosto, 
+                                                    file.CostoMaximo, 
+                                                    file.MuebleList, 
+                                                    muebleDataAcces.GetMuebleList(file.MuebleList.Select(x=> x.IdMueble).ToList())
+                                                    );
+
+                DxfDocument dxfFinal = optimizer.Generate();
+
+                string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
+                dxfFinal.Save(path);
+
+                //if(file.RegistrarEnHistorial){
+                //  OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(Entities);
+                //  optimizadorDataAccess.AddHistory(dxfFinal);         -> almacena en un tabla de la base el "historial" que seria la lista de entidades del plano
+                //}
+
+                return path;
             }
         }
     }

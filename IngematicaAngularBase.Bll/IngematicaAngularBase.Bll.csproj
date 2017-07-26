@@ -57,6 +57,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Ingematica.MailService.Service.WCF.dll</HintPath>
     </Reference>
+    <Reference Include="netDxf, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\netDxf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -69,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Cascade.cs" />
+    <Compile Include="Common\Optimizer.cs" />
     <Compile Include="ModuloBusiness.cs" />
     <Compile Include="LogBusiness.cs" />
     <Compile Include="MuebleBusiness.cs" />
