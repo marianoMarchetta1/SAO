@@ -28,18 +28,20 @@ namespace IngematicaAngularBase.Bll.Common
         private List<OptimizacionMueble> muebleCantidadList;
         private bool optimizarCosto;
         private decimal costoMaximo;
+        private string escala;
 
         private List<Circle> circles;
         private List<Line> lines;
         //Lista completa de las entidades a utilizar
 
-        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam)
+        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam)
         {
             this.initialFlat = dxfDocument;
             this.optimizarCosto = optimizarCostoParam;
             this.costoMaximo = costoMaximoParam;
             this.muebleCantidadList = muebleCantidadListParam;
             this.muebleList = muebleListParam;
+            this.escala = escalaParam;
         }
 
         public DxfDocument Generate()

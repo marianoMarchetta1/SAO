@@ -241,5 +241,13 @@ namespace IngematicaAngularBase.Dal.Specification
 			
 			return source;
 		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithOrdenDePrioridad(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, int? value)
+		{
+			if (value != null)
+				return source.Where(p => p.OrdenDePrioridad == value);
+			
+			return source;
+		}
 	}
 }

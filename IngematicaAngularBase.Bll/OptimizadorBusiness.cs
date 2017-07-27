@@ -45,8 +45,8 @@ namespace IngematicaAngularBase.Bll
                                                     file.OptimizarCosto, 
                                                     file.CostoMaximo, 
                                                     file.MuebleList, 
-                                                    muebleDataAcces.GetMuebleList(file.MuebleList.Select(x=> x.IdMueble).ToList())
-                                                    );
+                                                    muebleDataAcces.GetMuebleList(file.MuebleList.Select(x=> x.IdMueble).ToList()),
+                                                    file.Escala);
 
                 DxfDocument dxfFinal = optimizer.Generate();
 

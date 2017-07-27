@@ -80,6 +80,13 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
+                    <label class="control-label">Orden de Prioridad</label>
+                    <input class="form-control text-right" name="Orden de Prioridad" ng-model="vm.mueble.ordenDePrioridad" ng-required="true" validate-numeric
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     <label>Posee Radio</label>
                     <div class="checkbox">
                         <label>

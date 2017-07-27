@@ -41,6 +41,9 @@ namespace IngematicaAngularBase.Model.ViewModels
 
         [Required]
         public bool PoseeRadio { get; set; }
+
+        [Required]
+        public int OrdenDePrioridad { get; set; }
     }
 
     public class MuebleQuery : QueryObject

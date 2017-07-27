@@ -81,6 +81,7 @@
           <Property Name="Codigo" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Imagen" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DistanciaParedes" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="OrdenDePrioridad" Type="int" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -942,6 +943,7 @@
           <Property Name="DistanciaParedes" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario" FromRole="Mueble" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario1" FromRole="Mueble" ToRole="Usuario" />
+          <Property Name="OrdenDePrioridad" Type="Int32" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -1481,6 +1483,7 @@
           <EntitySetMapping Name="Mueble">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.Mueble">
               <MappingFragment StoreEntitySet="Mueble">
+                <ScalarProperty Name="OrdenDePrioridad" ColumnName="OrdenDePrioridad" />
                 <ScalarProperty Name="DistanciaParedes" ColumnName="DistanciaParedes" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />

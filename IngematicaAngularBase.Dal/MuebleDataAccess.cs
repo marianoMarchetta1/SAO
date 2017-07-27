@@ -70,7 +70,8 @@ namespace IngematicaAngularBase.Dal
                              FechaAlta = mueble.FechaAlta,
                              FechaModificacion = mueble.FechaModificacion,
                              IdUsuarioModificacion = mueble.IdUsuarioModificacion,
-                             UsuarioModificacion = (usuariomod.Nombre != null && usuariomod.Apellido != null ? usuariomod.Apellido + ", " + usuariomod.Nombre : string.Empty)
+                             UsuarioModificacion = (usuariomod.Nombre != null && usuariomod.Apellido != null ? usuariomod.Apellido + ", " + usuariomod.Nombre : string.Empty),
+                             OrdenDePrioridad = (int)mueble.OrdenDePrioridad
                          };
 
             return result.FirstOrDefault();
