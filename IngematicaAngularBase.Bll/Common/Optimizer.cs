@@ -49,9 +49,30 @@ namespace IngematicaAngularBase.Bll.Common
 
             //validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion
 
-            List<Circle> ciruclos = initialFlat.Circles.ToList();
+            //List<Circle> ciruclos = initialFlat.Circles.ToList();
+
+            /*    Circle circulo = new Circle();
+                circulo.Radius = 5;
+                initialFlat.AddEntity(circulo);
+
+                Line linea = new Line();
+                Vector3 vector3 = new Vector3();
+                vector3.X = 5;
+                vector3.Y = 10;
+                vector3.Z = 0;
+
+                Vector3 vector4 = new Vector3();
+                vector3.X = 10;
+                vector3.Y = 20;
+                vector3.Z = 0;
+                linea.StartPoint = vector3;
+                linea.EndPoint = vector4;
+
+                initialFlat.AddEntity(linea);*/
 
             //Rectangle celda = GetTamanioCelda();            Obtiene el tamaño que se usara para particionar el plano.
+
+            //return initialFlat;
 
             return null;
         }

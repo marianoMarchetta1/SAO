@@ -50,7 +50,7 @@ namespace IngematicaAngularBase.Bll
 
                 DxfDocument dxfFinal = optimizer.Generate();
 
-                string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
+                string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"] + "\\temp.dxf";
                 dxfFinal.Save(path);
 
                 //if(file.RegistrarEnHistorial){
