@@ -11,6 +11,7 @@ namespace IngematicaAngularBase.Model.Common
         public int Id;
         public string Desc;
         public object Data;
+        public decimal DecimalData { get; set; }
     }
 
     public class SelectionListInfo

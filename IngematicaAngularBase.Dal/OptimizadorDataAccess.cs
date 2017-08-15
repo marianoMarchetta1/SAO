@@ -29,7 +29,8 @@ namespace IngematicaAngularBase.Dal
                          select new SelectionListSimple()
                          {
                              Id = mueble.IdMueble,
-                             Desc = mueble.Nombre
+                             Desc = mueble.Nombre,
+                             DecimalData = mueble.Precio == null ? 0 : (decimal)mueble.Precio
                          };
             return result.ToList();
         }

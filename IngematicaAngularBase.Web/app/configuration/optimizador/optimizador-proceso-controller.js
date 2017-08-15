@@ -9,6 +9,7 @@
             vm.optimizacion.optimizarCosto = false;
             vm.optimizacion.muebleList = [];
             vm.optimizacion.archivo = null;
+            vm.optimizacion.costoMaximo = null;
 
             vm.idMueble = null;
         };
@@ -20,11 +21,15 @@
             vm.muebleList = entityUI.prepareSelectList({ list: data['muebleList'], required: false, nullItem: 'addUpdate' });
 
             vm.setDefaultModel();
+            vm.costoActual = 0;
         };
 
         vm.operationMueble = function (mode, id) {
             if (mode == 'delete') {
+
+                var obj = entityUI.findEntity({ list: vm.optimizacion.muebleList, prop: 'idMueble', propValue: id });
                 entityUI.deleteEntity({ list: vm.optimizacion.muebleList, prop: 'idMueble', propValue: id });
+                vm.costoActual -= obj.precio * obj.cantidad;
             }
             else {
                 if (vm.idMueble == null) {
@@ -48,11 +53,13 @@
                 mueble.idMueble = obj.id;
                 mueble.cantidad = vm.cantidad;
                 mueble.nombre = obj.desc;
+                mueble.precio = obj.decimalData;
 
                 vm.optimizacion.muebleList.push(mueble);
 
+                vm.costoActual += obj.decimalData * vm.cantidad;
                 vm.idMueble = null;
-                vm.cantidad == null;
+                vm.cantidad = null;
             }
         };
 
@@ -92,9 +99,12 @@
             } else if (!vm.optimizacion.archivo) {
                 modalDialogService.showModalFormErrors(["Debe ingresar el plano a ser optimizado."]);
                 return;
-            } else if (entityUI.isEmpty(vm.optimizacion.muebleList)){
+            } else if (entityUI.isEmpty(vm.optimizacion.muebleList)) {
                 modalDialogService.showModalFormErrors(["Debe ingresar los muebles."]);
                 return;
+            } else if (vm.optimizacion.optimizarCosto && vm.costoActual > vm.optimizacion.costoMaximo){
+                modalDialogService.showModalFormErrors(["El costo actual supera el limite marcado, le aconsejamos cambiar alguno de los muebles para abaratar costos."]);
+                return;           
             }else if (vm.optimizacion.optimizarCosto) {
                  if (!vm.optimizacion.costoMaximo) {
                     modalDialogService.showModalFormErrors(["Debe ingresar el presupuesto máximo."]);
