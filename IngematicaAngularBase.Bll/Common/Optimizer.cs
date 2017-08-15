@@ -49,6 +49,8 @@ namespace IngematicaAngularBase.Bll.Common
 
             //validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion
 
+            //Definir ubicacion de los pasillos
+
             //Mientras haya lugar en el plano o muebles para cargar{
 
                 //Obtener tamaño de la celda    (1)
