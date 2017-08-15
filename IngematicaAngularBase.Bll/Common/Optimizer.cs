@@ -49,32 +49,80 @@ namespace IngematicaAngularBase.Bll.Common
 
             //validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion
 
-            //List<Circle> ciruclos = initialFlat.Circles.ToList();
+            //Mientras haya lugar en el plano o muebles para cargar{
 
-            /*    Circle circulo = new Circle();
-                circulo.Radius = 5;
-                initialFlat.AddEntity(circulo);
+                //Obtener tamaño de la celda    (1)
 
-                Line linea = new Line();
-                Vector3 vector3 = new Vector3();
-                vector3.X = 5;
-                vector3.Y = 10;
-                vector3.Z = 0;
+                //Realizar la carga de muebles. Mientras haya espacio. Considerando la prioridad de cada mueble.    (2) Funcion que recibe limites en X e Y libres, inicialmente todo el plano.
 
-                Vector3 vector4 = new Vector3();
-                vector3.X = 10;
-                vector3.Y = 20;
-                vector3.Z = 0;
-                linea.StartPoint = vector3;
-                linea.EndPoint = vector4;
-
-                initialFlat.AddEntity(linea);*/
-
-            //Rectangle celda = GetTamanioCelda();            Obtiene el tamaño que se usara para particionar el plano.
-
-            //return initialFlat;
+                //Correr Compactacion. Retorna los limites de X e Y ya ocupados luego de la compaction.     (3)
+            //}
 
             return null;
         }
+
+        /*  (2)
+         
+         //Particionar el espacio libre en el tamaño de la celda (incluye tamaño de la entidad y del espacio libre a su alrededor) y cargar una lista de "huecos libres"
+         
+         //while haya muebles o espacio libre{ 
+         
+            //Recorro la lista de huecos y cargo los muebles
+
+        //}
+         
+         */
+
+
+
+
+        /*  (3)
+         
+         //While haya muebles en la lista de muebles{
+         
+            //Pega la celda a la contigua izquierda (porque si es alguna celda desp de la 1ra y se compato la anterior puede quedar despegada)
+
+            //Adapta el tamaño de la selda al minimo segun el mueble.
+
+            //Lo inserta en una nueva lista
+
+            //Retorna el nuevo limite completo en el plano
+         
+         //}
+          
+         */
     }
 }
+
+
+
+
+
+
+/*
+//List<Circle> ciruclos = initialFlat.Circles.ToList();
+
+    Circle circulo = new Circle();
+    circulo.Radius = 5;
+    initialFlat.AddEntity(circulo);
+
+    Line linea = new Line();
+    Vector3 vector3 = new Vector3();
+    vector3.X = 5;
+    vector3.Y = 10;
+    vector3.Z = 0;
+
+    Vector3 vector4 = new Vector3();
+    vector3.X = 10;
+    vector3.Y = 20;
+    vector3.Z = 0;
+    linea.StartPoint = vector3;
+    linea.EndPoint = vector4;
+
+    initialFlat.AddEntity(linea);
+
+//Rectangle celda = GetTamanioCelda();            Obtiene el tamaño que se usara para particionar el plano.
+
+//return initialFlat;
+
+*/
