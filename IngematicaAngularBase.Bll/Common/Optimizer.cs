@@ -71,7 +71,7 @@ namespace IngematicaAngularBase.Bll.Common
                         //List<Huecos> listHuecos = GetListHuecos(vertices, celda, zonasOcupadas); -> arma la lista de huecos x fila
                         //List<ZonasOcupadas> zonasOcupadas = ubicarMuebles(listHuecos, muebleList, sentido, anchoPasillo) -> Eliminarlos de muebleListTemp. Ubica muebles x fila + pasillo
                         //hayEspacio = Compactar(vertices, zonasOcupadas, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre
-                    }
+                    } 
                 }
             }
 
