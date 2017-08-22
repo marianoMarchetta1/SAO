@@ -68,8 +68,9 @@ namespace IngematicaAngularBase.Bll.Common
                     while (muebleListTemp.Count > 0 && hayEspacio)
                     {
                         celda = GetTamañoMaximoCelda(muebleList, (int)sentido);
-                        //ubicar muebles(vertices, muebleList, sentido) -> Eliminarlos de muebleListTemp
-                        //hayEspacio = Compactar(vertices, muebleList, sentido) -> Compacta la lista de muebles y retorna si queda lugar libre
+                        //List<Huecos> listHuecos = GetListHuecos(vertices, celda, zonasOcupadas); -> arma la lista de huecos x fila
+                        //List<ZonasOcupadas> zonasOcupadas = ubicarMuebles(listHuecos, muebleList, sentido, anchoPasillo) -> Eliminarlos de muebleListTemp. Ubica muebles x fila + pasillo
+                        //hayEspacio = Compactar(vertices, zonasOcupadas, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre
                     }
                 }
             }
