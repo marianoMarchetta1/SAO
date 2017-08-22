@@ -39,4 +39,17 @@ namespace IngematicaAngularBase.Model.ViewModels
         public string Type { get; set; }
         public string Path { get; set; }
     }
+
+    public class Celda
+    {
+        public decimal Largo { get; set; }
+        public decimal Ancho { get; set; }
+    }
+
+    public enum SentidoPasillosEnum
+    {
+        Largo = 1,
+        Ancho = 2,
+        Cruzado = 3
+    }
 }

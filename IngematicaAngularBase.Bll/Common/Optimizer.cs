@@ -30,10 +30,6 @@ namespace IngematicaAngularBase.Bll.Common
         private decimal costoMaximo;
         private string escala;
 
-        private List<Circle> circles;
-        private List<Line> lines;
-        //Lista completa de las entidades a utilizar
-
         public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam)
         {
             this.initialFlat = dxfDocument;
@@ -43,24 +39,108 @@ namespace IngematicaAngularBase.Bll.Common
             this.muebleList = muebleListParam;
             this.escala = escalaParam;
         }
+        
 
+        //Agregar consideracion de la escala del plano. Los muebles los tomamos en metros en el momento del alta. Al final.
         public DxfDocument Generate()
         {
 
-            //validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion
+            // validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion.
+            //Considero que la cantida de muebles solicitados es para el total de regiones que esten en el dxf
 
-            //Definir ubicacion de los pasillos
+            DxfDocument finalFlat = new DxfDocument();
+            List<LwPolylineVertex> vertices = new List<LwPolylineVertex>();
+            decimal anchoPasillos = 0; 
+            Celda celda = new Celda();
+            List<Mueble> muebleListTemp;
+            bool hayEspacio;//Se usa dsp de la compactacion
 
-            //Mientras haya lugar en el plano o muebles para cargar{
+            foreach(var sentido in Enum.GetValues(typeof(SentidoPasillosEnum)))
+            {
+                muebleListTemp = new List<Mueble>(muebleList).OrderBy(x => x.OrdenDePrioridad).ToList();
 
-                //Obtener tamaño de la celda    (1)
+                foreach (LwPolyline lwPolyline in initialFlat.LwPolylines)
+                {
+                    anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido); //TODO
+                    vertices = lwPolyline.Vertexes;
+                    hayEspacio = true;
 
-                //Realizar la carga de muebles. Mientras haya espacio. Considerando la prioridad de cada mueble.    (2) Funcion que recibe limites en X e Y libres, inicialmente todo el plano.
-
-                //Correr Compactacion. Retorna los limites de X e Y ya ocupados luego de la compaction.     (3)
-            //}
+                    while (muebleListTemp.Count > 0 && hayEspacio)
+                    {
+                        celda = GetTamañoMaximoCelda(muebleList, (int)sentido);
+                        //ubicar muebles(vertices, muebleList, sentido) -> Eliminarlos de muebleListTemp
+                        //hayEspacio = Compactar(vertices, muebleList, sentido) -> Compacta la lista de muebles y retorna si queda lugar libre
+                    }
+                }
+            }
 
             return null;
+        }
+
+        //Metodo que retorna el tamaño de la celda.
+        //Recibe el sentido en que se ponen los muebles, porque si algun mueble posee radio mayor, 
+        //se considera en el sentido de recorrido del plano.
+        public Celda GetTamañoMaximoCelda(List<Mueble> muebles, int sentido)
+        {
+            Celda celda = new Celda();
+            decimal? Largo = 0;
+            decimal? Ancho = 0;
+            decimal? RadioMayor = 0;
+            decimal? RadioMenor = 0;
+
+            Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+            Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+            RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+            RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+
+            switch (sentido){
+
+                case 1:
+
+                    if (RadioMayor != null && Largo != null && RadioMayor > Largo)
+                        celda.Largo = (decimal)RadioMayor;
+                    else if(Largo != null)
+                        celda.Largo = (decimal)Largo;
+                    else
+                        celda.Largo = (decimal)RadioMayor;
+
+                    if (RadioMenor != null && Ancho != null && RadioMenor > Ancho)
+                        celda.Ancho = (decimal)RadioMenor;
+                    else if (Ancho != null)
+                        celda.Ancho = (decimal)Ancho;
+                    else
+                        celda.Ancho = (decimal)RadioMenor;
+
+                    break;
+
+                case 2:
+
+                    if (RadioMayor != null && Ancho != null && RadioMayor > Ancho)
+                        celda.Ancho = (decimal)RadioMayor;
+                    else if (Ancho != null)
+                        celda.Ancho = (decimal)Ancho;
+                    else
+                        celda.Ancho = (decimal)RadioMayor;
+
+                    if (RadioMenor != null && Largo != null && RadioMenor > Largo)
+                        celda.Largo = (decimal)RadioMenor;
+                    else if (Largo != null)
+                        celda.Largo = (decimal)Largo;
+                    else
+                        celda.Largo = (decimal)RadioMenor;
+
+                    break;
+
+                //case 3:   TODO
+            }
+
+            return celda;
+        }
+
+
+        public decimal GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
+        {
+            return 0;
         }
 
         /*  (2)
