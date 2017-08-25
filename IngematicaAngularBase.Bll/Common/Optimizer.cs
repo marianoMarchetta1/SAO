@@ -64,6 +64,7 @@ namespace IngematicaAngularBase.Bll.Common
                     anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido); //TODO
                     vertices = lwPolyline.Vertexes;
                     hayEspacio = true;
+                    List<AreaOptimizacion> areaOptmizacion = GetSubAreas(vertices);
 
                     while (muebleListTemp.Count > 0 && hayEspacio)
                     {
@@ -138,6 +139,96 @@ namespace IngematicaAngularBase.Bll.Common
             return celda;
         }
 
+        public List<AreaOptimizacion> GetSubAreas(List<LwPolylineVertex> vertices)
+        {
+            double maximoY = vertices.Select(x => x.Position.Y).Max();
+            double maximoX = vertices.Select(x => x.Position.X).Max();
+            double minimoY = vertices.Select(x => x.Position.Y).Min();
+
+            netDxf.Vector2 derechaArriba = vertices
+                                            .Select(coordenadas => coordenadas.Position)
+                                            .Where(coordenadas => coordenadas.X == maximoX && coordenadas.Y == maximoY)
+                                            .First();
+
+            netDxf.Vector2 IzquierdaArriba = vertices
+                                                .Select(coordenadas => coordenadas.Position)
+                                                .Where(coordenadas => coordenadas.X != maximoX && coordenadas.Y == maximoY)
+                                                .First();
+
+            netDxf.Vector2 derechaAbajo = vertices
+                                            .Select(coordenadas => coordenadas.Position)
+                                            .Where(coordenadas => coordenadas.X == maximoX && coordenadas.Y == minimoY)
+                                            .First();
+
+            netDxf.Vector2 izquierdaAbajo = vertices
+                                                .Select(coordenadas => coordenadas.Position)
+                                                .Where(coordenadas => coordenadas.X != maximoX && coordenadas.Y == minimoY)
+                                                .First();
+
+            //Estos 2 pueden no estar
+            netDxf.Vector2 centralTemporalUno = vertices
+                                                .Select(coordenadas => coordenadas.Position)
+                                                .Where(coordenadas => coordenadas != derechaArriba &&
+                                                                      coordenadas != derechaAbajo &&
+                                                                      coordenadas != IzquierdaArriba &&
+                                                                      coordenadas != izquierdaAbajo)
+                                                .FirstOrDefault();
+
+            netDxf.Vector2 centralTemporalDos = vertices
+                                    .Select(coordenadas => coordenadas.Position)
+                                    .Where(coordenadas => coordenadas != derechaArriba &&
+                                                          coordenadas != derechaAbajo &&
+                                                          coordenadas != IzquierdaArriba &&
+                                                          coordenadas != izquierdaAbajo &&
+                                                          coordenadas != centralTemporalUno)
+                                    .FirstOrDefault();
+
+            netDxf.Vector2 centralMax;
+            netDxf.Vector2 centralMin;
+
+            if(centralTemporalUno != null && centralTemporalDos != null && centralTemporalUno.X > centralTemporalDos.X)
+            {
+                centralMax = centralTemporalUno;
+                centralMin = centralTemporalDos;
+            }
+            else
+            {
+                centralMax = centralTemporalDos;
+                centralMin = centralTemporalUno;
+            }
+
+            List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
+
+
+            if(centralTemporalUno == null && centralTemporalDos == null)
+            {
+                AreaOptimizacion areaOptimizacion = new AreaOptimizacion();
+                areaOptimizacion.MueblesList = new List<MueblesOptmizacion>();
+
+                areaOptimizacion.VerticeIzquierdaArriba.X = IzquierdaArriba.X;
+                areaOptimizacion.VerticeIzquierdaArriba.Y = IzquierdaArriba.Y;
+
+                areaOptimizacion.VerticeDerechaArriba.X = derechaArriba.X;
+                areaOptimizacion.VerticeDerechaArriba.Y = derechaArriba.Y;
+
+                areaOptimizacion.VerticeIzquierdaAbajo.X = izquierdaAbajo.X;
+                areaOptimizacion.VerticeIzquierdaAbajo.Y = izquierdaAbajo.Y;
+
+                areaOptimizacion.VerticeDerechaAbajo.X = derechaAbajo.X;
+                areaOptimizacion.VerticeDerechaAbajo.Y = derechaAbajo.Y;
+
+                areaOptimizacion.Area = Math.Abs( (derechaAbajo.X - izquierdaAbajo.X) * (derechaArriba.Y - derechaAbajo.Y));
+
+                areaOptimizacionList.Add(areaOptimizacion);
+            }/*else{
+                //Genera las 2 subAreas
+            }
+            */
+
+
+
+            return areaOptimizacionList;
+        }
 
         public decimal GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
         {

@@ -129,6 +129,7 @@
     <Compile Include="ViewModels\SecurityRolViewModel.cs" />
     <Compile Include="ViewModels\UsuarioListViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
+    <Compile Include="ViewModels\vector2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

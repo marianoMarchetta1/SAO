@@ -46,6 +46,36 @@ namespace IngematicaAngularBase.Model.ViewModels
         public decimal Ancho { get; set; }
     }
 
+    public class AreaOptimizacion
+    {
+        public Vector2 VerticeIzquierdaArriba { get; set; }
+        public Vector2 VerticeDerechaArriba { get; set; }
+
+        public Vector2 VerticeIzquierdaAbajo { get; set; }
+        public Vector2 VerticeDerechaAbajo { get; set; }
+
+        public double Area { get; set; }
+
+        public List<MueblesOptmizacion> MueblesList { get; set; }
+    }
+
+    public class MueblesOptmizacion
+    {
+        public MuebleViewModel Mueble { get; set; }
+
+        public Vector2 VerticeIzquierdaArriba { get; set; }
+        public Vector2 VerticeDerechaArriba { get; set; }
+
+        public Vector2 VerticeIzquierdaAbajo { get; set; }
+        public Vector2 VerticeDerechaAbajo { get; set; }
+    }
+
+    public class Vector2
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+    }
+
     public enum SentidoPasillosEnum
     {
         Largo = 1,
