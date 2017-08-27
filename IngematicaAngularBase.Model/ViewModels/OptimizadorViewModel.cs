@@ -42,15 +42,8 @@ namespace IngematicaAngularBase.Model.ViewModels
 
     public class Celda
     {
-        public decimal Largo { get; set; }
-        public decimal Ancho { get; set; }
-
-        // TODO: Descomentar
-        // public Vector2 VerticeIzquierdaArriba { get; set; }
-        // public Vector2 VerticeDerechaArriba { get; set; }
-
-        // public Vector2 VerticeIzquierdaAbajo { get; set; }
-        // public Vector2 VerticeDerechaAbajo { get; set; }
+        public double Largo { get; set; }
+        public double Ancho { get; set; }
     }
 
     public class AreaOptimizacion
@@ -63,9 +56,8 @@ namespace IngematicaAngularBase.Model.ViewModels
 
         public double Area { get; set; }
 
-        // TODO: Descomentar
-        // public decimal Largo { get; set; }
-        // public decimal Ancho { get; set; }
+        public double Largo { get; set; }
+        public double Ancho { get; set; }
 
         public List<MueblesOptmizacion> MueblesList { get; set; }
     }
@@ -79,6 +71,10 @@ namespace IngematicaAngularBase.Model.ViewModels
 
         public Vector2 VerticeIzquierdaAbajo { get; set; }
         public Vector2 VerticeDerechaAbajo { get; set; }
+
+        public double Largo { get; set; }
+        public double Ancho { get; set; }
+        public double Area { get; set; }
     }
 
     public class Vector2
