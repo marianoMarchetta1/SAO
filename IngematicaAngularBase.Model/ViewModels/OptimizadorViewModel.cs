@@ -1,4 +1,5 @@
 ﻿using IngematicaAngularBase.Model;
+using IngematicaAngularBase.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -64,7 +65,7 @@ namespace IngematicaAngularBase.Model.ViewModels
 
     public class MueblesOptmizacion
     {
-        public MuebleViewModel Mueble { get; set; }
+        public Mueble Mueble { get; set; }
 
         public Vector2 VerticeIzquierdaArriba { get; set; }
         public Vector2 VerticeDerechaArriba { get; set; }
