@@ -260,6 +260,11 @@ namespace IngematicaAngularBase.Bll.Common
                 VerticeDerechaAbajo.X = xMax + celda.Ancho;
                 celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
+                celdaMueble.Mueble = new Mueble();
+                celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
+
                 celdaList.Add(celdaMueble);
 
 
@@ -280,6 +285,11 @@ namespace IngematicaAngularBase.Bll.Common
                     VerticeDerechaAbajo.Y = VerticeDerechaArriba.Y - celda.Largo;
                     VerticeDerechaAbajo.X = VerticeDerechaArriba.X;
                     celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                    celdaMueble.Mueble = new Mueble();
+                    celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                     celdaList.Add(celdaMueble);      
                 }
