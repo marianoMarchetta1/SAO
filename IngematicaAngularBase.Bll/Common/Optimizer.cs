@@ -232,7 +232,61 @@ namespace IngematicaAngularBase.Bll.Common
 
         public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, double xMax, AreaOptimizacion areaOptimizacion)
         {
-            return null;
+            List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
+
+
+            if (xMax + celda.Ancho <= xMaxArea)
+            {
+
+                MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
+
+                Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                VerticeIzquierdaArriba.Y = areaOptimizacion.VerticeIzquierdaArriba.Y;
+                VerticeIzquierdaArriba.X = xMax;
+                celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
+
+                Model.ViewModels.Vector2 VerticeDerechaArriba = new Model.ViewModels.Vector2();
+                VerticeDerechaArriba.Y = areaOptimizacion.VerticeDerechaArriba.Y;
+                VerticeDerechaArriba.X = xMax + celda.Ancho;
+                celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
+
+                Model.ViewModels.Vector2 VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
+                VerticeIzquierdaAbajo.Y = VerticeIzquierdaArriba.Y - celda.Largo;
+                VerticeIzquierdaAbajo.X = xMax;
+                celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
+
+                Model.ViewModels.Vector2 VerticeDerechaAbajo = new Model.ViewModels.Vector2();
+                VerticeDerechaAbajo.Y = VerticeDerechaArriba.Y - celda.Largo;
+                VerticeDerechaAbajo.X = xMax + celda.Ancho;
+                celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                celdaList.Add(celdaMueble);
+
+
+                while (celdaMueble.VerticeIzquierdaAbajo.Y - celda.Largo >= areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                {
+                    celdaMueble = new MueblesOptmizacion();
+
+                    VerticeIzquierdaArriba = celdaList.Last().VerticeIzquierdaAbajo;
+
+                    VerticeDerechaArriba = celdaList.Last().VerticeDerechaAbajo;
+
+                    VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
+                    VerticeIzquierdaAbajo.Y = VerticeIzquierdaArriba.Y - celda.Ancho;
+                    VerticeIzquierdaAbajo.X = VerticeIzquierdaArriba.X;
+                    celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
+
+                    VerticeDerechaAbajo = new Model.ViewModels.Vector2();
+                    VerticeDerechaAbajo.Y = VerticeDerechaArriba.Y - celda.Largo;
+                    VerticeDerechaAbajo.X = VerticeDerechaArriba.X;
+                    celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                    celdaList.Add(celdaMueble);      
+                }
+
+            }
+
+            return celdaList;
         }
 
         #region
