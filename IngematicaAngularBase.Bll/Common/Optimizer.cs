@@ -470,25 +470,43 @@ namespace IngematicaAngularBase.Bll.Common
             double maximoX = vertices.Select(x => x.Position.X).Max();
             double minimoY = vertices.Select(x => x.Position.Y).Min();
 
-            netDxf.Vector2 derechaArriba = vertices
+            List<netDxf.Vector2> verticesSuperiores = vertices
+                                                        .Select(coordenadas => coordenadas.Position)
+                                                        .Where(coordenadas => coordenadas.Y == maximoY)
+                                                        .ToList();
+
+            netDxf.Vector2 derechaArriba = new netDxf.Vector2();
+            netDxf.Vector2 IzquierdaArriba = new netDxf.Vector2();
+
+            if(verticesSuperiores.ElementAt(0).X > verticesSuperiores.ElementAt(1).X)
+            {
+                derechaArriba = verticesSuperiores.ElementAt(0);
+                IzquierdaArriba = verticesSuperiores.ElementAt(1);
+            }
+            else
+            {
+                IzquierdaArriba = verticesSuperiores.ElementAt(0);
+                derechaArriba = verticesSuperiores.ElementAt(1);
+            }
+
+            List<netDxf.Vector2> verticesInferiores = vertices
                                             .Select(coordenadas => coordenadas.Position)
-                                            .Where(coordenadas => coordenadas.X == maximoX && coordenadas.Y == maximoY)
-                                            .First();
+                                            .Where(coordenadas => coordenadas.Y == minimoY)
+                                            .ToList();
 
-            netDxf.Vector2 IzquierdaArriba = vertices
-                                                .Select(coordenadas => coordenadas.Position)
-                                                .Where(coordenadas => coordenadas.X != maximoX && coordenadas.Y == maximoY)
-                                                .First();
+            netDxf.Vector2 derechaAbajo = new netDxf.Vector2();
+            netDxf.Vector2 izquierdaAbajo = new netDxf.Vector2();
 
-            netDxf.Vector2 derechaAbajo = vertices
-                                            .Select(coordenadas => coordenadas.Position)
-                                            .Where(coordenadas => coordenadas.X == maximoX && coordenadas.Y == minimoY)
-                                            .First();
-
-            netDxf.Vector2 izquierdaAbajo = vertices
-                                                .Select(coordenadas => coordenadas.Position)
-                                                .Where(coordenadas => coordenadas.X != maximoX && coordenadas.Y == minimoY)
-                                                .First();
+            if (verticesInferiores.ElementAt(0).X > verticesInferiores.ElementAt(1).X)
+            {
+                derechaAbajo = verticesInferiores.ElementAt(0);
+                izquierdaAbajo = verticesInferiores.ElementAt(1);
+            }
+            else
+            {
+                izquierdaAbajo = verticesInferiores.ElementAt(0);
+                derechaAbajo = verticesInferiores.ElementAt(1);
+            }
 
             //Estos 2 pueden no estar
             netDxf.Vector2 centralTemporalUno = vertices
@@ -527,8 +545,8 @@ namespace IngematicaAngularBase.Bll.Common
             List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
 
 
-            if ((centralTemporalUno.X != 0 || centralTemporalUno.Y != 0)
-                && (centralTemporalDos.X != 0 || centralTemporalDos.Y != 0))
+            if ((centralTemporalUno.X == 0 || centralTemporalUno.Y == 0)
+                && (centralTemporalDos.X == 0 || centralTemporalDos.Y == 0))
             {
                 AreaOptimizacion areaOptimizacion = new AreaOptimizacion();
                 areaOptimizacion.VerticeDerechaAbajo = new Model.ViewModels.Vector2();
