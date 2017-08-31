@@ -619,6 +619,25 @@ namespace IngematicaAngularBase.Bll.Common
 
         public double GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
         {
+            /*
+            //TODO: Revisar y descomentar
+            int CantidadPersonas = 0;// TODO: Asignar parámetro de entrada x pantalla "CantidadPersonas"
+            if (CantidadPersonas <= 30)
+            {
+                return 1.10;
+            }
+            else
+            {
+                if (CantidadPersonas > 30 && CantidadPersonas <= 50)
+                {
+                    return 1.20;
+                }
+                else
+                {
+                    return 1.20 + ((CantidadPersonas - 50) / 15) * 0.15;
+                }
+            }
+            */
             return 0;
         }
 
