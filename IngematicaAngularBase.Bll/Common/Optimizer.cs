@@ -59,9 +59,13 @@ namespace IngematicaAngularBase.Bll.Common
             bool hayEspacio;//Se usa dsp de la compactacion
             int index;
 
+            #region
+            //Cada mueble se tiene que repetir la cantidad de veces que este en muebleCantidadList
+            #endregion
+            muebleList = ReplicacarMuebles();
+
             foreach(var sentido in Enum.GetValues(typeof(SentidoPasillosEnum)))
-            {
-                //Modificar esta lista. Cada mueble se tiene que repetir la cantidad de veces que este en muebleCantidadList
+            {               
                 muebleListTemp = new List<Mueble>(muebleList).OrderBy(x => x.OrdenDePrioridad).ToList();
 
                 foreach (LwPolyline lwPolyline in initialFlat.LwPolylines)
@@ -76,7 +80,7 @@ namespace IngematicaAngularBase.Bll.Common
                         celda = GetTamañoMaximoCelda(muebleListTemp, (int)sentido);
                         index = UbicarMuebles(areaOptmizacion, muebleListTemp, (int)sentido, anchoPasillos, celda);
 
-                        if (index == 0)
+                        if (index == -1)
                             break;
 
                         hayEspacio = false;
@@ -86,6 +90,25 @@ namespace IngematicaAngularBase.Bll.Common
             }
 
             return null;
+        }
+
+        public List<Mueble> ReplicacarMuebles()
+        {
+            List<Mueble> mueblesReplicados = new List<Mueble>();
+            int cantidad = 0;
+
+            foreach(Mueble mueble in muebleList)
+            {
+                cantidad = muebleCantidadList.Where(x => x.IdMueble == mueble.IdMueble).Select(x => x.Cantidad).First();
+
+                for(int i = 0; i < cantidad; i++)
+                {
+                    Mueble muebleCopy = mueble;
+                    mueblesReplicados.Add(mueble);
+                }
+            }
+
+            return mueblesReplicados;
         }
 
         #region comment 
@@ -100,7 +123,7 @@ namespace IngematicaAngularBase.Bll.Common
 
             int index = GetSubAreaConEspacio(areaOptimizacion, celda);
 
-            if (index == 0)
+            if (index == -1)
                 return index;
 
             if(sentido == (int)SentidoPasillosEnum.Largo)
@@ -399,7 +422,7 @@ namespace IngematicaAngularBase.Bll.Common
                 
             }
 
-            return 0;
+            return -1;
         }
 
         #region
