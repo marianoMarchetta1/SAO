@@ -70,7 +70,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                 foreach (LwPolyline lwPolyline in initialFlat.LwPolylines)
                 {
-                    anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido); //TODO
+                    anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido);
                     vertices = lwPolyline.Vertexes;
                     hayEspacio = true;
                     List<AreaOptimizacion> areaOptmizacion = GetSubAreas(vertices);
@@ -157,9 +157,23 @@ namespace IngematicaAngularBase.Bll.Common
             double xMaxArea;
 
             xMaxArea = areaOptimizacion.VerticeDerechaAbajo.X;
-            xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
-            derechaAbajo = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x => x.X == xMax).Min();
-            izquierdaAbajo = areaOptimizacion.MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaAbajo).First();
+
+            if (areaOptimizacion.MueblesList.Count == 0)
+            {
+                #region
+                // Area Vacía
+                #endregion
+                xMax            = areaOptimizacion.VerticeIzquierdaArriba.X + celda.Ancho;
+                izquierdaAbajo  = areaOptimizacion.VerticeIzquierdaArriba;
+                derechaAbajo.X  = areaOptimizacion.VerticeIzquierdaArriba.X + celda.Ancho;
+                derechaAbajo.Y  = areaOptimizacion.VerticeIzquierdaArriba.Y;
+            }
+            else
+            { 
+                xMax           = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
+                derechaAbajo   = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x => x.X == xMax).Min();
+                izquierdaAbajo = areaOptimizacion.MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaAbajo).First();
+            }
 
             #region
             //Completo la fila incompleta
@@ -330,7 +344,7 @@ namespace IngematicaAngularBase.Bll.Common
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
 
-            while(izquierdaAbajo.Y + celda.Largo >= limiteInferior) {
+            while(izquierdaAbajo.Y - celda.Largo >= limiteInferior) {
 
                 if (izquierdaAbajo.X + celda.Ancho <= xMaxArea) {
 
@@ -613,10 +627,10 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeDerechaArriba.X = derechaArriba.X;
                 areaOptimizacion.VerticeDerechaArriba.Y = derechaArriba.Y;
 
-                areaOptimizacion.VerticeIzquierdaAbajo.X = centralMin.X;
+                areaOptimizacion.VerticeIzquierdaAbajo.X = IzquierdaArriba.X;
                 areaOptimizacion.VerticeIzquierdaAbajo.Y = centralMin.Y;
 
-                areaOptimizacion.VerticeDerechaAbajo.X = centralMax.X;
+                areaOptimizacion.VerticeDerechaAbajo.X = derechaArriba.X;
                 areaOptimizacion.VerticeDerechaAbajo.Y = centralMax.Y;
 
                 areaOptimizacion.Ancho = Math.Abs(areaOptimizacion.VerticeDerechaAbajo.X - areaOptimizacion.VerticeIzquierdaAbajo.X);
@@ -635,10 +649,10 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
                 areaOptimizacion.MueblesList = new List<MueblesOptmizacion>();
 
-                areaOptimizacion.VerticeIzquierdaArriba.X = centralMin.X;
+                areaOptimizacion.VerticeIzquierdaArriba.X = izquierdaAbajo.X;
                 areaOptimizacion.VerticeIzquierdaArriba.Y = centralMin.Y;
 
-                areaOptimizacion.VerticeDerechaArriba.X = centralMax.X;
+                areaOptimizacion.VerticeDerechaArriba.X = derechaAbajo.X;
                 areaOptimizacion.VerticeDerechaArriba.Y = centralMax.Y;
 
                 areaOptimizacion.VerticeIzquierdaAbajo.X = izquierdaAbajo.X;
@@ -660,9 +674,8 @@ namespace IngematicaAngularBase.Bll.Common
 
         public double GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
         {
-            /*
-            //TODO: Revisar y descomentar
-            int CantidadPersonas = 0;// TODO: Asignar parámetro de entrada x pantalla "CantidadPersonas"
+            // TODO: Asignar parámetro de entrada x pantalla "CantidadPersonas"
+            int CantidadPersonas = 10;
             if (CantidadPersonas <= 30)
             {
                 return 1.10;
@@ -678,7 +691,6 @@ namespace IngematicaAngularBase.Bll.Common
                     return 1.20 + ((CantidadPersonas - 50) / 15) * 0.15;
                 }
             }
-            */
             return 0;
         }
 
