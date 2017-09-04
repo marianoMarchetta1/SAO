@@ -29,8 +29,9 @@ namespace IngematicaAngularBase.Bll.Common
         private bool optimizarCosto;
         private decimal costoMaximo;
         private string escala;
+        public int? cantidadPersonas;
 
-        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam)
+        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam, int? cantidadPersonasParam)
         {
             this.initialFlat = dxfDocument;
             this.optimizarCosto = optimizarCostoParam;
@@ -38,6 +39,7 @@ namespace IngematicaAngularBase.Bll.Common
             this.muebleCantidadList = muebleCantidadListParam;
             this.muebleList = muebleListParam;
             this.escala = escalaParam;
+            this.cantidadPersonas = cantidadPersonasParam;
         }
 
 
@@ -58,11 +60,13 @@ namespace IngematicaAngularBase.Bll.Common
             List<Mueble> muebleListTemp;
             bool hayEspacio;//Se usa dsp de la compactacion
             int index;
+            int factorEscala;
 
+            factorEscala = GetEscala();
             #region
             //Cada mueble se tiene que repetir la cantidad de veces que este en muebleCantidadList
             #endregion
-            muebleList = ReplicacarMuebles();
+            muebleList = ReplicacarMuebles(factorEscala);
 
             foreach(var sentido in Enum.GetValues(typeof(SentidoPasillosEnum)))
             {               
@@ -92,7 +96,23 @@ namespace IngematicaAngularBase.Bll.Common
             return null;
         }
 
-        public List<Mueble> ReplicacarMuebles()
+        public int GetEscala()
+        {
+            string result = "";
+
+            for(int i = 0; i < escala.Length; i++)
+            {
+                if (escala.ElementAt(i) != ':')
+                    result += escala.ElementAt(i);
+                else
+                    break;
+            }
+
+            return Int32.Parse(result);
+        }
+
+
+        public List<Mueble> ReplicacarMuebles(int factorEscala)
         {
             List<Mueble> mueblesReplicados = new List<Mueble>();
             int cantidad = 0;
@@ -104,6 +124,12 @@ namespace IngematicaAngularBase.Bll.Common
                 for(int i = 0; i < cantidad; i++)
                 {
                     Mueble muebleCopy = mueble;
+                    muebleCopy.Ancho = muebleCopy.Ancho * factorEscala;
+                    muebleCopy.DistanciaParedes = muebleCopy.DistanciaParedes * factorEscala;
+                    muebleCopy.DistanciaProximoMueble = muebleCopy.DistanciaProximoMueble * factorEscala;
+                    muebleCopy.Largo = muebleCopy.Largo * factorEscala;
+                    muebleCopy.RadioMayor = muebleCopy.RadioMayor * factorEscala;
+                    muebleCopy.RadioMenor = muebleCopy.RadioMenor * factorEscala;
                     mueblesReplicados.Add(mueble);
                 }
             }
@@ -674,8 +700,8 @@ namespace IngematicaAngularBase.Bll.Common
 
         public double GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
         {
-            // TODO: Asignar parámetro de entrada x pantalla "CantidadPersonas"
-            int CantidadPersonas = 10;
+            int CantidadPersonas = cantidadPersonas == null ? 0 : (int)cantidadPersonas;
+
             if (CantidadPersonas <= 30)
             {
                 return 1.10;
