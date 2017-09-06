@@ -369,11 +369,10 @@ namespace IngematicaAngularBase.Bll.Common
         public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaAbajo, double limiteInferior)
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
-
-            while(izquierdaAbajo.Y - celda.Largo >= limiteInferior) {
-
-                if (izquierdaAbajo.X + celda.Ancho <= xMaxArea) {
-
+            if (izquierdaAbajo.X + celda.Ancho <= xMaxArea)
+            {
+                while (izquierdaAbajo.Y - celda.Largo >= limiteInferior)
+                {
                     MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
                     celdaMueble.VerticeIzquierdaArriba = izquierdaAbajo;
 
@@ -402,20 +401,8 @@ namespace IngematicaAngularBase.Bll.Common
 
                     izquierdaAbajo = celdaMueble.VerticeIzquierdaAbajo;
                 }
-                else
-                {
-                    #region
-                    //En caso de que me pase del X maximo de la subarea.
-                    #endregion
-                    break;
-                }
             }
             return celdaList;
-        }
-
-        public List<Celda> GetCeldaList(double xMaxArea, Celda celda)
-        {
-            return null;
         }
 
         public void UbicarMueblesEnAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebleList, int sentido, double anchoPasillos, Celda celda)
@@ -489,7 +476,7 @@ namespace IngematicaAngularBase.Bll.Common
                     //Genera una nueva fila de celdas
                     //usa xMax porque en caso de que quede formato cerrucho x compactacion, se desprecia una pequeña parte del plano
                     #endregion
-                    //celdaList = GetCeldaListHorizontal(xMaxArea, celda, yMin, areaOptimizacion);
+                    celdaList = GetCeldaListHorizontal(celda, yMin, areaOptimizacion);
 
                     #region
                     //tanto GetCeldaList como InsertarPasillo validan no pasarse del limite del subarea
@@ -506,6 +493,73 @@ namespace IngematicaAngularBase.Bll.Common
                 //con celdaList > 0 valido que se haya incertado algo en la iteracion anterior
                 #endregion
             }
+        }
+
+        public List<MueblesOptmizacion> GetCeldaListHorizontal(Celda celda, double yMin, AreaOptimizacion areaOptimizacion)
+        {
+            List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
+
+            if (yMin - celda.Largo >= areaOptimizacion.VerticeDerechaAbajo.Y)
+            {
+                MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
+
+                Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                VerticeIzquierdaArriba.Y = yMin;
+                VerticeIzquierdaArriba.X = areaOptimizacion.VerticeIzquierdaAbajo.X;
+                celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
+
+                Model.ViewModels.Vector2 VerticeDerechaArriba = new Model.ViewModels.Vector2();
+                VerticeDerechaArriba.Y = VerticeIzquierdaArriba.Y;
+                VerticeDerechaArriba.X = VerticeIzquierdaArriba.X + celda.Ancho;
+                celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
+
+                Model.ViewModels.Vector2 VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
+                VerticeIzquierdaAbajo.Y = VerticeIzquierdaArriba.Y - celda.Largo;
+                VerticeIzquierdaAbajo.X = VerticeIzquierdaArriba.X;
+                celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
+
+                Model.ViewModels.Vector2 VerticeDerechaAbajo = new Model.ViewModels.Vector2();
+                VerticeDerechaAbajo.Y = VerticeDerechaArriba.Y - celda.Largo;
+                VerticeDerechaAbajo.X = VerticeDerechaArriba.X;
+                celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                celdaMueble.Mueble = new Mueble();
+                celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
+
+                celdaList.Add(celdaMueble);
+
+
+                while (celdaMueble.VerticeDerechaAbajo.X + celda.Ancho <= areaOptimizacion.VerticeDerechaAbajo.X)
+                {
+                    celdaMueble = new MueblesOptmizacion();
+
+                    VerticeIzquierdaArriba = celdaList.Last().VerticeDerechaArriba;
+
+                    VerticeIzquierdaAbajo = celdaList.Last().VerticeIzquierdaAbajo;
+
+                    VerticeDerechaArriba = new Model.ViewModels.Vector2();
+                    VerticeDerechaArriba.Y = VerticeIzquierdaArriba.Y;
+                    VerticeDerechaArriba.X = VerticeIzquierdaArriba.X +celda.Ancho;
+                    celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
+
+                    VerticeDerechaAbajo = new Model.ViewModels.Vector2();
+                    VerticeDerechaAbajo.Y = VerticeIzquierdaAbajo.Y;
+                    VerticeDerechaAbajo.X = VerticeIzquierdaAbajo.X + celda.Ancho;
+                    celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                    celdaMueble.Mueble = new Mueble();
+                    celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
+
+                    celdaList.Add(celdaMueble);
+                }
+
+            }
+
+            return celdaList;
         }
 
         public void InsertarPasilloEnAncho(AreaOptimizacion areaOptimizacion, double anchoPasillos, double yMin)
