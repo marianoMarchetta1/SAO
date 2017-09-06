@@ -78,5 +78,39 @@ namespace IngematicaAngularBase.Bll
                 context.SaveChanges();
             }
         }
+
+        public Mueble Clone(Mueble entity)
+        {
+            Mueble entityClone = new Mueble();
+            entityClone.Activo                 = entity.Activo;
+            entityClone.Ancho                  = entity.Ancho;
+            entityClone.Codigo                 = entity.Codigo;
+            entityClone.DistanciaParedes       = entity.DistanciaParedes;
+            entityClone.DistanciaProximoMueble = entity.DistanciaProximoMueble;
+            entityClone.FechaAlta              = entity.FechaAlta;
+            entityClone.FechaModificacion      = entity.FechaModificacion;
+            entityClone.IdMueble               = entity.IdMueble;
+            entityClone.IdUsuarioAlta          = entity.IdUsuarioAlta;
+            entityClone.IdUsuarioModificacion  = entity.IdUsuarioModificacion;
+            entityClone.Imagen                 = entity.Imagen;
+            entityClone.Largo                  = entity.Largo;
+            entityClone.Nombre                 = entity.Nombre;
+            entityClone.OrdenDePrioridad       = entity.OrdenDePrioridad;
+            entityClone.PoseeRadio             = entity.PoseeRadio;
+            entityClone.Precio                 = entity.Precio;
+            entityClone.RadioMayor             = entity.RadioMayor;
+            entityClone.RadioMenor             = entity.RadioMenor;
+            entityClone.Usuario                = entity.Usuario;
+            entityClone.Usuario1               = entity.Usuario1;
+            return entityClone;
+
+        }
+
+        public netDxf.Entities.LwPolylineVertex ConvertVertex(Vector2 vertice)
+        {
+            netDxf.Vector2 posicion = new netDxf.Vector2(vertice.X, vertice.Y);
+            return new netDxf.Entities.LwPolylineVertex(posicion);
+        }
+
     }
 }

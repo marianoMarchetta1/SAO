@@ -77,7 +77,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                 foreach (LwPolyline lwPolyline in initialFlat.LwPolylines)
                 {
-                    anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido);
+                    anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido, factorEscala);
                     vertices = lwPolyline.Vertexes;
                     hayEspacio = true;
                     List<AreaOptimizacion> areaOptmizacion = GetSubAreas(vertices);
@@ -110,6 +110,39 @@ namespace IngematicaAngularBase.Bll.Common
 
         public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
         {
+            // CODIGO PARA TESTING - BORRAR******************************************
+
+            //  Recorrer lista de AreaOptimizacion
+            //  Convertir listas de muebles en listas de LwPolylines 
+            //  Agregar listas de LwPolylines al plano original
+            //  Grabar plano
+
+            string filename = "C:\\Temp\\Test_1.dxf";
+            MuebleBusiness mb = new MuebleBusiness();
+
+            foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
+            {
+                foreach (AreaOptimizacion area in areaList)
+                {
+                    foreach (MueblesOptmizacion muebleOpt in area.MueblesList)
+                    {
+                        if (!muebleOpt.Mueble.PoseeRadio)
+                        {
+                            List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
+                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaAbajo));
+                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaArriba));
+                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaArriba));
+                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaAbajo));
+                            initialFlat.AddEntity(new LwPolyline(lpVertex,true));
+
+                        }
+                    }
+                }
+            }
+
+            initialFlat.Save(filename); 
+            //***********************************************************************
+
             return null;
         }
 
@@ -140,14 +173,15 @@ namespace IngematicaAngularBase.Bll.Common
 
                 for(int i = 0; i < cantidad; i++)
                 {
-                    Mueble muebleCopy = mueble;
-                    muebleCopy.Ancho = muebleCopy.Ancho * factorEscala;
-                    muebleCopy.DistanciaParedes = muebleCopy.DistanciaParedes * factorEscala;
+                    MuebleBusiness mb = new MuebleBusiness();
+                    Mueble muebleCopy =  mb.Clone(mueble);
+                    muebleCopy.Ancho                  = muebleCopy.Ancho * factorEscala;
+                    muebleCopy.DistanciaParedes       = muebleCopy.DistanciaParedes * factorEscala;
                     muebleCopy.DistanciaProximoMueble = muebleCopy.DistanciaProximoMueble * factorEscala;
-                    muebleCopy.Largo = muebleCopy.Largo * factorEscala;
-                    muebleCopy.RadioMayor = muebleCopy.RadioMayor * factorEscala;
-                    muebleCopy.RadioMenor = muebleCopy.RadioMenor * factorEscala;
-                    mueblesReplicados.Add(mueble);
+                    muebleCopy.Largo                  = muebleCopy.Largo * factorEscala;
+                    muebleCopy.RadioMayor             = muebleCopy.RadioMayor * factorEscala;
+                    muebleCopy.RadioMenor             = muebleCopy.RadioMenor * factorEscala;
+                    mueblesReplicados.Add(muebleCopy);
                 }
             }
 
@@ -922,23 +956,23 @@ namespace IngematicaAngularBase.Bll.Common
             return areaOptimizacionList;
         }
 
-        public double GetAnchoPasillo(LwPolyline lwPolyline, int sentido)
+        public double GetAnchoPasillo(LwPolyline lwPolyline, int sentido, int factorEscala)
         {
             int CantidadPersonas = cantidadPersonas == null ? 0 : (int)cantidadPersonas;
 
             if (CantidadPersonas <= 30)
             {
-                return 1.10;
+                return 1.10 * factorEscala;
             }
             else
             {
                 if (CantidadPersonas > 30 && CantidadPersonas <= 50)
                 {
-                    return 1.20;
+                    return 1.20 * factorEscala;
                 }
                 else
                 {
-                    return 1.20 + ((CantidadPersonas - 50) / 15) * 0.15;
+                    return (1.20 + ((CantidadPersonas - 50) / 15) * 0.15) * factorEscala;
                 }
             }
             return 0;
