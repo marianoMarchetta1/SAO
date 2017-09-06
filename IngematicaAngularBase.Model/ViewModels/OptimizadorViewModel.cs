@@ -87,7 +87,7 @@ namespace IngematicaAngularBase.Model.ViewModels
     public enum SentidoPasillosEnum
     {
         Largo = 1,
-        Ancho = 2,
-        Cruzado = 3
+        Ancho = 2/*,
+        Cruzado = 3*/
     }
 }

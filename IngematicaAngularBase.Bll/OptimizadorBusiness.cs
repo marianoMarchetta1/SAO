@@ -33,7 +33,7 @@ namespace IngematicaAngularBase.Bll
             }
         }
 
-        public string Generate(OptimizadorOptimizacionViewModel file)
+        public List<string> Generate(OptimizadorOptimizacionViewModel file)
         {
             using (var context = new Entities())
             {
@@ -49,17 +49,24 @@ namespace IngematicaAngularBase.Bll
                                                     file.Escala,
                                                     file.CantidadPersonas);
 
-                DxfDocument dxfFinal = optimizer.Generate();
+                List<DxfDocument> dxfsFinals = optimizer.Generate();
 
-                string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"] + "\\temp.dxf";
-                dxfFinal.Save(path);
+                string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
+                List<string> paths = new List<string>();
 
-                //if(file.RegistrarEnHistorial){
-                //  OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(Entities);
-                //  optimizadorDataAccess.AddHistory(dxfFinal);         -> almacena en un tabla de la base el "historial" que seria la lista de entidades del plano
-                //}
+                foreach(DxfDocument dxf in dxfsFinals)
+                {
+                    string pathTemp = path + "\\temp " + DateTime.Now + ".dxf";
+                    paths.Add(path);
+                    dxf.Save(pathTemp);
 
-                return path;
+                    //if(file.RegistrarEnHistorial){
+                    //  OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(Entities);
+                    //  optimizadorDataAccess.AddHistory(dxfFinal);         -> almacena en un tabla de la base el "historial" que seria la lista de entidades del plano
+                    //}
+                }
+
+                return paths;
             }
         }
     }

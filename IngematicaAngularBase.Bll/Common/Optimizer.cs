@@ -46,13 +46,14 @@ namespace IngematicaAngularBase.Bll.Common
         #region
         //Agregar consideracion de la escala del plano. Los muebles los tomamos en metros en el momento del alta. Al final.
         #endregion
-        public DxfDocument Generate()
+        public List<DxfDocument> Generate()
         {
             #region
             // validar cantidad de personas por metro cuadrado. Si hay de mas => lanzo excepcion.
             //Considero que la cantida de muebles solicitados es para el total de regiones que esten en el dxf
             #endregion
 
+            List<DxfDocument> finalFlats = new List<DxfDocument>();
             DxfDocument finalFlat = new DxfDocument();
             List<LwPolylineVertex> vertices = new List<LwPolylineVertex>();
             double anchoPasillos = 0; 
@@ -72,6 +73,8 @@ namespace IngematicaAngularBase.Bll.Common
             {               
                 muebleListTemp = new List<Mueble>(muebleList).OrderBy(x => x.OrdenDePrioridad).ToList();
 
+                List<List<AreaOptimizacion>> plano = new List<List<AreaOptimizacion>>();
+
                 foreach (LwPolyline lwPolyline in initialFlat.LwPolylines)
                 {
                     anchoPasillos = GetAnchoPasillo(lwPolyline, (int)sentido);
@@ -90,9 +93,23 @@ namespace IngematicaAngularBase.Bll.Common
                         hayEspacio = false;
                         //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
                     }
+
+                    #region
+                    //Inserto cada polyline o area luego de insertar todos los muebles que pueda, las compactaciones, etc.
+                    #endregion
+                    plano.Add(areaOptmizacion);
                 }
+
+                finalFlat = GrabarPlano(plano);
+                finalFlats.Add(finalFlat);
+                finalFlat = new DxfDocument();
             }
 
+            return finalFlats;
+        }
+
+        public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
+        {
             return null;
         }
 
