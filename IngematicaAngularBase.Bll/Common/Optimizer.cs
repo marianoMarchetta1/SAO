@@ -90,6 +90,7 @@ namespace IngematicaAngularBase.Bll.Common
                         if (index == -1)
                             break;
 
+                        // TODO: Corregir, cuando pone el espacio en false, no utiliza el ultimo subarea
                         hayEspacio = false;
                         //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
                     }
@@ -124,17 +125,21 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 foreach (AreaOptimizacion area in areaList)
                 {
-                    foreach (MueblesOptmizacion muebleOpt in area.MueblesList)
-                    {
-                        if (!muebleOpt.Mueble.PoseeRadio)
-                        {
-                            List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
-                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaAbajo));
-                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaArriba));
-                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaArriba));
-                            lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaAbajo));
-                            initialFlat.AddEntity(new LwPolyline(lpVertex,true));
 
+                    if (area.MueblesList.Count != 0)
+                    {
+                        foreach (MueblesOptmizacion muebleOpt in area.MueblesList)
+                        {
+                            if (!muebleOpt.Mueble.PoseeRadio)
+                            {
+                                List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
+                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaAbajo));
+                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaArriba));
+                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaArriba));
+                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaAbajo));
+                                initialFlat.AddEntity(new LwPolyline(lpVertex, true));
+
+                            }
                         }
                     }
                 }
@@ -330,6 +335,10 @@ namespace IngematicaAngularBase.Bll.Common
                 VerticeDerechaAbajo.X = xMax + anchoPasillos;
                 pasillo.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
+                pasillo.Ancho = anchoPasillos;
+                pasillo.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                pasillo.Area = pasillo.Ancho * pasillo.Largo;
+
                 areaOptimizacion.MueblesList.Add(pasillo);
             }
         }
@@ -387,11 +396,13 @@ namespace IngematicaAngularBase.Bll.Common
                     celdaMueble = new MueblesOptmizacion();
 
                     VerticeIzquierdaArriba = celdaList.Last().VerticeIzquierdaAbajo;
+                    celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
 
                     VerticeDerechaArriba = celdaList.Last().VerticeDerechaAbajo;
+                    celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
 
                     VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
-                    VerticeIzquierdaAbajo.Y = VerticeIzquierdaArriba.Y - celda.Ancho;
+                    VerticeIzquierdaAbajo.Y = VerticeIzquierdaArriba.Y - celda.Largo;
                     VerticeIzquierdaAbajo.X = VerticeIzquierdaArriba.X;
                     celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
 
