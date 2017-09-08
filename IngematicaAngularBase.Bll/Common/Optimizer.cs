@@ -112,48 +112,8 @@ namespace IngematicaAngularBase.Bll.Common
         }
 
         public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
-        {
-            #region
-            /*
-            // CODIGO PARA TESTING - BORRAR******************************************
-
-            //  Recorrer lista de AreaOptimizacion
-            //  Convertir listas de muebles en listas de LwPolylines 
-            //  Agregar listas de LwPolylines al plano original
-            //  Grabar plano
-
-            string filename = "C:\\Temp\\Test_1.dxf";
-            MuebleBusiness mb = new MuebleBusiness();
-
-            foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
-            {
-                foreach (AreaOptimizacion area in areaList)
-                {
-
-                    if (area.MueblesList.Count != 0)
-                    {
-                        foreach (MueblesOptmizacion muebleOpt in area.MueblesList)
-                        {
-                            if (!muebleOpt.Mueble.PoseeRadio)
-                            {
-                                List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
-                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaAbajo));
-                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeIzquierdaArriba));
-                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaArriba));
-                                lpVertex.Add(mb.ConvertVertex(muebleOpt.VerticeDerechaAbajo));
-                                initialFlat.AddEntity(new LwPolyline(lpVertex, true));
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            initialFlat.Save(filename); 
-            //***********************************************************************
-
-            */
-            #endregion
+        {            
+            string filename = "C:\\Temp\\Test_4.dxf"; // LINEA PARA TESTING - BORRAR
 
             MuebleBusiness mb = new MuebleBusiness();
 
@@ -180,8 +140,10 @@ namespace IngematicaAngularBase.Bll.Common
 
             DxfDocument dxfFinal = new DxfDocument();
 
-            foreach (LwPolyline lwpl in initialFlat.LwPolylines)
-                dxfFinal.AddEntity(lwpl);
+            //TODO: Clonar LwPolynine y luego asignar -> pincha sino
+            //foreach (LwPolyline lwpl in initialFlat.LwPolylines)
+            //dxfFinal.AddEntity(lwpl);
+            dxfFinal = initialFlat;  // LINEA PARA TESTING - BORRAR DESPUES DE CORREGIR
 
             foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
             {
@@ -196,7 +158,7 @@ namespace IngematicaAngularBase.Bll.Common
                             lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaArriba));
                             lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
                             lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
-                            initialFlat.AddEntity(new LwPolyline(lpVertex, true));
+                            dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
 
                         }
                         else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
@@ -204,6 +166,7 @@ namespace IngematicaAngularBase.Bll.Common
                             Circle circulo = new Circle();
                             circulo.Radius = mueble.Mueble.RadioMayor != null ? System.Convert.ToDouble(mueble.Mueble.RadioMayor) : System.Convert.ToDouble(mueble.Mueble.RadioMenor);
                             circulo.Center = GetCentro(mueble);
+                            dxfFinal.AddEntity(circulo);
                         }
                         else
                         {
@@ -211,11 +174,12 @@ namespace IngematicaAngularBase.Bll.Common
                             elipse.MajorAxis = System.Convert.ToDouble(mueble.Mueble.RadioMayor);
                             elipse.MinorAxis = System.Convert.ToDouble(mueble.Mueble.RadioMenor);
                             elipse.Center = GetCentro(mueble);
+                            dxfFinal.AddEntity(elipse);
                         }
                     }
                 }
             }
-
+            dxfFinal.Save(filename); // LINEA PARA TESTING - BORRAR 
             return dxfFinal;
         }
 
@@ -351,13 +315,16 @@ namespace IngematicaAngularBase.Bll.Common
 
                 xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
 
-                InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                if (celdaList.Count != 0)
+                {
+                    InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                }  
             }
 
             #region
             //si no valido esto pueden quedar 2 pasillos contiguos
             #endregion
-            if (muebleList.Count > 0)
+            if (muebleList.Count > 0 && areaOptimizacion.MueblesList.Count != 0)
             {
                 do
                 {
@@ -378,7 +345,10 @@ namespace IngematicaAngularBase.Bll.Common
 
                     xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
 
-                    InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                    if (celdaList.Count != 0)
+                    {
+                        InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                    }
 
                 } while (muebleList.Count > 0 && celdaList.Count > 0);
                 #region
@@ -568,7 +538,7 @@ namespace IngematicaAngularBase.Bll.Common
                 izquierdaArriba.Y = areaOptimizacion.VerticeIzquierdaArriba.Y;
 
                 izquierdaAbajo.X = areaOptimizacion.VerticeIzquierdaArriba.X;
-                izquierdaAbajo.Y = izquierdaAbajo.Y - celda.Largo;
+                izquierdaAbajo.Y = izquierdaArriba.Y - celda.Largo;
             }
             else
             {
@@ -606,7 +576,7 @@ namespace IngematicaAngularBase.Bll.Common
             #region
             //si no valido esto pueden quedar 2 pasillos contiguos
             #endregion
-            if (muebleList.Count > 0)
+            if (muebleList.Count > 0 && areaOptimizacion.MueblesList.Count != 0 )
             {
                 do
                 {
@@ -750,8 +720,8 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
 
                 Model.ViewModels.Vector2 VerticeDerechaArriba = new Model.ViewModels.Vector2();
-                VerticeDerechaArriba.Y = celdaMueble.VerticeIzquierdaArriba.Y + celda.Ancho;
-                VerticeDerechaArriba.X = celdaMueble.VerticeIzquierdaArriba.X;
+                VerticeDerechaArriba.Y = celdaMueble.VerticeIzquierdaArriba.Y;
+                VerticeDerechaArriba.X = celdaMueble.VerticeIzquierdaArriba.X + celda.Ancho;
                 celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
 
                 Model.ViewModels.Vector2 VerticeDerechaAbajo = new Model.ViewModels.Vector2();
@@ -766,7 +736,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                 celdaList.Add(celdaMueble);
 
-                izquierdaArriba = celdaMueble.VerticeIzquierdaArriba;
+                izquierdaArriba = celdaMueble.VerticeDerechaArriba;
             }
             return celdaList;
         }
@@ -784,13 +754,18 @@ namespace IngematicaAngularBase.Bll.Common
             Model.ViewModels.Vector2 izquierdaAbajo = new Model.ViewModels.Vector2();
             Model.ViewModels.Vector2 derechaAbajo = new Model.ViewModels.Vector2();
             double xMax;
+            double yMin;
 
             for (int i = 0; i < areaOptimizacion.Count; i++)
             {
                 if (areaOptimizacion[i].MueblesList.Any())
                 {
                     xMax = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
-                    derechaAbajo = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x=> x.X == xMax).Min();
+
+                    List<Model.ViewModels.Vector2> listVertices = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x => x.X == xMax).ToList();
+                    yMin = listVertices.Select(y => y.Y).Min();
+                    // Vertice derechaAbajo del ultimo mueble agregado
+                    derechaAbajo = listVertices.Where(y => y.Y == yMin).Select(y => y).First();
                     derechaArriba = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeDerechaArriba).First();
                     izquierdaAbajo = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaAbajo).First();
                     izquierdaArriba = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaArriba).First();
@@ -799,7 +774,9 @@ namespace IngematicaAngularBase.Bll.Common
                     if (derechaAbajo == areaOptimizacion[i].VerticeDerechaAbajo)
                         continue;
 
-                    if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
+                    //if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
+                    double areaRestoFila = (Math.Abs(derechaAbajo.X - izquierdaAbajo.X)) * (Math.Abs(derechaAbajo.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y));
+                    if ( (areaRestoFila > (celda.Ancho * celda.Largo)) || (Math.Abs(areaOptimizacion[i].VerticeDerechaAbajo.X - xMax)) > celda.Ancho )
                         return i;
                 }
                 else
@@ -978,10 +955,10 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeDerechaAbajo.X = derechaAbajo.X;
                 areaOptimizacion.VerticeDerechaAbajo.Y = derechaAbajo.Y;
 
-                areaOptimizacion.Area = areaOptimizacion.Ancho * areaOptimizacion.Largo;
-
                 areaOptimizacion.Ancho = Math.Abs(areaOptimizacion.VerticeDerechaAbajo.X - areaOptimizacion.VerticeIzquierdaAbajo.X);
                 areaOptimizacion.Largo = Math.Abs(areaOptimizacion.VerticeDerechaArriba.Y - areaOptimizacion.VerticeDerechaAbajo.Y);
+
+                areaOptimizacion.Area = areaOptimizacion.Ancho * areaOptimizacion.Largo;
 
                 areaOptimizacionList.Add(areaOptimizacion);
             }
