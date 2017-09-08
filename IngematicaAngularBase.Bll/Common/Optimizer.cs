@@ -88,11 +88,13 @@ namespace IngematicaAngularBase.Bll.Common
                         index = UbicarMuebles(areaOptmizacion, muebleListTemp, (int)sentido, anchoPasillos, celda);
 
                         if (index == -1)
-                            break;
+                        {
+                            //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
+                            hayEspacio = false;
 
-                        // TODO: Corregir, cuando pone el espacio en false, no utiliza el ultimo subarea
-                        hayEspacio = false;
-                        //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
+                            if (!hayEspacio)
+                                break;
+                        }                                                                     
                     }
 
                     #region
@@ -111,6 +113,8 @@ namespace IngematicaAngularBase.Bll.Common
 
         public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
         {
+            #region
+            /*
             // CODIGO PARA TESTING - BORRAR******************************************
 
             //  Recorrer lista de AreaOptimizacion
@@ -148,7 +152,82 @@ namespace IngematicaAngularBase.Bll.Common
             initialFlat.Save(filename); 
             //***********************************************************************
 
-            return null;
+            */
+            #endregion
+
+            MuebleBusiness mb = new MuebleBusiness();
+
+            foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
+            {
+                foreach (AreaOptimizacion area in areaList)
+                {
+                    foreach (MueblesOptmizacion mueble in area.MueblesList)
+                    {
+                        mueble.VerticeIzquierdaArriba.X += System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+                        mueble.VerticeIzquierdaArriba.Y -= System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+
+                        mueble.VerticeDerechaArriba.X -= System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+                        mueble.VerticeDerechaArriba.Y -= System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+
+                        mueble.VerticeIzquierdaAbajo.X += System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+                        mueble.VerticeIzquierdaAbajo.Y += System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+
+                        mueble.VerticeDerechaAbajo.X -= System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+                        mueble.VerticeDerechaAbajo.Y += System.Convert.ToDouble(mueble.Mueble.DistanciaParedes + mueble.Mueble.DistanciaProximoMueble);
+                    }
+                }
+            }
+
+            DxfDocument dxfFinal = new DxfDocument();
+
+            foreach (LwPolyline lwpl in initialFlat.LwPolylines)
+                dxfFinal.AddEntity(lwpl);
+
+            foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
+            {
+                foreach (AreaOptimizacion area in areaList)
+                {
+                    foreach (MueblesOptmizacion mueble in area.MueblesList)
+                    {
+                        if (!mueble.Mueble.PoseeRadio)
+                        {
+                            List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
+                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaAbajo));
+                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaArriba));
+                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
+                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
+                            initialFlat.AddEntity(new LwPolyline(lpVertex, true));
+
+                        }
+                        else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
+                        {
+                            Circle circulo = new Circle();
+                            circulo.Radius = mueble.Mueble.RadioMayor != null ? System.Convert.ToDouble(mueble.Mueble.RadioMayor) : System.Convert.ToDouble(mueble.Mueble.RadioMenor);
+                            circulo.Center = GetCentro(mueble);
+                        }
+                        else
+                        {
+                            Ellipse elipse = new Ellipse();
+                            elipse.MajorAxis = System.Convert.ToDouble(mueble.Mueble.RadioMayor);
+                            elipse.MinorAxis = System.Convert.ToDouble(mueble.Mueble.RadioMenor);
+                            elipse.Center = GetCentro(mueble);
+                        }
+                    }
+                }
+            }
+
+            return dxfFinal;
+        }
+
+        public Vector3 GetCentro(MueblesOptmizacion muebleOptimizacion)
+        {
+            Vector3 centro = new Vector3();
+
+            centro.X = (muebleOptimizacion.VerticeDerechaArriba.X - muebleOptimizacion.VerticeIzquierdaArriba.X) / 2;
+            centro.Y = (muebleOptimizacion.VerticeIzquierdaArriba.Y - muebleOptimizacion.VerticeIzquierdaAbajo.Y) / 2;
+            centro.Z = 0;
+
+            return centro;
         }
 
         public int GetEscala()
