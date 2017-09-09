@@ -54,9 +54,11 @@ namespace IngematicaAngularBase.Bll
                 string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
                 List<string> paths = new List<string>();
 
-                foreach(DxfDocument dxf in dxfsFinals)
+                foreach (DxfDocument dxf in dxfsFinals)
                 {
-                    string pathTemp = path + "\\temp " + DateTime.Now + ".dxf";
+                    //TODO: Pincha por que el path no acepta "/"
+                    //string pathTemp = path + "\\temp " + DateTime.Now + ".dxf";
+                    string pathTemp = path + "\\temp " + "TEST" + ".dxf";
                     paths.Add(path);
                     dxf.Save(pathTemp);
 
