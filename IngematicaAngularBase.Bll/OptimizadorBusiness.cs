@@ -58,7 +58,7 @@ namespace IngematicaAngularBase.Bll
                 {
                     //TODO: Pincha por que el path no acepta "/"
                     //string pathTemp = path + "\\temp " + DateTime.Now + ".dxf";
-                    string pathTemp = path + "\\temp " + "TEST" + ".dxf";
+                    string pathTemp = path + "\\TEST" + ".dxf";
                     paths.Add(path);
                     dxf.Save(pathTemp);
 

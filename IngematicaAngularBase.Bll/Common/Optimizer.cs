@@ -578,7 +578,8 @@ namespace IngematicaAngularBase.Bll.Common
 
                 yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
-                InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
+                    InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
             }
 
             #region
@@ -605,8 +606,9 @@ namespace IngematicaAngularBase.Bll.Common
 
                     yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
-                    InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
-
+                    if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
+                        InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                        
                 } while (muebleList.Count > 0 && celdaList.Count > 0);
                 #region
                 //con celdaList > 0 valido que se haya incertado algo en la iteracion anterior
@@ -685,7 +687,7 @@ namespace IngematicaAngularBase.Bll.Common
 
         public void InsertarPasilloEnAncho(AreaOptimizacion areaOptimizacion, double anchoPasillos, double yMin)
         {
-            if (yMin - anchoPasillos <= areaOptimizacion.VerticeDerechaAbajo.Y)
+            if (yMin - anchoPasillos >= areaOptimizacion.VerticeDerechaAbajo.Y)
             {
                 MueblesOptmizacion pasillo = new MueblesOptmizacion();
                 pasillo.Mueble = new Mueble();
@@ -736,7 +738,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                 Model.ViewModels.Vector2 VerticeDerechaAbajo = new Model.ViewModels.Vector2();
                 VerticeDerechaAbajo.Y = celdaMueble.VerticeDerechaArriba.Y - celda.Largo;
-                VerticeDerechaAbajo.X = celdaMueble.VerticeDerechaArriba.X +celda.Ancho;
+                VerticeDerechaAbajo.X = celdaMueble.VerticeDerechaArriba.X;
                 celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                 celdaMueble.Mueble = new Mueble();
