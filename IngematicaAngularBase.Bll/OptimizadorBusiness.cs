@@ -56,9 +56,8 @@ namespace IngematicaAngularBase.Bll
 
                 foreach (DxfDocument dxf in dxfsFinals)
                 {
-                    //TODO: Pincha por que el path no acepta "/"
-                    //string pathTemp = path + "\\temp " + DateTime.Now + ".dxf";
-                    string pathTemp = path + "\\TEST" + ".dxf";
+                    string pathTemp = path + "\\temp " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".dxf";
+                    //string pathTemp = path + "\\TEST" + ".dxf";
                     paths.Add(path);
                     dxf.Save(pathTemp);
 
