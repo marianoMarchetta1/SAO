@@ -113,7 +113,7 @@ namespace IngematicaAngularBase.Bll.Common
 
         public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
         {            
-            string filename = "C:\\Temp\\Test_4.dxf"; // LINEA PARA TESTING - BORRAR
+            //string filename = "C:\\Temp\\Test_4.dxf"; // LINEA PARA TESTING - BORRAR
 
             MuebleBusiness mb = new MuebleBusiness();
 
@@ -180,7 +180,7 @@ namespace IngematicaAngularBase.Bll.Common
                     }
                 }
             }
-            dxfFinal.Save(filename); // LINEA PARA TESTING - BORRAR 
+            //dxfFinal.Save(filename); // LINEA PARA TESTING - BORRAR 
             return dxfFinal;
         }
 
@@ -321,7 +321,8 @@ namespace IngematicaAngularBase.Bll.Common
                 foreach (MueblesOptmizacion celdaTemp in celdaList)
                     IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
 
-                xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
+                if (areaOptimizacion.MueblesList.Count > 0)
+                    xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
 
                 if (celdaList.Count != 0)
                 {
@@ -576,7 +577,8 @@ namespace IngematicaAngularBase.Bll.Common
                 foreach (MueblesOptmizacion celdaTemp in celdaList)
                     IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
 
-                yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+                if (areaOptimizacion.MueblesList.Count > 0)
+                    yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                 if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
                     InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
@@ -796,6 +798,11 @@ namespace IngematicaAngularBase.Bll.Common
                 }
                 else
                 {
+
+                    // Si Esta vacía, pero no entran celdas, continuo.
+                    if ( (areaOptimizacion[i].VerticeDerechaArriba.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y ) < celda.Largo || (areaOptimizacion[i].VerticeDerechaArriba.X - areaOptimizacion[i].VerticeIzquierdaArriba.X) < celda.Ancho )
+                        continue;
+                    
                     //si el area no tiene muebles => esta vacia, asi que la retorno.
                     return i;
                 }
@@ -843,6 +850,11 @@ namespace IngematicaAngularBase.Bll.Common
                 }
                 else
                 {
+
+                    // Si Esta vacía, pero no entran celdas, continuo.
+                    if ((areaOptimizacion[i].VerticeDerechaArriba.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y) < celda.Largo || (areaOptimizacion[i].VerticeDerechaArriba.X - areaOptimizacion[i].VerticeIzquierdaArriba.X) < celda.Ancho)
+                        continue;
+
                     //si el area no tiene muebles => esta vacia, asi que la retorno.
                     return i;
                 }
