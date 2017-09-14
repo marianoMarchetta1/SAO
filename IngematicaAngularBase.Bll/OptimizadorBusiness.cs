@@ -53,13 +53,14 @@ namespace IngematicaAngularBase.Bll
 
                 string path = System.Configuration.ConfigurationManager.AppSettings["TmpFiles"];
                 List<string> paths = new List<string>();
+                DateTime dateTimeNow = DateTime.Now;
 
                 foreach (DxfDocument dxf in dxfsFinals)
                 {
-                    string pathTemp = path + "\\temp " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".dxf";
-                    //string pathTemp = path + "\\TEST" + ".dxf";
+                    string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
                     paths.Add(path);
                     dxf.Save(pathTemp);
+                    dateTimeNow = dateTimeNow.AddSeconds(2);
 
                     //if(file.RegistrarEnHistorial){
                     //  OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(Entities);
@@ -70,5 +71,6 @@ namespace IngematicaAngularBase.Bll
                 return paths;
             }
         }
+           
     }
 }
