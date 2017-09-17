@@ -944,16 +944,6 @@ namespace IngematicaAngularBase.Bll.Common
 
             if (verticesSuperiores.Count > 0)
             {
-                //if (verticesSuperiores.ElementAt(0).X > verticesSuperiores.ElementAt(1).X)
-                //{
-                //    derechaArriba = verticesSuperiores.ElementAt(0);
-                //    IzquierdaArriba = verticesSuperiores.ElementAt(1);
-                //}
-                //else
-                //{
-                //    IzquierdaArriba = verticesSuperiores.ElementAt(0);
-                //    derechaArriba = verticesSuperiores.ElementAt(1);
-                //}
                 derechaArriba.X = verticesSuperiores.Select(x => x.X).Max();
                 derechaArriba.Y = maximoY;
                 IzquierdaArriba.X = verticesSuperiores.Select(x => x.X).Min();
@@ -969,16 +959,6 @@ namespace IngematicaAngularBase.Bll.Common
 
             if (verticesInferiores.Count > 0)
             {
-                //if (verticesInferiores.ElementAt(0).X > verticesInferiores.ElementAt(1).X)
-                //{
-                //    derechaAbajo = verticesInferiores.ElementAt(0);
-                //    izquierdaAbajo = verticesInferiores.ElementAt(1);
-                //}
-                //else
-                //{
-                //    izquierdaAbajo = verticesInferiores.ElementAt(0);
-                //    derechaAbajo = verticesInferiores.ElementAt(1);
-                //}
                 derechaAbajo.X = verticesInferiores.Select(x => x.X).Max();
                 derechaAbajo.Y = minimoY;
                 izquierdaAbajo.X = verticesInferiores.Select(x => x.X).Min();
@@ -1133,63 +1113,85 @@ namespace IngematicaAngularBase.Bll.Common
             return 0;
         }
 
+
+        public bool CompactarLargo(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
+        {
+            MueblesOptmizacion muebleAnt = new MueblesOptmizacion();
+            List<MueblesOptmizacion> pasillos = new List<MueblesOptmizacion>();
+            List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
+            Double pasilloY = 0;
+            int j = 0;
+            int index = -1;
+            Celda celda = new Celda();
+
+            // Primer mueble
+            muebleAnt = areaOptimizacion.MueblesList.First();
+            // Pasillos
+            pasillos = areaOptimizacion.MueblesList
+                            .Select(x => x)
+                            .Where(x => x.VerticeDerechaArriba.X == areaOptimizacion.VerticeDerechaArriba.X
+                                     && x.VerticeIzquierdaArriba.X == areaOptimizacion.VerticeIzquierdaArriba.X)
+                            .ToList();
+            pasilloY = pasillos.Select(x => x.VerticeDerechaArriba.Y).Max();
+            // TODO: reemplazar linea de arriba luego de Ordenar lista pasillos por Y
+            // pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
+
+            for (int i = 1; i < areaOptimizacion.MueblesList.Count; i++)
+            {
+
+                if (areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y == muebleAnt.VerticeDerechaArriba.Y)
+                {
+                    // Compacto hacia la izquierda
+                    // Asignar coordenadas de derecha de mueble anterior al siguiente
+                    areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaAbajo.X = muebleAnt.VerticeDerechaAbajo.X;
+                    areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaArriba.X = muebleAnt.VerticeDerechaArriba.X;
+                    muebleAnt = areaOptimizacion.MueblesList.ElementAt(i);
+
+                    // Actualizo lista de Huecos si corresponde para el mueble anterior
+                    if (muebleAnt.VerticeDerechaAbajo.Y > pasilloY)
+                    {
+                        MueblesOptmizacion hueco = new MueblesOptmizacion();
+                        hueco.VerticeIzquierdaArriba  = muebleAnt.VerticeIzquierdaAbajo;
+                        hueco.VerticeDerechaArriba    = muebleAnt.VerticeDerechaAbajo;
+                        hueco.VerticeIzquierdaAbajo.X = muebleAnt.VerticeIzquierdaAbajo.X;
+                        hueco.VerticeIzquierdaAbajo.Y = pasilloY;
+                        hueco.VerticeDerechaAbajo.X   = muebleAnt.VerticeDerechaAbajo.X;
+                        hueco.VerticeDerechaAbajo.Y   = pasilloY;
+                        huecos.Add(hueco);
+                    }
+                }
+                else
+                {
+                    // Cambio la fila y pasillo
+                    i++;j++;
+                    pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
+                    i++;
+                    muebleAnt = areaOptimizacion.MueblesList.ElementAt(i);
+                }
+            }
+
+            // Verificar si sigue habiendo espacio
+            celda = GetTamañoMaximoCelda(muebles, 1);
+            List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
+            areaOptimizacionList.Add(areaOptimizacion);
+            index = GetSubAreaConEspacioLargo(areaOptimizacionList, celda);
+            if (index > -1)
+            {
+                return true;
+            }
+            else
+            {
+                // TODO: Verificar lista de huecos
+                return false;
+            }
+        }
+
+
+
         /*  (2)
          
          //Particionar el espacio libre en el tamaño de la celda (incluye tamaño de la entidad y del espacio libre a su alrededor) y cargar una lista de "huecos libres"
          
-        // Recorrer areaOptimizacionList
-
-        // Calculo Cantidad de Filas en el SubArea
-        // int cantFilas;
-        // cantFilas = areaOptimizacion.Largo / celda.Largo;
-
-        // Calculo Cantidad de celdas por fila en SubArea 
-        // int cantCeldasFilas;
-        // cantCeldasFilas = areaOptimizacion.Ancho / celda.Ancho;
-
-        //CeldaBusiness celdaBusiness;
-        
-        // Asigno Primer vértice
-        // public Vector2 verticeIni  { get; set; };
-        // verticeIni = areaOptimizacion.VerticeIzquierdaArriba;
-        
-        // While i != cantFilas
-        // {
-        //      While j != cantCeldasFilas
-        //      {
-        //          Asigno Primer vértice de la celda
-        //          celda.VerticeIzquierdaArriba = verticeIni;
-        //
-        //          celdaBusiness.CalcularDemasVertices(celda); // VER METODO MAS ABAJO
-        //
-        //          Agregar celda en lista de celdas...
-        //          celdasList.add(celda); //TODO: Crear lista de celdas
-        //
-        //          verticeIni = celda.VerticeDerechaArriba;
-        //      }
-        //      Cambia la fila
-        //      vericeIni.X = areaOptimizacion.VerticeIzquierdaArriba; // X constante para inicio de filas
-        //      vericeIni.X = celda.VerticeIzquierdaArriba.Y - celda.Largo;
-        //  }
-
-        // TODO: Revisar y crear .cs para clase/ método - Esto no va ACA ---------------------------*
-        // public class CeldaBusiness
-        // {
-        //      public CalcularDemasVertices(Celda celda)
-        //      {
-        //          celda.VerticeDerechaArriba.X =  celda.VerticeIzquierdaArriba.X + celda.Ancho;
-        //          celda.VerticeDerechaArriba.Y =  celda.VerticeIzquierdaArriba.Y;
-        //
-        //          celda.VerticeIzquierdaAbajo.X = celda.VerticeIzquierdaArriba.X;
-        //          celda.VerticeIzquierdaAbajo.Y = celda.VerticeIzquierdaArriba.Y - celda.Largo;
-        //
-        //          celda.VerticeDerechaAbajo.X = celda.VerticeIzquierdaArriba.X + celda.Ancho;
-        //          celda.VerticeDerechaAbajo.Y = celda.VerticeIzquierdaArriba.Y - celda.Largo;
-        //      }
-        // }
-        //------------------------------------------------------------------------------------------*
-
-
 
         //while haya muebles o espacio libre{ 
          
