@@ -112,5 +112,28 @@ namespace IngematicaAngularBase.Bll
             return new netDxf.Entities.LwPolylineVertex(posicion);
         }
 
+        public MueblesOptmizacion AjustarTamanio(MueblesOptmizacion muebleOpt)
+        {
+            double dif = muebleOpt.Ancho - System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
+
+            if ( dif > 0)
+            {
+                muebleOpt.Ancho -= dif;
+                muebleOpt.VerticeDerechaArriba.X -= dif;
+                muebleOpt.VerticeDerechaAbajo.X  -= dif;
+            }
+
+            dif = muebleOpt.Largo - System.Convert.ToDouble(muebleOpt.Mueble.Largo);
+
+            if (dif > 0)
+            {
+                muebleOpt.Largo -= dif;
+                muebleOpt.VerticeIzquierdaAbajo.Y += dif;
+                muebleOpt.VerticeDerechaAbajo.Y   += dif;
+            }
+
+            return muebleOpt;
+        }
+
     }
 }

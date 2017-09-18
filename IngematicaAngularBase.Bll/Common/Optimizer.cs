@@ -1114,7 +1114,7 @@ namespace IngematicaAngularBase.Bll.Common
         }
 
 
-        public bool CompactarLargo(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
+        public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
         {
             MueblesOptmizacion muebleAnt = new MueblesOptmizacion();
             List<MueblesOptmizacion> pasillos = new List<MueblesOptmizacion>();
@@ -1123,18 +1123,20 @@ namespace IngematicaAngularBase.Bll.Common
             int j = 0;
             int index = -1;
             Celda celda = new Celda();
+            MuebleBusiness mb = new MuebleBusiness();
 
             // Primer mueble
-            muebleAnt = areaOptimizacion.MueblesList.First();
+            muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.First());
+            
             // Pasillos
             pasillos = areaOptimizacion.MueblesList
                             .Select(x => x)
                             .Where(x => x.VerticeDerechaArriba.X == areaOptimizacion.VerticeDerechaArriba.X
                                      && x.VerticeIzquierdaArriba.X == areaOptimizacion.VerticeIzquierdaArriba.X)
                             .ToList();
-            pasilloY = pasillos.Select(x => x.VerticeDerechaArriba.Y).Max();
-            // TODO: reemplazar linea de arriba luego de Ordenar lista pasillos por Y
-            // pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
+
+            pasillos.OrderBy(x => x.VerticeDerechaArriba.Y);
+            pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
 
             for (int i = 1; i < areaOptimizacion.MueblesList.Count; i++)
             {
@@ -1145,6 +1147,7 @@ namespace IngematicaAngularBase.Bll.Common
                     // Asignar coordenadas de derecha de mueble anterior al siguiente
                     areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaAbajo.X = muebleAnt.VerticeDerechaAbajo.X;
                     areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaArriba.X = muebleAnt.VerticeDerechaArriba.X;
+                    mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
                     muebleAnt = areaOptimizacion.MueblesList.ElementAt(i);
 
                     // Actualizo lista de Huecos si corresponde para el mueble anterior
@@ -1172,8 +1175,10 @@ namespace IngematicaAngularBase.Bll.Common
 
             // Verificar si sigue habiendo espacio
             celda = GetTamañoMaximoCelda(muebles, 1);
+
             List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
             areaOptimizacionList.Add(areaOptimizacion);
+
             index = GetSubAreaConEspacioLargo(areaOptimizacionList, celda);
             if (index > -1)
             {
