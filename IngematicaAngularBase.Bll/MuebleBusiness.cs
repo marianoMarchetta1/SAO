@@ -114,24 +114,45 @@ namespace IngematicaAngularBase.Bll
 
         public MueblesOptmizacion AjustarTamanio(MueblesOptmizacion muebleOpt)
         {
-            double dif = muebleOpt.Ancho - System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
-
-            if ( dif > 0)
+            if (muebleOpt.Mueble.Activo)
             {
-                muebleOpt.Ancho -= dif;
-                muebleOpt.VerticeDerechaArriba.X -= dif;
-                muebleOpt.VerticeDerechaAbajo.X  -= dif;
+                double dif = muebleOpt.Ancho - System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
+
+                if ( dif > 0)
+                {
+                    muebleOpt.Ancho -= dif;
+                    muebleOpt.VerticeDerechaArriba.X -= dif;
+                    muebleOpt.VerticeDerechaAbajo.X  -= dif;
+                }
+
+                dif = muebleOpt.Largo - System.Convert.ToDouble(muebleOpt.Mueble.Largo);
+
+                if (dif > 0)
+                {
+                    muebleOpt.Largo -= dif;
+                    muebleOpt.VerticeIzquierdaAbajo.Y += dif;
+                    muebleOpt.VerticeDerechaAbajo.Y   += dif;
+                }
             }
+            return muebleOpt;
+        }
 
-            dif = muebleOpt.Largo - System.Convert.ToDouble(muebleOpt.Mueble.Largo);
+        public MueblesOptmizacion DesplazarArriba(MueblesOptmizacion muebleOpt, double nuevaCoordY)
+        {
+            double largo = muebleOpt.VerticeDerechaArriba.Y - muebleOpt.VerticeDerechaAbajo.Y;
+            muebleOpt.VerticeDerechaArriba.Y   = nuevaCoordY;
+            muebleOpt.VerticeIzquierdaArriba.Y = nuevaCoordY;
+            muebleOpt.VerticeIzquierdaAbajo.Y  = nuevaCoordY - largo;
+            muebleOpt.VerticeDerechaAbajo.Y    = nuevaCoordY - largo;
+            return muebleOpt;
+        }
 
-            if (dif > 0)
-            {
-                muebleOpt.Largo -= dif;
-                muebleOpt.VerticeIzquierdaAbajo.Y += dif;
-                muebleOpt.VerticeDerechaAbajo.Y   += dif;
-            }
-
+        public MueblesOptmizacion DesplazarIzquierda(MueblesOptmizacion muebleOpt, double nuevaCoordX)
+        {
+            muebleOpt.VerticeIzquierdaAbajo.X = nuevaCoordX;
+            muebleOpt.VerticeIzquierdaArriba.X = nuevaCoordX;
+            muebleOpt.VerticeDerechaAbajo.X    = nuevaCoordX  + muebleOpt.Ancho;
+            muebleOpt.VerticeDerechaArriba.X   = nuevaCoordX  + muebleOpt.Ancho;
             return muebleOpt;
         }
 

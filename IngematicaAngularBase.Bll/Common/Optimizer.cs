@@ -89,7 +89,15 @@ namespace IngematicaAngularBase.Bll.Common
 
                         if (index == -1)
                         {
-                            //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
+
+                            if ((int)sentido == 2)
+                            {
+                                foreach (AreaOptimizacion area in areaOptmizacion)
+                                {
+                                    //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
+                                    hayEspacio = CompactarAncho(area, muebleListTemp);
+                                }
+                            }
                             hayEspacio = false;
 
                             if (!hayEspacio)
@@ -1117,62 +1125,79 @@ namespace IngematicaAngularBase.Bll.Common
         public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
         {
             MueblesOptmizacion muebleAnt = new MueblesOptmizacion();
-            List<MueblesOptmizacion> pasillos = new List<MueblesOptmizacion>();
             List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
-            Double pasilloY = 0;
-            int j = 0;
             int index = -1;
+            int ifila = 0;
             Celda celda = new Celda();
             MuebleBusiness mb = new MuebleBusiness();
+            double minimoY = 0;
+            double maximoY = 0;
+            double FilaYOriginal = 0;
 
             // Primer mueble
             muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.First());
-            
-            // Pasillos
-            pasillos = areaOptimizacion.MueblesList
-                            .Select(x => x)
-                            .Where(x => x.VerticeDerechaArriba.X == areaOptimizacion.VerticeDerechaArriba.X
-                                     && x.VerticeIzquierdaArriba.X == areaOptimizacion.VerticeIzquierdaArriba.X)
-                            .ToList();
-
-            pasillos.OrderBy(x => x.VerticeDerechaArriba.Y);
-            pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
+            minimoY   = muebleAnt.VerticeDerechaAbajo.Y;
+            maximoY   = muebleAnt.VerticeDerechaArriba.Y;
+            FilaYOriginal = maximoY;
 
             for (int i = 1; i < areaOptimizacion.MueblesList.Count; i++)
             {
-
-                if (areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y == muebleAnt.VerticeDerechaArriba.Y)
+                if (areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y == FilaYOriginal)
                 {
                     // Compacto hacia la izquierda
                     // Asignar coordenadas de derecha de mueble anterior al siguiente
-                    areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaAbajo.X = muebleAnt.VerticeDerechaAbajo.X;
-                    areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaArriba.X = muebleAnt.VerticeDerechaArriba.X;
-                    mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
-                    muebleAnt = areaOptimizacion.MueblesList.ElementAt(i);
+                    mb.DesplazarIzquierda(areaOptimizacion.MueblesList.ElementAt(i), muebleAnt.VerticeDerechaAbajo.X);
 
-                    // Actualizo lista de Huecos si corresponde para el mueble anterior
-                    if (muebleAnt.VerticeDerechaAbajo.Y > pasilloY)
-                    {
-                        MueblesOptmizacion hueco = new MueblesOptmizacion();
-                        hueco.VerticeIzquierdaArriba  = muebleAnt.VerticeIzquierdaAbajo;
-                        hueco.VerticeDerechaArriba    = muebleAnt.VerticeDerechaAbajo;
-                        hueco.VerticeIzquierdaAbajo.X = muebleAnt.VerticeIzquierdaAbajo.X;
-                        hueco.VerticeIzquierdaAbajo.Y = pasilloY;
-                        hueco.VerticeDerechaAbajo.X   = muebleAnt.VerticeDerechaAbajo.X;
-                        hueco.VerticeDerechaAbajo.Y   = pasilloY;
-                        huecos.Add(hueco);
-                    }
+                    if (maximoY > muebleAnt.VerticeDerechaArriba.Y)
+                        muebleAnt = mb.DesplazarArriba(muebleAnt, maximoY); // Desplazo Arriba el mueble anterior
+
+                    muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+
+                    if (minimoY > muebleAnt.VerticeDerechaAbajo.Y)
+                        minimoY = muebleAnt.VerticeDerechaAbajo.Y;
                 }
                 else
                 {
-                    // Cambio la fila y pasillo
-                    i++;j++;
-                    pasilloY = pasillos.ElementAt(j).VerticeDerechaArriba.Y;
-                    i++;
-                    muebleAnt = areaOptimizacion.MueblesList.ElementAt(i);
+                    // Termino la fila
+
+                    // Asignar minimoY a toda la fila
+                    for (int h = ifila; h < i; h++)
+                    {
+                        if (Math.Round(areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y,2) > Math.Round(minimoY,2))
+                        {
+                            // Guardar hueco
+                            MueblesOptmizacion hueco = new MueblesOptmizacion();
+                            hueco.VerticeIzquierdaArriba  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
+                            hueco.VerticeDerechaArriba    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
+                            hueco.VerticeIzquierdaAbajo   = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
+                            hueco.VerticeIzquierdaAbajo.Y = minimoY;
+                            hueco.VerticeDerechaAbajo     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
+                            hueco.VerticeDerechaAbajo.Y   = minimoY;
+                            huecos.Add(hueco);
+
+                            // Alisar fila
+                            areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y   = minimoY;
+                            areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.Y = minimoY;
+                        }
+                    }
+
+
+                    // Comparar minimoY de la fila anterior con el primer elemento de esta
+                    if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y)
+                        // Guardar FilaYOriginal
+                        FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
+                        // Mover el primer elemento
+                        mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i), minimoY);
+                    
+                    // Maximo para proxima fila
+                    maximoY = muebleAnt.VerticeDerechaAbajo.Y;
+
+                    muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+                    minimoY = muebleAnt.VerticeDerechaAbajo.Y;
+                    ifila = i;
                 }
             }
-
+            
             // Verificar si sigue habiendo espacio
             celda = GetTamañoMaximoCelda(muebles, 1);
 
