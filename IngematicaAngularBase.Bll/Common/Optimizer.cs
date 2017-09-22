@@ -1124,7 +1124,6 @@ namespace IngematicaAngularBase.Bll.Common
 
         public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
         {
-            MueblesOptmizacion muebleAnt = new MueblesOptmizacion();
             List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
             int index = -1;
             int ifila = 0;
@@ -1135,26 +1134,27 @@ namespace IngematicaAngularBase.Bll.Common
             double FilaYOriginal = 0;
 
             // Primer mueble
-            muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.First());
-            minimoY   = muebleAnt.VerticeDerechaAbajo.Y;
-            maximoY   = muebleAnt.VerticeDerechaArriba.Y;
+            areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(areaOptimizacion.MueblesList.First());
+            minimoY = areaOptimizacion.MueblesList.First().VerticeDerechaAbajo.Y;
+            maximoY = areaOptimizacion.MueblesList.First().VerticeDerechaArriba.Y;
             FilaYOriginal = maximoY;
 
             for (int i = 1; i < areaOptimizacion.MueblesList.Count; i++)
             {
+                
                 if (areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y == FilaYOriginal)
                 {
                     // Compacto hacia la izquierda
                     // Asignar coordenadas de derecha de mueble anterior al siguiente
-                    mb.DesplazarIzquierda(areaOptimizacion.MueblesList.ElementAt(i), muebleAnt.VerticeDerechaAbajo.X);
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(areaOptimizacion.MueblesList.ElementAt(i), areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaAbajo.X);
 
-                    if (maximoY > muebleAnt.VerticeDerechaArriba.Y)
-                        muebleAnt = mb.DesplazarArriba(muebleAnt, maximoY); // Desplazo Arriba el mueble anterior
+                    if (maximoY > areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaArriba.Y)
+                        areaOptimizacion.MueblesList[i-1] = mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i-1), maximoY); // Desplazo Arriba el mueble anterior
 
-                    muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
 
-                    if (minimoY > muebleAnt.VerticeDerechaAbajo.Y)
-                        minimoY = muebleAnt.VerticeDerechaAbajo.Y;
+                    if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y)
+                        minimoY = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y;
                 }
                 else
                 {
@@ -1186,14 +1186,14 @@ namespace IngematicaAngularBase.Bll.Common
                     if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y)
                         // Guardar FilaYOriginal
                         FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
-                        // Mover el primer elemento
-                        mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i), minimoY);
+                    // Mover el primer elemento
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i), minimoY);
                     
                     // Maximo para proxima fila
-                    maximoY = muebleAnt.VerticeDerechaAbajo.Y;
+                    maximoY = areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaAbajo.Y;
 
-                    muebleAnt = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
-                    minimoY = muebleAnt.VerticeDerechaAbajo.Y;
+                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+                    minimoY = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y;
                     ifila = i;
                 }
             }
