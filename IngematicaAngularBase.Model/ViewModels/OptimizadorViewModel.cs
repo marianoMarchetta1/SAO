@@ -15,7 +15,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public bool RegistrarEnHistorial { get; set; }
         public bool OptimizarCosto { get; set; }
 
-        public decimal CostoMaximo { get; set; }
+        public double CostoMaximo { get; set; }
 
         public List<OptimizacionMueble> MuebleList { get; set; }
 
@@ -76,6 +76,68 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double Largo { get; set; }
         public double Ancho { get; set; }
         public double Area { get; set; }
+
+        public double? VerticeIzquierdaArribaX { get; set; }
+        public double? VerticeIzquierdaArribaY { get; set; }
+
+        public double? VerticeDerechaArribaX { get; set; }
+        public double? VerticeDerechaArribaY { get; set; }
+
+        public double? VerticeIzquierdaAbajoX { get; set; }
+        public double? VerticeIzquierdaAbajoY { get; set; }
+
+        public double? VerticeDerechaAbajoX { get; set; }
+        public double? VerticeDerechaAbajoY { get; set; }
+    }
+
+    public class OptimizacionHistorialViewModel
+    {
+        public int IdOptimizacionHistorial { get; set; }
+        public string Nombre { get; set; }
+        public int? CantidadPersonas { get; set; }
+        public string Escala { get; set; }
+        public bool OptimizarCosto { get; set; }
+        public double CostoMaximo { get; set; }
+
+        public List<OptimizacionHistorialAreaViewModel> OptimizacionHistorialArea { get; set; }
+    }
+
+    public class OptimizacionHistorialAreaViewModel
+    {
+        public int IdOptimizacionHistorialArea { get; set; }
+        public int IdOptimizacionHistorial { get; set; }
+
+        public double? VerticeIzquierdaArribaX { get; set; }
+        public double? VerticeIzquierdaArribaY { get; set; }
+
+        public double? VerticeDerechaArribaX { get; set; }
+        public double? VerticeDerechaArribaY { get; set; }
+
+        public double? VerticeIzquierdaAbajoX { get; set; }
+        public double? VerticeIzquierdaAbajoY { get; set; }
+
+        public double? VerticeDerechaAbajoX { get; set; }
+        public double? VerticeDerechaAbajoY { get; set; }
+
+        public List<OptimizacionHistorialAreaMuebleViewModel> OptimizacionHistorialAreaMueble { get; set; }
+    }
+
+    public class OptimizacionHistorialAreaMuebleViewModel
+    {
+        public int IdOptimizacionHistorailAreaMueble { get; set; }
+        public int IdOptimizacionHistorialArea { get; set; }
+
+        public double? VerticeIzquierdaArribaX { get; set; }
+        public double? VerticeIzquierdaArribaY { get; set; }
+
+        public double? VerticeDerechaArribaX { get; set; }
+        public double? VerticeDerechaArribaY { get; set; }
+
+        public double? VerticeIzquierdaAbajoX { get; set; }
+        public double? VerticeIzquierdaAbajoY { get; set; }
+
+        public double? VerticeDerechaAbajoX { get; set; }
+        public double? VerticeDerechaAbajoY { get; set; }
     }
 
     public class Vector2

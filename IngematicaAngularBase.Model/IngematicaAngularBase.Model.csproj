@@ -86,6 +86,15 @@
     <Compile Include="Entities\Mueble.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\OptimizacionHistorial.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OptimizacionHistorialArea.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\OptimizacionHistorialAreaMueble.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Pais.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

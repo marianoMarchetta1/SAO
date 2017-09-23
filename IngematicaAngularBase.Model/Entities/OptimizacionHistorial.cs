@@ -12,23 +12,20 @@ namespace IngematicaAngularBase.Model.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Pais
+    public partial class OptimizacionHistorial
     {
-        public Pais()
+        public OptimizacionHistorial()
         {
-            this.Provincia = new HashSet<Provincia>();
+            this.OptimizacionHistorialArea = new HashSet<OptimizacionHistorialArea>();
         }
     
-        public int IdPais { get; set; }
+        public int IdOptimizacionHistorial { get; set; }
         public string Nombre { get; set; }
-        public int IdUsuarioAlta { get; set; }
-        public System.DateTime FechaAlta { get; set; }
-        public Nullable<int> IdUsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public bool Activo { get; set; }
+        public Nullable<int> CantidadPersonas { get; set; }
+        public string Escala { get; set; }
+        public Nullable<bool> OptimizarCosto { get; set; }
+        public Nullable<float> CostoMaximo { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
-        public virtual Usuario Usuario1 { get; set; }
-        public virtual ICollection<Provincia> Provincia { get; set; }
+        public virtual ICollection<OptimizacionHistorialArea> OptimizacionHistorialArea { get; set; }
     }
 }

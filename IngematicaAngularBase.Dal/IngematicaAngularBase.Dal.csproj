@@ -91,6 +91,15 @@
     <Compile Include="Specification\Mueble.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
+    <Compile Include="Specification\OptimizacionHistorial.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\OptimizacionHistorialArea.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\OptimizacionHistorialAreaMueble.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
     <Compile Include="Specification\Pais.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
