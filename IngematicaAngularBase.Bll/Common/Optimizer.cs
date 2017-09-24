@@ -461,10 +461,14 @@ namespace IngematicaAngularBase.Bll.Common
                 {
                     celdaMueble = new MueblesOptmizacion();
 
-                    VerticeIzquierdaArriba = celdaList.Last().VerticeIzquierdaAbajo;
+                    VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                    VerticeIzquierdaArriba.X = celdaList.Last().VerticeIzquierdaAbajo.X;
+                    VerticeIzquierdaArriba.Y = celdaList.Last().VerticeIzquierdaAbajo.Y;
                     celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
 
-                    VerticeDerechaArriba = celdaList.Last().VerticeDerechaAbajo;
+                    VerticeDerechaArriba = new Model.ViewModels.Vector2();
+                    VerticeDerechaArriba.X = celdaList.Last().VerticeDerechaAbajo.X;
+                    VerticeDerechaArriba.Y = celdaList.Last().VerticeDerechaAbajo.Y;
                     celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
 
                     VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
@@ -502,7 +506,11 @@ namespace IngematicaAngularBase.Bll.Common
                 while (izquierdaAbajo.Y - celda.Largo >= limiteInferior)
                 {
                     MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
-                    celdaMueble.VerticeIzquierdaArriba = izquierdaAbajo;
+
+                    Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                    VerticeIzquierdaArriba.X = izquierdaAbajo.X;
+                    VerticeIzquierdaArriba.Y = izquierdaAbajo.Y;
+                    celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
 
                     Model.ViewModels.Vector2 VerticeDerechaArriba = new Model.ViewModels.Vector2();
                     VerticeDerechaArriba.Y = celdaMueble.VerticeIzquierdaArriba.Y;
@@ -666,10 +674,14 @@ namespace IngematicaAngularBase.Bll.Common
                 {
                     celdaMueble = new MueblesOptmizacion();
 
-                    VerticeIzquierdaArriba = celdaList.Last().VerticeDerechaArriba;
+                    VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                    VerticeIzquierdaArriba.X = celdaList.Last().VerticeDerechaArriba.X;
+                    VerticeIzquierdaArriba.Y = celdaList.Last().VerticeDerechaArriba.Y;
                     celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
 
-                    VerticeIzquierdaAbajo = celdaList.Last().VerticeDerechaAbajo;
+                    VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
+                    VerticeIzquierdaAbajo.X = celdaList.Last().VerticeDerechaAbajo.X;
+                    VerticeIzquierdaAbajo.Y = celdaList.Last().VerticeDerechaAbajo.Y;
                     celdaMueble.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
 
                     VerticeDerechaArriba = new Model.ViewModels.Vector2();
@@ -734,7 +746,10 @@ namespace IngematicaAngularBase.Bll.Common
             {
 
                 MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
-                celdaMueble.VerticeIzquierdaArriba = izquierdaArriba;
+                Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                VerticeIzquierdaArriba.X = izquierdaArriba.X;
+                VerticeIzquierdaArriba.Y = izquierdaArriba.Y;
+                celdaMueble.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
 
                 Model.ViewModels.Vector2 VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
                 VerticeIzquierdaAbajo.Y = celdaMueble.VerticeIzquierdaArriba.Y - celda.Largo;
@@ -759,6 +774,7 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaList.Add(celdaMueble);
 
                 izquierdaArriba = celdaMueble.VerticeDerechaArriba;
+
             }
             return celdaList;
         }
@@ -833,6 +849,8 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 if (areaOptimizacion[i].MueblesList.Any())
                 {
+
+                    //TODO: Contemplar que puede haber una fila incompleta despues de la compresion, verificar x fila
                     yMin = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                     List<Model.ViewModels.Vector2> listVertices = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x => x.Y == yMin).ToList();
@@ -1132,9 +1150,11 @@ namespace IngematicaAngularBase.Bll.Common
             double minimoY = 0;
             double maximoY = 0;
             double FilaYOriginal = 0;
+            MueblesOptmizacion muebleAux;
 
             // Primer mueble
-            areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(areaOptimizacion.MueblesList.First());
+            muebleAux = areaOptimizacion.MueblesList.First();
+            areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(ref muebleAux);
             minimoY = areaOptimizacion.MueblesList.First().VerticeDerechaAbajo.Y;
             maximoY = areaOptimizacion.MueblesList.First().VerticeDerechaArriba.Y;
             FilaYOriginal = maximoY;
@@ -1146,12 +1166,17 @@ namespace IngematicaAngularBase.Bll.Common
                 {
                     // Compacto hacia la izquierda
                     // Asignar coordenadas de derecha de mueble anterior al siguiente
-                    areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(areaOptimizacion.MueblesList.ElementAt(i), areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaAbajo.X);
+                    muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(ref muebleAux, areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaAbajo.X);
 
-                    if (maximoY > areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaArriba.Y)
-                        areaOptimizacion.MueblesList[i-1] = mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i-1), maximoY); // Desplazo Arriba el mueble anterior
-
-                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+                    if (maximoY > areaOptimizacion.MueblesList.ElementAt(i - 1).VerticeDerechaArriba.Y)
+                    {
+                        muebleAux = areaOptimizacion.MueblesList.ElementAt(i - 1);
+                        areaOptimizacion.MueblesList[(i - 1)] = mb.DesplazarArriba(ref muebleAux, maximoY); // Desplazo Arriba el mueble anterior
+                    }
+                    muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
+                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(ref muebleAux, maximoY);//TODO: revisar si esta bien
 
                     if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y)
                         minimoY = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y;
@@ -1165,6 +1190,7 @@ namespace IngematicaAngularBase.Bll.Common
                     {
                         if (Math.Round(areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y,2) > Math.Round(minimoY,2))
                         {
+                            /*
                             // Guardar hueco
                             MueblesOptmizacion hueco = new MueblesOptmizacion();
                             hueco.VerticeIzquierdaArriba  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
@@ -1174,7 +1200,7 @@ namespace IngematicaAngularBase.Bll.Common
                             hueco.VerticeDerechaAbajo     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
                             hueco.VerticeDerechaAbajo.Y   = minimoY;
                             huecos.Add(hueco);
-
+                            */
                             // Alisar fila
                             areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y   = minimoY;
                             areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.Y = minimoY;
@@ -1187,12 +1213,14 @@ namespace IngematicaAngularBase.Bll.Common
                         // Guardar FilaYOriginal
                         FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
                     // Mover el primer elemento
-                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(areaOptimizacion.MueblesList.ElementAt(i), minimoY);
+                    muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(ref muebleAux, minimoY);
                     
                     // Maximo para proxima fila
                     maximoY = areaOptimizacion.MueblesList.ElementAt(i-1).VerticeDerechaAbajo.Y;
 
-                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(areaOptimizacion.MueblesList.ElementAt(i));
+                    muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
+                    areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
                     minimoY = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y;
                     ifila = i;
                 }
@@ -1204,7 +1232,7 @@ namespace IngematicaAngularBase.Bll.Common
             List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
             areaOptimizacionList.Add(areaOptimizacion);
 
-            index = GetSubAreaConEspacioLargo(areaOptimizacionList, celda);
+            index = GetSubAreaConEspacioAncho(areaOptimizacionList, celda);
             if (index > -1)
             {
                 return true;

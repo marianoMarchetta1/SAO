@@ -112,7 +112,7 @@ namespace IngematicaAngularBase.Bll
             return new netDxf.Entities.LwPolylineVertex(posicion);
         }
 
-        public MueblesOptmizacion AjustarTamanio(MueblesOptmizacion muebleOpt)
+        public MueblesOptmizacion AjustarTamanio(ref MueblesOptmizacion muebleOpt)
         {
             if (muebleOpt.Mueble.Activo)
             {
@@ -137,7 +137,7 @@ namespace IngematicaAngularBase.Bll
             return muebleOpt;
         }
 
-        public MueblesOptmizacion DesplazarArriba(MueblesOptmizacion muebleOpt, double nuevaCoordY)
+        public MueblesOptmizacion DesplazarArriba(ref MueblesOptmizacion muebleOpt, double nuevaCoordY)
         {
             double largo = muebleOpt.VerticeDerechaArriba.Y - muebleOpt.VerticeDerechaAbajo.Y;
             muebleOpt.VerticeDerechaArriba.Y   = nuevaCoordY;
@@ -147,7 +147,7 @@ namespace IngematicaAngularBase.Bll
             return muebleOpt;
         }
 
-        public MueblesOptmizacion DesplazarIzquierda(MueblesOptmizacion muebleOpt, double nuevaCoordX)
+        public MueblesOptmizacion DesplazarIzquierda(ref MueblesOptmizacion muebleOpt, double nuevaCoordX)
         {
             muebleOpt.VerticeIzquierdaAbajo.X = nuevaCoordX;
             muebleOpt.VerticeIzquierdaArriba.X = nuevaCoordX;
