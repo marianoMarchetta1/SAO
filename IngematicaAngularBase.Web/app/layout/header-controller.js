@@ -55,6 +55,7 @@ angular.module('appBase').controller('headerController', ['$scope', '$location',
             $scope.menu
                 .addItem("optimizador", "Optimizador", "")
                 .addItem("optimizador", "Optimizador", "Optimizador_CanAdd", "app.optimizador-proceso").back()
+                .addItem("optimizacionHistorial", "Historial De Optimizaciòn", "OptimizacionHistorial_CanList", "app.optimizacionHistorial-list").back()
                 .back()
             .addItem("configuracion", "Configuracion", "")
                 .addItem("mueble", "Mueble", "Mueble_CanList", "app.mueble-list").back()
