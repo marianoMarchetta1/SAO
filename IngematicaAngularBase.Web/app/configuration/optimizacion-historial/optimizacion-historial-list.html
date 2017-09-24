@@ -1,0 +1,86 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li class="active">Historial de Optimizaciòn</li>
+    </ol>
+    <form name="vm.optimizacionHistorialForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          list="vm.queryUI.search()"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="nombre" ng-model="vm.queryUI.query.nombre" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+        </div>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="reset" broadcast="vm.optimizacionHistorialForm" broadcast-arg="clear">Limpiar</button>
+                <button class="btn btn-primary" type="button" broadcast="vm.optimizacionHistorialForm" broadcast-arg="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row" ng-hide="vm.queryUI.isListEmpty()">
+        <div class="col-md-8 ">
+            <uib-pagination items-per-page="vm.queryUI.lastQuery.take"
+                            total-items="vm.queryUI.list.totalCount"
+                            ng-model="vm.queryUI.lastQuery.currentPage"
+                            ng-change="vm.queryUI.pageChanged()"
+                            num-pages="vm.queryUI.numPages">
+
+            </uib-pagination>
+        </div>
+        <div class="col-md-2">
+            <pre>Página: {{vm.queryUI.lastQuery.currentPage}} / {{vm.queryUI.numPages}} </pre>
+        </div>
+        <div class="col-md-2">
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Cantidad</span>
+                <select class="form-control" ng-model="vm.queryUI.query.take" ng-change="vm.queryUI.refresh()" ng-options="i for i in vm.queryUI.takeList"></select>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="vm.queryUI.isListEmpty()">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><orderby field="nombre" title="Nombre" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="cantidadPersonas" title="Cantidad de Personas" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="escala" title="Escala" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="costoMaximo" title="Costo Màximo" query-ui="vm.queryUI"></orderby></th>
+                    <th class="size-4"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.queryUI.list.data">
+                    <td>{{item.nombre}}</td>
+                    <td class="text-right">{{item.cantidadPersonas}}</td>
+                    <td class="text-center">{{item.escala}}</td>
+                    <td class="text-center">{{item.costoMaximo}}</td>
+                    <td class="text-right">
+                        <a ui-sref="app.optimizacionHistorial-detail({ id: item.idOptimizacionHistorial})" class="btn btn-sm btn-link"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <a ng-if="vm.rules.optimizacionHistorialCanDelete" href="" ng-click="vm.delete(item.idOptimizacionHistorial)" class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove  text-danger" aria-hidden="true"></span></a>
+                        <a ng-if="!vm.rules.optimizacionHistorialCanDelete" class="btn btn-sm btn-link disabled"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="vm.queryUI.isCleared()">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">
+
+            </span> No se han encontrado registros
+        </div>
+    </div>
+</div>
+

@@ -47,7 +47,9 @@ namespace IngematicaAngularBase.Bll
                                                     file.MuebleList, 
                                                     muebleDataAcces.GetMuebleList(file.MuebleList.Select(x=> x.IdMueble).ToList()),
                                                     file.Escala,
-                                                    file.CantidadPersonas);
+                                                    file.CantidadPersonas,
+                                                    file.RegistrarEnHistorial,
+                                                    file.Nombre);
 
                 List<DxfDocument> dxfsFinals = optimizer.Generate();
 
@@ -61,11 +63,6 @@ namespace IngematicaAngularBase.Bll
                     paths.Add(path);
                     dxf.Save(pathTemp);
                     dateTimeNow = dateTimeNow.AddSeconds(2);
-
-                    //if(file.RegistrarEnHistorial){
-                    //  OptimizadorDataAccess optimizadorDataAccess = new OptimizadorDataAccess(Entities);
-                    //  optimizadorDataAccess.AddHistory(dxfFinal);         -> almacena en un tabla de la base el "historial" que seria la lista de entidades del plano
-                    //}
                 }
 
                 return paths;

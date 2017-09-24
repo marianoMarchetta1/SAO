@@ -33,6 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\Pro\packages\AutoMapper.4.1.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -76,6 +79,7 @@
     <Compile Include="ModuloBusiness.cs" />
     <Compile Include="LogBusiness.cs" />
     <Compile Include="MuebleBusiness.cs" />
+    <Compile Include="OptimizacionHistorialBusiness.cs" />
     <Compile Include="OptimizadorBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolBusiness.cs" />

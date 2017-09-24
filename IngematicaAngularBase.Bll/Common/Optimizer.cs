@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using System.Text;
 using netDxf;
 using netDxf.Entities;
+using AutoMapper;
 
 namespace IngematicaAngularBase.Bll.Common
 {
@@ -27,11 +28,13 @@ namespace IngematicaAngularBase.Bll.Common
         private List<Mueble> muebleList;
         private List<OptimizacionMueble> muebleCantidadList;
         private bool optimizarCosto;
-        private decimal costoMaximo;
+        private double costoMaximo;
         private string escala;
         public int? cantidadPersonas;
+        public bool registrarEnHistorial;
+        public string Nombre;
 
-        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, decimal costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam, int? cantidadPersonasParam)
+        public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, double costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam, int? cantidadPersonasParam, bool pRegistrarEnHistorial, string pNombre)
         {
             this.initialFlat = dxfDocument;
             this.optimizarCosto = optimizarCostoParam;
@@ -40,6 +43,8 @@ namespace IngematicaAngularBase.Bll.Common
             this.muebleList = muebleListParam;
             this.escala = escalaParam;
             this.cantidadPersonas = cantidadPersonasParam;
+            this.registrarEnHistorial = pRegistrarEnHistorial;
+            this.Nombre = pNombre;
         }
 
 
@@ -154,12 +159,44 @@ namespace IngematicaAngularBase.Bll.Common
                 dxfFinal.AddEntity(lwplClon);
             }
 
+            OptimizacionHistorialViewModel optimizacionHistorialViewModel = new OptimizacionHistorialViewModel();
+            optimizacionHistorialViewModel.CantidadPersonas = this.cantidadPersonas;
+            optimizacionHistorialViewModel.CostoMaximo = this.costoMaximo;
+            optimizacionHistorialViewModel.Escala = this.escala;
+            optimizacionHistorialViewModel.IdOptimizacionHistorial = -1;
+            optimizacionHistorialViewModel.OptimizacionHistorialArea = new List<OptimizacionHistorialAreaViewModel>();
+
             foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
             {
                 foreach (AreaOptimizacion area in areaList)
                 {
+                    OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel = new OptimizacionHistorialAreaViewModel();
+                    optimizacionHistorialAreaViewModel.IdOptimizacionHistorial = -1;
+                    optimizacionHistorialAreaViewModel.IdOptimizacionHistorialArea = -1;
+                    optimizacionHistorialAreaViewModel.VerticeDerechaAbajoX = area.VerticeDerechaAbajo.X;
+                    optimizacionHistorialAreaViewModel.VerticeDerechaAbajoY = area.VerticeDerechaAbajo.Y;
+                    optimizacionHistorialAreaViewModel.VerticeDerechaArribaX = area.VerticeDerechaArriba.X;
+                    optimizacionHistorialAreaViewModel.VerticeDerechaArribaY = area.VerticeDerechaArriba.Y;
+                    optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoX = area.VerticeIzquierdaAbajo.X;
+                    optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoY = area.VerticeIzquierdaAbajo.Y;
+                    optimizacionHistorialAreaViewModel.VerticeIzquierdaArribaX = area.VerticeIzquierdaArriba.X;
+                    optimizacionHistorialAreaViewModel.VerticeIzquierdaArribaY = area.VerticeIzquierdaArriba.Y;
+                    optimizacionHistorialAreaViewModel.OptimizacionHistorialAreaMueble = new List<OptimizacionHistorialAreaMuebleViewModel>();
+
                     foreach (MueblesOptmizacion mueble in area.MueblesList)
                     {
+                        OptimizacionHistorialAreaMuebleViewModel optimizacionHistorialAreaMuebleViewModel = new OptimizacionHistorialAreaMuebleViewModel();
+                        optimizacionHistorialAreaMuebleViewModel.IdOptimizacionHistorailAreaMueble = -1;
+                        optimizacionHistorialAreaMuebleViewModel.IdOptimizacionHistorialArea = -1;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeDerechaAbajoX = mueble.VerticeDerechaAbajo.X;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeDerechaAbajoY = mueble.VerticeDerechaAbajo.Y;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeDerechaArribaX = mueble.VerticeDerechaArriba.X;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeDerechaArribaY = mueble.VerticeDerechaArriba.Y;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaAbajoX = mueble.VerticeIzquierdaAbajo.X;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaAbajoY = mueble.VerticeIzquierdaAbajo.Y;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaX = mueble.VerticeIzquierdaArriba.X;
+                        optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaY = mueble.VerticeIzquierdaArriba.Y;
+
                         if (!mueble.Mueble.PoseeRadio)
                         {
                             List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
@@ -185,11 +222,46 @@ namespace IngematicaAngularBase.Bll.Common
                             elipse.Center = GetCentro(mueble);
                             dxfFinal.AddEntity(elipse);
                         }
+
+                        optimizacionHistorialAreaViewModel.OptimizacionHistorialAreaMueble.Add(optimizacionHistorialAreaMuebleViewModel);
                     }
+
+                    optimizacionHistorialViewModel.OptimizacionHistorialArea.Add(optimizacionHistorialAreaViewModel);
                 }
             }
             //dxfFinal.Save(filename); // LINEA PARA TESTING - BORRAR 
+
+            if (this.registrarEnHistorial)
+                GrabarHistorial(optimizacionHistorialViewModel);
+
             return dxfFinal;
+        }
+
+        public void GrabarHistorial(OptimizacionHistorialViewModel optimizacionHistorialViewModel)
+        {
+            optimizacionHistorialViewModel.Nombre = this.Nombre;
+            Mapper.CreateMap<OptimizacionHistorialViewModel, OptimizacionHistorial>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            Mapper.CreateMap<OptimizacionHistorialAreaViewModel, OptimizacionHistorialArea>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            Mapper.CreateMap<OptimizacionHistorialAreaMuebleViewModel, OptimizacionHistorialAreaMueble>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+
+            OptimizacionHistorial optimizacionHistorial = Mapper.Map<OptimizacionHistorialViewModel, OptimizacionHistorial>(optimizacionHistorialViewModel);
+
+            //agregar validaciones y auditoria
+            using (var context = new Entities())
+            {
+                //var item = context.Set<GrupoConceptoFacturacion>().AsNoTracking().FirstOrDefault(x => x.Nombre == entity.Nombre);
+                //if (item != null)
+                //    throw new CustomApplicationException("Ya existe un grupo concepto de facturación con el mismo nombre.");
+
+
+                //if (!entity.GrupoConceptoFacturacionClienteConcepto.Any())
+                //    throw new CustomApplicationException("Una grupo concepto de facturación debe tener un concepto de facturación.");
+
+                //entity.FechaAlta = DateTime.Now;
+                context.OptimizacionHistorial.Add(optimizacionHistorial);
+                context.SaveChanges();
+
+            }
         }
 
         public Vector3 GetCentro(MueblesOptmizacion muebleOptimizacion)
