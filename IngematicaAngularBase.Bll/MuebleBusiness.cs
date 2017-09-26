@@ -120,7 +120,7 @@ namespace IngematicaAngularBase.Bll
 
                 if ( dif > 0)
                 {
-                    muebleOpt.Ancho -= dif;
+                    muebleOpt.Ancho = System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
                     muebleOpt.VerticeDerechaArriba.X -= dif;
                     muebleOpt.VerticeDerechaAbajo.X  -= dif;
                 }
@@ -129,7 +129,7 @@ namespace IngematicaAngularBase.Bll
 
                 if (dif > 0)
                 {
-                    muebleOpt.Largo -= dif;
+                    muebleOpt.Largo = System.Convert.ToDouble(muebleOpt.Mueble.Largo);
                     muebleOpt.VerticeIzquierdaAbajo.Y += dif;
                     muebleOpt.VerticeDerechaAbajo.Y   += dif;
                 }

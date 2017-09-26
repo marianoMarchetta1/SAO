@@ -103,8 +103,8 @@ namespace IngematicaAngularBase.Bll.Common
                                     hayEspacio = CompactarAncho(area, muebleListTemp);
                                 }
                             }
-                            
-                            hayEspacio = false;
+                            else
+                                hayEspacio = false;
 
                             if (!hayEspacio)
                                 break;
@@ -705,17 +705,27 @@ namespace IngematicaAngularBase.Bll.Common
                                 foreach (MueblesOptmizacion celdaTemp in celdaList)
                                     IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
 
-                                // TODO: Ordenar lista de mayor a menor Y y de menor a mayor X dentro de eso
-                                //       para que funcione el corte de control por fila
-                                //areaOptimizacion.MueblesList.Sort();
-
                             }
                         }
                     }
                 }
+                // Ordenar lista de mayor a menor Y y de menor a mayor X dentro de eso
+                // para que funcione el corte de control por fila
+                areaOptimizacion.MueblesList = areaOptimizacion.MueblesList.OrderByDescending(mueble => mueble.VerticeIzquierdaArriba.Y).ThenBy(mueble => mueble.VerticeIzquierdaArriba.X).ToList();
+
                 yMin = areaOptimizacion.MueblesList.Select(y => y.VerticeIzquierdaAbajo.Y).Min();
 
+                // Checkear si la fila anterior es un pasillo, sino insertar uno
+                if (areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeIzquierdaAbajo.Y == yMin).First().Largo != 0)
+                {
+                    InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+
+                    yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+
+                }
+
             }
+
             #region
             //si no valido esto pueden quedar 2 pasillos contiguos
             #endregion
@@ -723,7 +733,6 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 do
                 {
-
                     //yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                     #region
@@ -781,8 +790,8 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                 celdaMueble.Mueble = new Mueble();
-                celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                 celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                 celdaList.Add(celdaMueble);
@@ -804,7 +813,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                     VerticeDerechaArriba = new Model.ViewModels.Vector2();
                     VerticeDerechaArriba.Y = VerticeIzquierdaArriba.Y;
-                    VerticeDerechaArriba.X = VerticeIzquierdaArriba.X +celda.Ancho;
+                    VerticeDerechaArriba.X = VerticeIzquierdaArriba.X + celda.Ancho;
                     celdaMueble.VerticeDerechaArriba = VerticeDerechaArriba;
 
                     VerticeDerechaAbajo = new Model.ViewModels.Vector2();
@@ -813,8 +822,8 @@ namespace IngematicaAngularBase.Bll.Common
                     celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                     celdaMueble.Mueble = new Mueble();
-                    celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                    celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                     celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                     celdaList.Add(celdaMueble);
@@ -885,8 +894,8 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                 celdaMueble.Mueble = new Mueble();
-                celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                 celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                 celdaList.Add(celdaMueble);
@@ -977,7 +986,7 @@ namespace IngematicaAngularBase.Bll.Common
                             filaY = areaOptimizacion[i].MueblesList[j].VerticeIzquierdaArriba.Y;
                             //Reviso el ultimo elemento de la anterior, si hay espacio para agregr mas celdas
                             if (areaOptimizacion[i].VerticeDerechaArriba.X - areaOptimizacion[i].MueblesList[j - 1].VerticeDerechaArriba.X >= celda.Ancho
-                                && areaOptimizacion[i].MueblesList[j - 1].Largo >= celda.Largo)
+                                && areaOptimizacion[i].MueblesList[j - 1].VerticeIzquierdaArriba.Y - areaOptimizacion[i].MueblesList[j - 1].VerticeIzquierdaAbajo.Y >= celda.Largo)
                                 return i;
                         }
                     }
@@ -1001,9 +1010,13 @@ namespace IngematicaAngularBase.Bll.Common
                     //if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
                     
                     double areaRestoFila = (Math.Abs(derechaArriba.Y - derechaAbajo.Y)) * (Math.Abs(derechaAbajo.X - areaOptimizacion[i].VerticeDerechaAbajo.X));
+
                     bool   ultimaFila    = (Math.Abs(areaOptimizacion[i].VerticeDerechaAbajo.Y - yMin)) < celda.Largo;
                   
-                    if ((areaRestoFila > (celda.Ancho * celda.Largo)) || !ultimaFila)
+                    if (((areaRestoFila > (celda.Ancho * celda.Largo)) 
+                            && Math.Abs(derechaArriba.Y - derechaAbajo.Y) >= celda.Largo
+                            && (Math.Abs(derechaAbajo.X - areaOptimizacion[i].VerticeDerechaAbajo.X)) >= celda.Ancho) 
+                        || !ultimaFila)
                         return i;
                 }
                 else
@@ -1341,9 +1354,9 @@ namespace IngematicaAngularBase.Bll.Common
 
 
                     // Comparar minimoY de la fila anterior con el primer elemento de esta
-                    if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y)
-                        // Guardar FilaYOriginal
-                        FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
+                    //if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y)
+                    // Guardar FilaYOriginal
+                    FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
                     // Mover el primer elemento
                     muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
                     areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(ref muebleAux, minimoY);
