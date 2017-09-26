@@ -94,7 +94,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                         if (index == -1)
                         {
-
+                            
                             if ((int)sentido == 2)
                             {
                                 foreach (AreaOptimizacion area in areaOptmizacion)
@@ -103,6 +103,7 @@ namespace IngematicaAngularBase.Bll.Common
                                     hayEspacio = CompactarAncho(area, muebleListTemp);
                                 }
                             }
+                            
                             hayEspacio = false;
 
                             if (!hayEspacio)
@@ -639,6 +640,7 @@ namespace IngematicaAngularBase.Bll.Common
             }
             else
             {
+                /*
                 yMin = areaOptimizacion.MueblesList.Select(y => y.VerticeIzquierdaAbajo.Y).Min();
                 izquierdaAbajo = areaOptimizacion.MueblesList.Select(x => x.VerticeIzquierdaAbajo).Where(y => y.Y == yMin).Max();
                 izquierdaArriba = areaOptimizacion.MueblesList.Where(x => x.VerticeIzquierdaAbajo == izquierdaAbajo).Select(x => x.VerticeIzquierdaArriba).First();
@@ -648,39 +650,81 @@ namespace IngematicaAngularBase.Bll.Common
 
                 izquierdaAbajo.X = izquierdaArriba.X;
                 izquierdaAbajo.Y = izquierdaArriba.Y - celda.Largo;
-            }
+                */
 
-            #region
-            //Completo la fila incompleta
-            #endregion
-            if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X && 
-                izquierdaAbajo.Y > areaOptimizacion.VerticeIzquierdaAbajo.Y)
-            {
-
-                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba);
 
                 #region
-                //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
+                //Completo las filas incompletas
                 #endregion
-                foreach (MueblesOptmizacion celdaTemp in celdaList)
-                    IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
+                /*
+                if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X && 
+                    izquierdaAbajo.Y > areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                {
 
-                if (areaOptimizacion.MueblesList.Count > 0)
-                    yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+                    celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba);
 
-                if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
-                    InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                    #region
+                    //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
+                    #endregion
+                    foreach (MueblesOptmizacion celdaTemp in celdaList)
+                        IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
+
+                    if (areaOptimizacion.MueblesList.Count > 0)
+                        yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+
+                    if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
+                        InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                }
+                */
+
+                double filaY = areaOptimizacion.MueblesList.First().VerticeIzquierdaArriba.Y;
+                for (int i = 1; i < areaOptimizacion.MueblesList.Count(); i++)
+                {
+                    if (areaOptimizacion.MueblesList[i].VerticeIzquierdaArriba.Y != filaY)
+                    {
+                        //Cambio la fila 
+                        filaY = areaOptimizacion.MueblesList[i].VerticeIzquierdaArriba.Y;
+                        //Reviso el ultimo elemento de la anterior, si hay espacio para agregr mas celdas
+                        if (areaOptimizacion.VerticeDerechaArriba.X - areaOptimizacion.MueblesList[i - 1].VerticeDerechaArriba.X >= celda.Ancho
+                            && areaOptimizacion.MueblesList[i - 1].Largo >= celda.Largo)
+                        {
+                            izquierdaAbajo.X = areaOptimizacion.MueblesList[i - 1].VerticeDerechaAbajo.X;
+                            izquierdaAbajo.Y = areaOptimizacion.MueblesList[i - 1].VerticeDerechaAbajo.Y;
+                            izquierdaArriba.X = areaOptimizacion.MueblesList[i - 1].VerticeDerechaArriba.X;
+                            izquierdaArriba.Y = areaOptimizacion.MueblesList[i - 1].VerticeDerechaArriba.Y;
+
+                            // Completar fila
+                            if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X &&
+                                izquierdaAbajo.Y > areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                            {
+                                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba);
+
+                                #region
+                                //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
+                                #endregion
+                                foreach (MueblesOptmizacion celdaTemp in celdaList)
+                                    IncertarMuebleCelda(celdaTemp, muebleList, areaOptimizacion);
+
+                                // TODO: Ordenar lista de mayor a menor Y y de menor a mayor X dentro de eso
+                                //       para que funcione el corte de control por fila
+                                //areaOptimizacion.MueblesList.Sort();
+
+                            }
+                        }
+                    }
+                }
+                yMin = areaOptimizacion.MueblesList.Select(y => y.VerticeIzquierdaAbajo.Y).Min();
+
             }
-
             #region
             //si no valido esto pueden quedar 2 pasillos contiguos
             #endregion
-            if (muebleList.Count > 0 && areaOptimizacion.MueblesList.Count != 0 )
+            if (muebleList.Count > 0 ) // && areaOptimizacion.MueblesList.Count != 0 )
             {
                 do
                 {
 
-                    yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+                    //yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                     #region
                     //Genera una nueva fila de celdas
@@ -698,7 +742,9 @@ namespace IngematicaAngularBase.Bll.Common
 
                     if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
                         InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
-                        
+
+                    yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
+
                 } while (muebleList.Count > 0 && celdaList.Count > 0);
                 #region
                 //con celdaList > 0 valido que se haya incertado algo en la iteracion anterior
@@ -921,8 +967,22 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 if (areaOptimizacion[i].MueblesList.Any())
                 {
-
-                    //TODO: Contemplar que puede haber una fila incompleta despues de la compresion, verificar x fila
+                    // Si se comprimió, revisa fila por fila, hasta encontrar espacio al final de la fila o se terminan las filas
+                    double filaY = areaOptimizacion[i].MueblesList.First().VerticeIzquierdaArriba.Y;
+                    for (int j = 1; j < areaOptimizacion[i].MueblesList.Count(); j++)
+                    {
+                        if (areaOptimizacion[i].MueblesList[j].VerticeIzquierdaArriba.Y != filaY)
+                        {
+                            //Cambio la fila 
+                            filaY = areaOptimizacion[i].MueblesList[j].VerticeIzquierdaArriba.Y;
+                            //Reviso el ultimo elemento de la anterior, si hay espacio para agregr mas celdas
+                            if (areaOptimizacion[i].VerticeDerechaArriba.X - areaOptimizacion[i].MueblesList[j - 1].VerticeDerechaArriba.X >= celda.Ancho
+                                && areaOptimizacion[i].MueblesList[j - 1].Largo >= celda.Largo)
+                                return i;
+                        }
+                    }
+                    
+                    // Verifico si hay espacio debajo de la última fila
                     yMin = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                     List<Model.ViewModels.Vector2> listVertices = areaOptimizacion[i].MueblesList.Select(x => x.VerticeDerechaAbajo).Where(x => x.Y == yMin).ToList();
