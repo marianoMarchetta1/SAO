@@ -1,0 +1,101 @@
+﻿
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li><a>Historial de Optimización</a></li>
+        <li class="active">Detalle</li>
+    </ol>
+    <form name="vm.optimizacionHistorialForm" novalidate
+          custom-submit
+          return-state="app.optimizador"
+          save-and-new="vm.saveAndNew"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="Nombre" ng-disabled="true" ng-model="vm.optimizacionHistorial.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Cantidad de Personas</label>
+                    <input class="form-control text-right" name="Cantidad de Personas" ng-disabled="true" ng-model="vm.optimizacionHistorial.cantidadPersonas" validate-numeric
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Escala</label> 
+                    <input class="form-control text-right" name="Escala" ng-disabled="true" ng-model="vm.optimizacionHistorial.escala" ng-required="true"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Optimizar Costo</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="Optimizar Costo" ng-disabled="true" ng-model="vm.optimizacionHistorial.optimizarCosto">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-if="vm.optimizacionHistorial.optimizarCosto">
+                <div class="form-group">
+                    <label class="control-label">Costo Máximo</label>
+                    <input class="form-control text-right" name="Costo Máximo" ng-disabled="true" ng-model="vm.optimizacionHistorial.costoMaximo" validate-numeric numeric-type="decimal" precision="18,2"
+                           ng-model-options="{ updateOn: 'blur' }">
+                </div>
+            </div>
+
+
+        </div>
+
+        <!--<h4>Muebles</h4>
+        <div class="row">
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <br />
+                    <p ng-class=" (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo && (vm.costoActual < vm.optimizacion.costoMaximo)) ? 'text-success' :
+                                    (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo && (vm.costoActual == vm.optimizacion.costoMaximo) ? 'text-warning'  :
+                                    (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo ? 'text-danger' : 'text-muted')
+
+                       )">Costo Actual: ${{vm.costoActual}}</p>
+                </div>
+            </div>
+
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Mueble</th>
+                    <th>Cantidad</th>
+                    <th class="size-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.optimizacion.muebleList">
+                    <td class="text-right">{{item.nombre}}</td>
+                    <td class="text-right">{{item.cantidad}}</td>
+                    <td class="text-right">
+                        <a href="" ng-click="vm.operationMueble('delete', item.idMueble)" class="btn btn-sm btn-link pull-left "><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>-->
+
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" go-state="app.optimizacionHistorial-list">Atrás</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+

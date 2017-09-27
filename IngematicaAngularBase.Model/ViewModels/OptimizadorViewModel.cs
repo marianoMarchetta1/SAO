@@ -100,6 +100,8 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double CostoMaximo { get; set; }
 
         public List<OptimizacionHistorialAreaViewModel> OptimizacionHistorialArea { get; set; }
+
+        public List<string> Paths { get; set; }
     }
 
     public class OptimizacionHistorialAreaViewModel

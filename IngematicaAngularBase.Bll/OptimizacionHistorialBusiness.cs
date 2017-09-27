@@ -22,5 +22,49 @@ namespace IngematicaAngularBase.Bll
                 return optimizacionHistorialDataAccess.GetList(query);
             }
         }
+
+        public void Delete(int id)
+        {
+            using (var context = new Entities())
+            {
+                var optimizacionHistorial = from optimizacionHistorialElement in context.Set<OptimizacionHistorial>()
+                                            where optimizacionHistorialElement.IdOptimizacionHistorial == id
+                                            select optimizacionHistorialElement;
+
+                OptimizacionHistorial opHis = optimizacionHistorial.First();
+
+                optimizacionHistorial = from optimizacionHistorialElement in context.Set<OptimizacionHistorial>()
+                                        where optimizacionHistorialElement.Nombre == opHis.Nombre
+                                        select optimizacionHistorialElement;
+
+                List<int> idsOptimizacionHistorial = optimizacionHistorial.Select(x => x.IdOptimizacionHistorial).ToList();
+
+                var optimizacionHistorialAreaList = from optimizacionHistorialAreaElement in context.Set<OptimizacionHistorialArea>()
+                                                    where idsOptimizacionHistorial.Contains(optimizacionHistorialAreaElement.IdOptimizacionHistorial)
+                                                    select optimizacionHistorialAreaElement;
+
+                List<int> idsOptimizacionHistorialArea = optimizacionHistorialAreaList.Select(x => x.IdOptimizacionHistorialArea).ToList();
+
+                var optimizacionHistorialAreaMuebleList = from optimizacionHistorialAreaMuebleElement in context.Set<OptimizacionHistorialAreaMueble>()
+                                                          where idsOptimizacionHistorialArea.Contains(optimizacionHistorialAreaMuebleElement.IdOptimizacionHistorialArea)
+                                                          select optimizacionHistorialAreaMuebleElement;
+
+                optimizacionHistorialAreaMuebleList.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
+                optimizacionHistorialAreaList.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
+                optimizacionHistorial.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
+                              
+                context.SaveChanges();
+            }
+        }
+
+        public OptimizacionHistorialViewModel GetById(int id)
+        {
+            using (var context = new Entities())
+            {
+                //Recorrer la lista y generar paths a retornar en pantalla
+                OptimizacionHistorialDataAccess optimizacionHistorialDataAccess = new OptimizacionHistorialDataAccess(context);
+                return optimizacionHistorialDataAccess.GetById(id);
+            }
+        }
     }
 }
