@@ -33,7 +33,9 @@ namespace IngematicaAngularBase.Dal
                              Escala = optimizacionHistorial.Escala,
                              IdOptimizacionHistorial = optimizacionHistorial.IdOptimizacionHistorial
                          };
-            return result.ToQueryResult(query);
+            QueryResult<OptimizacionHistorialListViewModel> rta = result.ToQueryResult(query);
+            rta.Data = rta.Data.GroupBy(x => x.Nombre).Select(x=> x.First()).ToList();
+            return rta;
         }
     }
 }

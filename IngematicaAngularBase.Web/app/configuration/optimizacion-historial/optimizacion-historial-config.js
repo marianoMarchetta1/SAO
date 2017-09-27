@@ -39,5 +39,37 @@
                     }
                 }
             }
+        })
+        .state('app.optimizacionHistorial-detail', {
+            url: '/optimizacion-historial/optimizacion-historial-detail/:id',
+            views: {
+                'content@': {
+                    templateUrl: 'configuration/optimizacion-historial/optimizacion-historial-detail.html',
+                    controller: 'optimizacionHistorialDetailController',
+                    controllerAs: 'vm',
+                    resolve: {
+                        parameters: ['$q', '$stateParams', 'blockUI', 'optimizacionHistorialFactory', 'handleErrorService',
+                            function ($q, $stateParams, blockUI, optimizacionHistorialFactory, handleErrorService) {
+
+                                blockUI.start();
+                                var deferred = $q.defer();
+
+                                optimizacionHistorialFactory.get($stateParams.id)
+                                    .then(function (dataEntity) {
+                                        deferred.resolve({ entity: dataEntity, mode: 'detail' });
+                                    })
+                                    .catch(function (error) {
+                                        handleErrorService.handleErrorConfig(error);
+                                        deferred.reject();
+                                    })
+                                    .finally(function () {
+                                        blockUI.stop();
+                                    });
+
+                                return deferred.promise;
+                            }]
+                    }
+                }
+            }
         });
 }]);

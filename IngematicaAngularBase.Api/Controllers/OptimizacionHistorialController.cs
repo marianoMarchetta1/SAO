@@ -29,5 +29,13 @@ namespace IngematicaAngularBase.Api.Controllers
             OptimizacionHistorialBusiness bs = new OptimizacionHistorialBusiness();
             return Ok(bs.GetList(query));
         }
+
+        [AuthorizeRule(Rule = "OptimizacionHistorial_CanDelete")]
+        public IHttpActionResult Delete(int id)
+        {
+            OptimizacionHistorialBusiness bs = new OptimizacionHistorialBusiness();
+            bs.Delete(id);
+            return Ok();
+        }
     }
 }
