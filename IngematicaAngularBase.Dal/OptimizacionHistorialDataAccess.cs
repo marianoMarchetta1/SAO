@@ -37,5 +37,78 @@ namespace IngematicaAngularBase.Dal
             rta.Data = rta.Data.GroupBy(x => x.Nombre).Select(x=> x.First()).ToList();
             return rta;
         }
+
+        public OptimizacionHistorialViewModel GetById(int id)
+        {
+            IQueryable<OptimizacionHistorial> tOptimizacionHistorial = context.Set<OptimizacionHistorial>().AsNoTracking();
+            IQueryable<OptimizacionHistorialArea> tOptimizacionHistorialArea = context.Set<OptimizacionHistorialArea>().AsNoTracking();
+            IQueryable<OptimizacionHistorialAreaMueble> tOptimizacionHistorialAreaMueble = context.Set<OptimizacionHistorialAreaMueble>().AsNoTracking();
+
+
+            var result = from optimizacionHistorial in tOptimizacionHistorial
+                         where optimizacionHistorial.IdOptimizacionHistorial == id
+                         select optimizacionHistorial;
+
+            OptimizacionHistorial optHist = result.First();
+
+            result = from optimizacionHistorial in tOptimizacionHistorial
+                     where optimizacionHistorial.Nombre == optHist.Nombre
+                     select optimizacionHistorial;
+
+            List<int> idsOptimizacionHistorial = result.Select(x => x.IdOptimizacionHistorial).ToList();
+
+            OptimizacionHistorialViewModel rta = new OptimizacionHistorialViewModel();
+            rta.Nombre = optHist.Nombre;
+            rta.OptimizarCosto = optHist.OptimizarCosto == null ? false : (bool)optHist.OptimizarCosto;
+            rta.Escala = optHist.Escala;
+            rta.CostoMaximo = optHist.CostoMaximo == null ? 0 : (double) optHist.CostoMaximo;
+            rta.CantidadPersonas = optHist.CantidadPersonas;
+            rta.Paths = new List<string>();
+
+            var resultOptimizacionArea = from optimizacionHistorialArea in tOptimizacionHistorialArea
+                                         where idsOptimizacionHistorial.Contains(optimizacionHistorialArea.IdOptimizacionHistorial)
+                                         select new OptimizacionHistorialAreaViewModel {
+                                             IdOptimizacionHistorial = optimizacionHistorialArea.IdOptimizacionHistorial,
+                                             IdOptimizacionHistorialArea = optimizacionHistorialArea.IdOptimizacionHistorialArea,
+                                             VerticeDerechaAbajoX = optimizacionHistorialArea.VerticeDerechaAbajoX,
+                                             VerticeDerechaAbajoY = optimizacionHistorialArea.VerticeDerechaAbajoY,
+                                             VerticeDerechaArribaX = optimizacionHistorialArea.VerticeDerechaArribaX,
+                                             VerticeDerechaArribaY = optimizacionHistorialArea.VerticeDerechaArribaY,
+                                             VerticeIzquierdaAbajoX = optimizacionHistorialArea.VerticeIzquierdaAbajoX,
+                                             VerticeIzquierdaAbajoY = optimizacionHistorialArea.VerticeIzquierdaAbajoY,
+                                             VerticeIzquierdaArribaX = optimizacionHistorialArea.VerticeIzquierdaArribaX,
+                                             VerticeIzquierdaArribaY = optimizacionHistorialArea.VerticeIzquierdaArribaY
+                                         };
+
+            rta.OptimizacionHistorialArea = resultOptimizacionArea.ToList();
+
+            foreach(OptimizacionHistorialAreaViewModel optimizacionHistorialArea in rta.OptimizacionHistorialArea)
+            {
+                optimizacionHistorialArea.OptimizacionHistorialAreaMueble = new List<OptimizacionHistorialAreaMuebleViewModel>();
+                tOptimizacionHistorialAreaMueble = context.Set<OptimizacionHistorialAreaMueble>().AsNoTracking();
+
+                var resultOptimizacionHistorialAreaMueble = from optimizacionHistorialAreaMueble in tOptimizacionHistorialAreaMueble
+                                                            where optimizacionHistorialAreaMueble.IdOptimizacionHistorialArea == optimizacionHistorialArea.IdOptimizacionHistorialArea
+                                                            select new OptimizacionHistorialAreaMuebleViewModel()
+                                                            {
+                                                                IdOptimizacionHistorailAreaMueble = optimizacionHistorialAreaMueble.IdOptimizacionHistorialAreaMueble,
+                                                                IdOptimizacionHistorialArea = optimizacionHistorialAreaMueble.IdOptimizacionHistorialArea,
+                                                                VerticeDerechaAbajoX = optimizacionHistorialAreaMueble.VerticeDerechaAbajoX,
+                                                                VerticeDerechaAbajoY = optimizacionHistorialAreaMueble.VerticeDerechaAbajoY,
+                                                                VerticeDerechaArribaX = optimizacionHistorialAreaMueble.VerticeDerechaArribaX,
+                                                                VerticeDerechaArribaY = optimizacionHistorialAreaMueble.VerticeDerechaArribaY,
+                                                                VerticeIzquierdaAbajoX = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoX,
+                                                                VerticeIzquierdaAbajoY = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoY,
+                                                                VerticeIzquierdaArribaX = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaX,
+                                                                VerticeIzquierdaArribaY = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaY
+                                                            };
+
+                optimizacionHistorialArea.OptimizacionHistorialAreaMueble = resultOptimizacionHistorialAreaMueble.ToList();
+
+            }
+
+            return rta;
+        }
     }
 }
+    

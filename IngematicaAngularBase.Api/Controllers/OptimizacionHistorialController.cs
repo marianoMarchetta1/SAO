@@ -37,5 +37,12 @@ namespace IngematicaAngularBase.Api.Controllers
             bs.Delete(id);
             return Ok();
         }
+
+        [AuthorizeRule(Rule = "OptimizacionHistorial_CanList")]
+        public IHttpActionResult Get(int id)
+        {
+            OptimizacionHistorialBusiness bs = new OptimizacionHistorialBusiness();
+            return Ok(bs.GetById(id));
+        }
     }
 }

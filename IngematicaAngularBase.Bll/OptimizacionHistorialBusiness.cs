@@ -56,5 +56,15 @@ namespace IngematicaAngularBase.Bll
                 context.SaveChanges();
             }
         }
+
+        public OptimizacionHistorialViewModel GetById(int id)
+        {
+            using (var context = new Entities())
+            {
+                //Recorrer la lista y generar paths a retornar en pantalla
+                OptimizacionHistorialDataAccess optimizacionHistorialDataAccess = new OptimizacionHistorialDataAccess(context);
+                return optimizacionHistorialDataAccess.GetById(id);
+            }
+        }
     }
 }

@@ -14,22 +14,22 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Nombre</label>
-                    <input class="form-control" name="Nombre" ng-model="vm.optimizacionHistorial.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                    <input class="form-control" name="Nombre" ng-disabled="true" ng-model="vm.optimizacionHistorial.nombre" maxlength="50" ng-required="true" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Cantidad de Personas</label>
-                    <input class="form-control text-right" name="Cantidad de Personas" ng-model="vm.optimizacionHistorial.cantidadPersonas" validate-numeric
+                    <input class="form-control text-right" name="Cantidad de Personas" ng-disabled="true" ng-model="vm.optimizacionHistorial.cantidadPersonas" validate-numeric
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label">Escala</label>
-                    <input class="form-control text-right" name="Escala" ng-model="vm.optimizacionHistorial.escala" ng-required="true"
+                    <label class="control-label">Escala</label> 
+                    <input class="form-control text-right" name="Escala" ng-disabled="true" ng-model="vm.optimizacionHistorial.escala" ng-required="true"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <label>Optimizar Costo</label>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="Optimizar Costo" ng-model="vm.optimizacionHistorial.optimizarCosto">
+                            <input type="checkbox" name="Optimizar Costo" ng-disabled="true" ng-model="vm.optimizacionHistorial.optimizarCosto">
                         </label>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             <div class="col-md-4" ng-if="vm.optimizacionHistorial.optimizarCosto">
                 <div class="form-group">
                     <label class="control-label">Costo Máximo</label>
-                    <input class="form-control text-right" name="Costo Máximo" ng-model="vm.optimizacionHistorial.costoMaximo" validate-numeric numeric-type="decimal" precision="18,2"
+                    <input class="form-control text-right" name="Costo Máximo" ng-disabled="true" ng-model="vm.optimizacionHistorial.costoMaximo" validate-numeric numeric-type="decimal" precision="18,2"
                            ng-model-options="{ updateOn: 'blur' }">
                 </div>
             </div>
