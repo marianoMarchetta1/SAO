@@ -94,17 +94,18 @@ namespace IngematicaAngularBase.Bll.Common
 
                         if (index == -1)
                         {
-                            
-                            if ((int)sentido == 2)
-                            {
-                                foreach (AreaOptimizacion area in areaOptmizacion)
-                                {
-                                    //hayEspacio = Compactar(areaOptmizacion, sentido) -> Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
-                                    hayEspacio = CompactarAncho(area, muebleListTemp);
-                                }
-                            }
-                            else
-                                hayEspacio = false;
+
+                            //if ((int)sentido == 2)
+                            //{
+                            //    foreach (AreaOptimizacion area in areaOptmizacion)
+                            //    {
+                            // Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
+                            hayEspacio = Compactar(areaOptmizacion, (int)sentido, muebleListTemp);
+                            //        hayEspacio = CompactarAncho(area, muebleListTemp);
+                            //    }
+                            //}
+                            //else
+                            //    hayEspacio = false;
 
                             if (!hayEspacio)
                                 break;
@@ -1282,6 +1283,24 @@ namespace IngematicaAngularBase.Bll.Common
                 }
             }
             return 0;
+        }
+
+        public bool Compactar(List<AreaOptimizacion> areaOptimizacion, int sentido, List<Mueble> muebleListTemp)
+        {
+            bool hayEspacio = false;
+            if ((int)sentido == 2)
+            {
+                foreach (AreaOptimizacion area in areaOptimizacion)
+                {
+                    hayEspacio = CompactarAncho(area, muebleListTemp);
+                    if (hayEspacio)
+                        return true;
+                }
+            }
+            else
+                hayEspacio = false;
+
+            return hayEspacio;
         }
 
 
