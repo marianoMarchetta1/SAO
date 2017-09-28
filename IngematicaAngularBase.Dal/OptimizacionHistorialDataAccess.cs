@@ -107,6 +107,19 @@ namespace IngematicaAngularBase.Dal
 
             }
 
+            tOptimizacionHistorial = context.Set<OptimizacionHistorial>().AsNoTracking();
+            IQueryable<OptimizacionMuebles> tOptimizacionMuebles = context.Set<OptimizacionMuebles>().AsNoTracking();
+
+            var mueblesResult = from optimizacionHistorial in tOptimizacionHistorial
+                                join optimizacionMuebles in tOptimizacionMuebles on optimizacionHistorial.IdOptimizacionHistorial equals optimizacionMuebles.IdOptimizacionHistorial
+                                select new OptimizacionMueblesViewModel()
+                                {
+                                    Cantidad = optimizacionMuebles.Cantidad,
+                                    Mueble = optimizacionMuebles.Mueble
+                                };
+
+            rta.OptimizacionMuebles = mueblesResult.Distinct().ToList();
+
             return rta;
         }
     }

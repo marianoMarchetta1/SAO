@@ -123,6 +123,16 @@
           <Property Name="VerticeIzquierdaAbajoY" Type="real" Nullable="false" />
           <Property Name="VerticeDerechaAbajoX" Type="real" Nullable="false" />
           <Property Name="VerticeDerechaAbajoY" Type="real" Nullable="false" />
+          <Property Name="IdMueble" Type="int" />
+        </EntityType>
+        <EntityType Name="OptimizacionMuebles">
+          <Key>
+            <PropertyRef Name="IdOptimizacionMuebles" />
+          </Key>
+          <Property Name="IdOptimizacionMuebles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOptimizacionHistorial" Type="int" Nullable="false" />
+          <Property Name="Mueble" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -256,6 +266,18 @@
             </Principal>
             <Dependent Role="OptimizacionHistorialAreaMueble">
               <PropertyRef Name="IdOptimizacionHistorialArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Optimizac__IdOpt__1C3D2329">
+          <End Role="OptimizacionHistorial" Type="Self.OptimizacionHistorial" Multiplicity="1" />
+          <End Role="OptimizacionMuebles" Type="Self.OptimizacionMuebles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptimizacionHistorial">
+              <PropertyRef Name="IdOptimizacionHistorial" />
+            </Principal>
+            <Dependent Role="OptimizacionMuebles">
+              <PropertyRef Name="IdOptimizacionHistorial" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -604,6 +626,7 @@
           <EntitySet Name="OptimizacionHistorial" EntityType="Self.OptimizacionHistorial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OptimizacionHistorialArea" EntityType="Self.OptimizacionHistorialArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OptimizacionHistorialAreaMueble" EntityType="Self.OptimizacionHistorialAreaMueble" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OptimizacionMuebles" EntityType="Self.OptimizacionMuebles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regla" EntityType="Self.Regla" Schema="dbo" store:Type="Tables" />
@@ -620,6 +643,10 @@
           <AssociationSet Name="FK__Optimizac__IdOpt__0C06BB60" Association="Self.FK__Optimizac__IdOpt__0C06BB60">
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
             <End Role="OptimizacionHistorialAreaMueble" EntitySet="OptimizacionHistorialAreaMueble" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Optimizac__IdOpt__1C3D2329" Association="Self.FK__Optimizac__IdOpt__1C3D2329">
+            <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
+            <End Role="OptimizacionMuebles" EntitySet="OptimizacionMuebles" />
           </AssociationSet>
           <AssociationSet Name="FK_Cliente_Localidades" Association="Self.FK_Cliente_Localidades">
             <End Role="Localidad" EntitySet="Localidad" />
@@ -802,6 +829,7 @@
           <EntitySet Name="OptimizacionHistorial" EntityType="Proyecto.FinalModel.OptimizacionHistorial" />
           <EntitySet Name="OptimizacionHistorialArea" EntityType="Proyecto.FinalModel.OptimizacionHistorialArea" />
           <EntitySet Name="OptimizacionHistorialAreaMueble" EntityType="Proyecto.FinalModel.OptimizacionHistorialAreaMueble" />
+          <EntitySet Name="OptimizacionMuebles" EntityType="Proyecto.FinalModel.OptimizacionMuebles" />
           <EntitySet Name="Pais" EntityType="Proyecto.FinalModel.Pais" />
           <EntitySet Name="Provincia" EntityType="Proyecto.FinalModel.Provincia" />
           <EntitySet Name="Regla" EntityType="Proyecto.FinalModel.Regla" />
@@ -850,6 +878,10 @@
           <AssociationSet Name="FK__Optimizac__IdOpt__0B129727" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__0B129727">
             <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Optimizac__IdOpt__1C3D2329" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329">
+            <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
+            <End Role="OptimizacionMuebles" EntitySet="OptimizacionMuebles" />
           </AssociationSet>
           <AssociationSet Name="FK__Optimizac__IdOpt__0C06BB60" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__0C06BB60">
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
@@ -1043,6 +1075,7 @@
           <Property Name="OptimizarCosto" Type="Boolean" />
           <Property Name="CostoMaximo" Type="Single" />
           <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0B129727" FromRole="OptimizacionHistorial" ToRole="OptimizacionHistorialArea" />
+          <NavigationProperty Name="OptimizacionMuebles" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329" FromRole="OptimizacionHistorial" ToRole="OptimizacionMuebles" />
         </EntityType>
         <EntityType Name="OptimizacionHistorialArea">
           <Key>
@@ -1075,7 +1108,18 @@
           <Property Name="VerticeIzquierdaAbajoY" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoX" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoY" Type="Single" Nullable="false" />
+          <Property Name="IdMueble" Type="Int32" />
           <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0C06BB60" FromRole="OptimizacionHistorialAreaMueble" ToRole="OptimizacionHistorialArea" />
+        </EntityType>
+        <EntityType Name="OptimizacionMuebles">
+          <Key>
+            <PropertyRef Name="IdOptimizacionMuebles" />
+          </Key>
+          <Property Name="IdOptimizacionMuebles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOptimizacionHistorial" Type="Int32" Nullable="false" />
+          <Property Name="Mueble" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329" FromRole="OptimizacionMuebles" ToRole="OptimizacionHistorial" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -1336,6 +1380,18 @@
               <PropertyRef Name="IdOptimizacionHistorial" />
             </Principal>
             <Dependent Role="OptimizacionHistorialArea">
+              <PropertyRef Name="IdOptimizacionHistorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Optimizac__IdOpt__1C3D2329">
+          <End Type="Proyecto.FinalModel.OptimizacionHistorial" Role="OptimizacionHistorial" Multiplicity="1" />
+          <End Type="Proyecto.FinalModel.OptimizacionMuebles" Role="OptimizacionMuebles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptimizacionHistorial">
+              <PropertyRef Name="IdOptimizacionHistorial" />
+            </Principal>
+            <Dependent Role="OptimizacionMuebles">
               <PropertyRef Name="IdOptimizacionHistorial" />
             </Dependent>
           </ReferentialConstraint>
@@ -1691,6 +1747,7 @@
           <EntitySetMapping Name="OptimizacionHistorialAreaMueble">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.OptimizacionHistorialAreaMueble">
               <MappingFragment StoreEntitySet="OptimizacionHistorialAreaMueble">
+                <ScalarProperty Name="IdMueble" ColumnName="IdMueble" />
                 <ScalarProperty Name="VerticeDerechaAbajoY" ColumnName="VerticeDerechaAbajoY" />
                 <ScalarProperty Name="VerticeDerechaAbajoX" ColumnName="VerticeDerechaAbajoX" />
                 <ScalarProperty Name="VerticeIzquierdaAbajoY" ColumnName="VerticeIzquierdaAbajoY" />
@@ -1701,6 +1758,16 @@
                 <ScalarProperty Name="VerticeIzquierdaArribaX" ColumnName="VerticeIzquierdaArribaX" />
                 <ScalarProperty Name="IdOptimizacionHistorialArea" ColumnName="IdOptimizacionHistorialArea" />
                 <ScalarProperty Name="IdOptimizacionHistorialAreaMueble" ColumnName="IdOptimizacionHistorialAreaMueble" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OptimizacionMuebles">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.OptimizacionMuebles">
+              <MappingFragment StoreEntitySet="OptimizacionMuebles">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Mueble" ColumnName="Mueble" />
+                <ScalarProperty Name="IdOptimizacionHistorial" ColumnName="IdOptimizacionHistorial" />
+                <ScalarProperty Name="IdOptimizacionMuebles" ColumnName="IdOptimizacionMuebles" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

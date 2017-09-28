@@ -98,5 +98,13 @@ namespace IngematicaAngularBase.Dal.Specification
 			
 			return source;
 		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionHistorialAreaMueble> WithIdMueble(this IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionHistorialAreaMueble> source, int? value)
+		{
+			if (value != null)
+				return source.Where(p => p.IdMueble == value);
+			
+			return source;
+		}
 	}
 }

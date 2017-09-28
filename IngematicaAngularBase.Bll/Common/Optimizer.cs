@@ -168,6 +168,20 @@ namespace IngematicaAngularBase.Bll.Common
             optimizacionHistorialViewModel.IdOptimizacionHistorial = -1;
             optimizacionHistorialViewModel.OptimizacionHistorialArea = new List<OptimizacionHistorialAreaViewModel>();
 
+            List<OptimizacionMueblesViewModel> listMuebles = new List<OptimizacionMueblesViewModel>();
+
+            foreach(OptimizacionMueble optMueble in muebleCantidadList)
+            {
+                OptimizacionMueblesViewModel optMueblView = new OptimizacionMueblesViewModel();
+                optMueblView.IdOptimizacionHistorial = -1;
+                optMueblView.IdOptimizacionMuebles = -1;
+                optMueblView.Cantidad = optMueble.Cantidad;
+                optMueblView.Mueble = (muebleList.Where(x => x.IdMueble == optMueble.IdMueble).First()).Nombre;
+                listMuebles.Add(optMueblView);
+            }
+
+            optimizacionHistorialViewModel.OptimizacionMuebles = listMuebles;
+
             foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
             {
                 foreach (AreaOptimizacion area in areaList)
@@ -198,6 +212,7 @@ namespace IngematicaAngularBase.Bll.Common
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaAbajoY = mueble.VerticeIzquierdaAbajo.Y;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaX = mueble.VerticeIzquierdaArriba.X;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaY = mueble.VerticeIzquierdaArriba.Y;
+                        optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
 
                         if (!mueble.Mueble.PoseeRadio)
                         {
@@ -245,9 +260,11 @@ namespace IngematicaAngularBase.Bll.Common
             Mapper.CreateMap<OptimizacionHistorialViewModel, OptimizacionHistorial>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             Mapper.CreateMap<OptimizacionHistorialAreaViewModel, OptimizacionHistorialArea>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             Mapper.CreateMap<OptimizacionHistorialAreaMuebleViewModel, OptimizacionHistorialAreaMueble>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+            Mapper.CreateMap<OptimizacionMueblesViewModel, OptimizacionMuebles>().IgnoreAllPropertiesWithAnInaccessibleSetter();
+
 
             OptimizacionHistorial optimizacionHistorial = Mapper.Map<OptimizacionHistorialViewModel, OptimizacionHistorial>(optimizacionHistorialViewModel);
-
+            
             //agregar validaciones y auditoria
             using (var context = new Entities())
             {

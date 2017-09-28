@@ -17,6 +17,7 @@ namespace IngematicaAngularBase.Model.Entities
         public OptimizacionHistorial()
         {
             this.OptimizacionHistorialArea = new HashSet<OptimizacionHistorialArea>();
+            this.OptimizacionMuebles = new HashSet<OptimizacionMuebles>();
         }
     
         public int IdOptimizacionHistorial { get; set; }
@@ -27,5 +28,6 @@ namespace IngematicaAngularBase.Model.Entities
         public Nullable<float> CostoMaximo { get; set; }
     
         public virtual ICollection<OptimizacionHistorialArea> OptimizacionHistorialArea { get; set; }
+        public virtual ICollection<OptimizacionMuebles> OptimizacionMuebles { get; set; }
     }
 }

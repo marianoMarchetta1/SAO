@@ -36,6 +36,7 @@ namespace IngematicaAngularBase.Dal
         public virtual DbSet<OptimizacionHistorial> OptimizacionHistorial { get; set; }
         public virtual DbSet<OptimizacionHistorialArea> OptimizacionHistorialArea { get; set; }
         public virtual DbSet<OptimizacionHistorialAreaMueble> OptimizacionHistorialAreaMueble { get; set; }
+        public virtual DbSet<OptimizacionMuebles> OptimizacionMuebles { get; set; }
         public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Regla> Regla { get; set; }

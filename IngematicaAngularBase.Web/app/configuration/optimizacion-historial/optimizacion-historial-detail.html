@@ -56,8 +56,8 @@
 
         </div>
 
-        <!--<h4>Muebles</h4>
-        <div class="row">
+        <h4>Muebles</h4>
+       <!--< <div class="row">
 
             <div class="col-md-2">
                 <div class="form-group">
@@ -70,25 +70,21 @@
                 </div>
             </div>
 
-        </div>
+        </div>  -->
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>Mueble</th>
                     <th>Cantidad</th>
-                    <th class="size-2"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in vm.optimizacion.muebleList">
-                    <td class="text-right">{{item.nombre}}</td>
+                <tr ng-repeat="item in vm.optimizacionHistorial.optimizacionMuebles">
+                    <td class="text-right">{{item.mueble}}</td>
                     <td class="text-right">{{item.cantidad}}</td>
-                    <td class="text-right">
-                        <a href="" ng-click="vm.operationMueble('delete', item.idMueble)" class="btn btn-sm btn-link pull-left "><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
-                    </td>
                 </tr>
             </tbody>
-        </table>-->
+        </table>
 
         <div class="nav navBorder">
             <div class="navbar-right">

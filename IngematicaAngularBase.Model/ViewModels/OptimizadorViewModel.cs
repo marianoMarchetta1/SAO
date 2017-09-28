@@ -100,8 +100,16 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double CostoMaximo { get; set; }
 
         public List<OptimizacionHistorialAreaViewModel> OptimizacionHistorialArea { get; set; }
+        public List<OptimizacionMueblesViewModel> OptimizacionMuebles { get; set; }
 
         public List<string> Paths { get; set; }
+    }
+
+    public class OptimizacionMueblesViewModel{
+        public int Cantidad { get; set; }
+        public string Mueble { get; set; }
+        public int IdOptimizacionHistorial { get; set; }
+        public int IdOptimizacionMuebles { get; set; }
     }
 
     public class OptimizacionHistorialAreaViewModel
@@ -140,6 +148,8 @@ namespace IngematicaAngularBase.Model.ViewModels
 
         public double? VerticeDerechaAbajoX { get; set; }
         public double? VerticeDerechaAbajoY { get; set; }
+
+        public int IdMueble { get; set; }
     }
 
     public class Vector2

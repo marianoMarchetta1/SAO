@@ -49,6 +49,11 @@ namespace IngematicaAngularBase.Bll
                                                           where idsOptimizacionHistorialArea.Contains(optimizacionHistorialAreaMuebleElement.IdOptimizacionHistorialArea)
                                                           select optimizacionHistorialAreaMuebleElement;
 
+                var mueblesResult = from optimizacionMuebles in context.Set<OptimizacionMuebles>()
+                                    where idsOptimizacionHistorial.Contains(optimizacionMuebles.IdOptimizacionHistorial)
+                                    select optimizacionMuebles;
+
+                mueblesResult.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
                 optimizacionHistorialAreaMuebleList.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
                 optimizacionHistorialAreaList.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
                 optimizacionHistorial.ToList().ForEach(x => context.Entry(x).State = EntityState.Deleted);
@@ -63,7 +68,9 @@ namespace IngematicaAngularBase.Bll
             {
                 //Recorrer la lista y generar paths a retornar en pantalla
                 OptimizacionHistorialDataAccess optimizacionHistorialDataAccess = new OptimizacionHistorialDataAccess(context);
-                return optimizacionHistorialDataAccess.GetById(id);
+                OptimizacionHistorialViewModel optimizacionHistorialViewModel = optimizacionHistorialDataAccess.GetById(id);
+
+                return optimizacionHistorialViewModel;
             }
         }
     }
