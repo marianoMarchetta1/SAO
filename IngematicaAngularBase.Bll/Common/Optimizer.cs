@@ -395,7 +395,7 @@ namespace IngematicaAngularBase.Bll.Common
                 #region
                 // Area Vacía
                 #endregion
-                xMax            = areaOptimizacion.VerticeIzquierdaArriba.X + celda.Ancho;
+                xMax            = areaOptimizacion.VerticeIzquierdaArriba.X;
                 izquierdaAbajo  = areaOptimizacion.VerticeIzquierdaArriba;
                 derechaAbajo.X  = areaOptimizacion.VerticeIzquierdaArriba.X + celda.Ancho;
                 derechaAbajo.Y  = areaOptimizacion.VerticeIzquierdaArriba.Y;
@@ -420,7 +420,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                             // Completar fila
                             if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X &&
-                                izquierdaAbajo.Y > areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                                izquierdaAbajo.Y - celda.Largo > areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
                                 celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y);
 
@@ -1408,7 +1408,7 @@ namespace IngematicaAngularBase.Bll.Common
             areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(ref muebleAux);
             minimoX = areaOptimizacion.MueblesList.First().VerticeIzquierdaArriba.X;
             maximoX = areaOptimizacion.MueblesList.First().VerticeDerechaArriba.X;
-            FilaXOriginal = maximoX;
+            FilaXOriginal = minimoX;
 
             for (int i = 1; i < areaOptimizacion.MueblesList.Count; i++)
             {
@@ -1462,7 +1462,7 @@ namespace IngematicaAngularBase.Bll.Common
                     // Comparar maximoX de la fila anterior con el primer elemento de esta
                     //if (maximoX < areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.X)
                     // Guardar FilaXOriginal
-                    FilaXOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.X;
+                    FilaXOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeIzquierdaArriba.X;
                     // Mover el primer elemento
                     muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
                     areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(ref muebleAux, maximoX);
