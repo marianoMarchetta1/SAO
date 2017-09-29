@@ -402,7 +402,7 @@ namespace IngematicaAngularBase.Bll.Common
             }
             else
             {
-                double filaX = areaOptimizacion.MueblesList.First().VerticeIzquierdaArriba.Y;
+                double filaX = areaOptimizacion.MueblesList.First().VerticeIzquierdaArriba.X;
                 for (int i = 1; i < areaOptimizacion.MueblesList.Count(); i++)
                 {
                     if (areaOptimizacion.MueblesList[i].VerticeIzquierdaArriba.X != filaX)
@@ -444,7 +444,9 @@ namespace IngematicaAngularBase.Bll.Common
                 // Checkear si la fila anterior es un pasillo, sino insertar uno
                 if (areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeDerechaAbajo.X == xMax).First().Largo != 0)
                 {
-                    InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                    // Checkeo para que no inserte celdas mas pequeñas q pasillos pegada a otra fila de celdas
+                    if (!InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax))
+                        return;
 
                     xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
                 }
@@ -505,7 +507,8 @@ namespace IngematicaAngularBase.Bll.Common
 
                     if (celdaList.Count != 0)
                     {
-                        InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax);
+                        if (!InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax))
+                            return;
                         xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
                     }
 
@@ -516,9 +519,9 @@ namespace IngematicaAngularBase.Bll.Common
             }
         }
 
-        public void InsertarPasilloEnLargo(AreaOptimizacion areaOptimizacion, double anchoPasillos, double xMax)
+        public bool InsertarPasilloEnLargo(AreaOptimizacion areaOptimizacion, double anchoPasillos, double xMax)
         {
-            if(xMax + anchoPasillos <= areaOptimizacion.VerticeDerechaAbajo.X)
+            if (xMax + anchoPasillos <= areaOptimizacion.VerticeDerechaAbajo.X)
             {
                 MueblesOptmizacion pasillo = new MueblesOptmizacion();
                 pasillo.Mueble = new Mueble();
@@ -548,7 +551,10 @@ namespace IngematicaAngularBase.Bll.Common
                 pasillo.Area = pasillo.Ancho * pasillo.Largo;
 
                 areaOptimizacion.MueblesList.Add(pasillo);
+                return true;
             }
+            else
+                return false;
         }
 
         public void IncertarMuebleCelda(MueblesOptmizacion celda, List<Mueble> muebleList, AreaOptimizacion areaOptimizacion)
@@ -787,7 +793,8 @@ namespace IngematicaAngularBase.Bll.Common
                 // Checkear si la fila anterior es un pasillo, sino insertar uno
                 if (areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeIzquierdaAbajo.Y == yMin).First().Largo != 0)
                 {
-                    InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                    if (!InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin))
+                        return;
 
                     yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
@@ -819,7 +826,8 @@ namespace IngematicaAngularBase.Bll.Common
                     yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
                     if (celdaList.Count > 0) //Sino inserta dos a lo ultimo
-                        InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin);
+                        if (!InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin))
+                            return;
 
                     yMin = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.Y).Min();
 
@@ -903,7 +911,7 @@ namespace IngematicaAngularBase.Bll.Common
             return celdaList;
         }
 
-        public void InsertarPasilloEnAncho(AreaOptimizacion areaOptimizacion, double anchoPasillos, double yMin)
+        public bool InsertarPasilloEnAncho(AreaOptimizacion areaOptimizacion, double anchoPasillos, double yMin)
         {
             if (yMin - anchoPasillos >= areaOptimizacion.VerticeDerechaAbajo.Y)
             {
@@ -931,7 +939,11 @@ namespace IngematicaAngularBase.Bll.Common
                 pasillo.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                 areaOptimizacion.MueblesList.Add(pasillo);
+
+                return true;
             }
+            else
+                return false;
         }
 
         public List<MueblesOptmizacion> GetCeldaListHorizontal(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaArriba)
@@ -1403,6 +1415,17 @@ namespace IngematicaAngularBase.Bll.Common
             double FilaXOriginal = 0;
             MueblesOptmizacion muebleAux;
 
+            // Checkear si el area esta vacía y entra una celda
+            celda = GetTamañoMaximoCelda(muebles, 1);
+
+            if (areaOptimizacion.MueblesList.Count() == 0)
+            {
+                if (areaOptimizacion.Ancho >= celda.Ancho && areaOptimizacion.Largo >= celda.Largo)
+                    return true;
+                else
+                    return false;
+            }
+            
             // Primer mueble
             muebleAux = areaOptimizacion.MueblesList.First();
             areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(ref muebleAux);
@@ -1476,10 +1499,7 @@ namespace IngematicaAngularBase.Bll.Common
                     ifila = i;
                 }
             }
-
-            // Verificar si sigue habiendo espacio
-            celda = GetTamañoMaximoCelda(muebles, 1);
-
+            
             List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
             areaOptimizacionList.Add(areaOptimizacion);
 
@@ -1507,6 +1527,17 @@ namespace IngematicaAngularBase.Bll.Common
             double maximoY = 0;
             double FilaYOriginal = 0;
             MueblesOptmizacion muebleAux;
+
+            // Checkear si el area esta vacía y entra una celda
+            celda = GetTamañoMaximoCelda(muebles, 1);
+
+            if (areaOptimizacion.MueblesList.Count() == 0)
+            {
+                if (areaOptimizacion.Ancho >= celda.Ancho && areaOptimizacion.Largo >= celda.Largo)
+                    return true;
+                else
+                    return false;
+            }
 
             // Primer mueble
             muebleAux = areaOptimizacion.MueblesList.First();
@@ -1582,9 +1613,6 @@ namespace IngematicaAngularBase.Bll.Common
                 }
             }
             
-            // Verificar si sigue habiendo espacio
-            celda = GetTamañoMaximoCelda(muebles, 1);
-
             List<AreaOptimizacion> areaOptimizacionList = new List<AreaOptimizacion>();
             areaOptimizacionList.Add(areaOptimizacion);
 
