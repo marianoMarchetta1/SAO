@@ -83,7 +83,7 @@ namespace IngematicaAngularBase.Bll
                     optimizacionHistorialViewModel.Paths.Add(pathTemp);
                     DxfDocument dxfFinal = new DxfDocument();
 
-                    foreach (OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel in optimizacionHistorialViewModel.OptimizacionHistorialArea)
+                    foreach (OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel in historico.OptimizacionHistorialArea)
                     {
                         List<LwPolylineVertex> verticesArea = new List<LwPolylineVertex>();
 
@@ -92,20 +92,20 @@ namespace IngematicaAngularBase.Bll
                         verticeIzqueirdaArriba.Y = (double)optimizacionHistorialAreaViewModel.VerticeIzquierdaArribaY;
                         verticesArea.Add(mb.ConvertVertex(verticeIzqueirdaArriba));
 
-                        Model.ViewModels.Vector2 verticeIzqueirdaAbajo = new Model.ViewModels.Vector2();
-                        verticeIzqueirdaAbajo.X = (double)optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoX;
-                        verticeIzqueirdaAbajo.Y = (double)optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoY;
-                        verticesArea.Add(mb.ConvertVertex(verticeIzqueirdaAbajo));
+                        Model.ViewModels.Vector2 verticeDerechaArriba = new Model.ViewModels.Vector2();
+                        verticeDerechaArriba.X = (double)optimizacionHistorialAreaViewModel.VerticeDerechaArribaX;
+                        verticeDerechaArriba.Y = (double)optimizacionHistorialAreaViewModel.VerticeDerechaArribaY;
+                        verticesArea.Add(mb.ConvertVertex(verticeDerechaArriba));
 
                         Model.ViewModels.Vector2 verticeDerechaAbajo = new Model.ViewModels.Vector2();
                         verticeDerechaAbajo.X = (double)optimizacionHistorialAreaViewModel.VerticeDerechaAbajoX;
                         verticeDerechaAbajo.Y = (double)optimizacionHistorialAreaViewModel.VerticeDerechaAbajoY;
                         verticesArea.Add(mb.ConvertVertex(verticeDerechaAbajo));
 
-                        Model.ViewModels.Vector2 verticeDerechaArriba = new Model.ViewModels.Vector2();
-                        verticeDerechaArriba.X = (double)optimizacionHistorialAreaViewModel.VerticeDerechaArribaX;
-                        verticeDerechaArriba.Y = (double)optimizacionHistorialAreaViewModel.VerticeDerechaArribaY;
-                        verticesArea.Add(mb.ConvertVertex(verticeDerechaArriba));
+                        Model.ViewModels.Vector2 verticeIzqueirdaAbajo = new Model.ViewModels.Vector2();
+                        verticeIzqueirdaAbajo.X = (double)optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoX;
+                        verticeIzqueirdaAbajo.Y = (double)optimizacionHistorialAreaViewModel.VerticeIzquierdaAbajoY;
+                        verticesArea.Add(mb.ConvertVertex(verticeIzqueirdaAbajo));
 
                         dxfFinal.AddEntity(new LwPolyline(verticesArea, true));
 
@@ -118,20 +118,20 @@ namespace IngematicaAngularBase.Bll
                             verticeIzqueirdaArribaMueble.Y = (double)mueble.VerticeIzquierdaArribaY;
                             verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaArribaMueble));
 
-                            Model.ViewModels.Vector2 verticeIzqueirdaAbajoMueble = new Model.ViewModels.Vector2();
-                            verticeIzqueirdaAbajoMueble.X = (double)mueble.VerticeIzquierdaAbajoX;
-                            verticeIzqueirdaAbajoMueble.Y = (double)mueble.VerticeIzquierdaAbajoY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaAbajoMueble));
+                            Model.ViewModels.Vector2 verticeDerechaArribaMueble = new Model.ViewModels.Vector2();
+                            verticeDerechaArribaMueble.X = (double)mueble.VerticeDerechaArribaX;
+                            verticeDerechaArribaMueble.Y = (double)mueble.VerticeDerechaArribaY;
+                            verticesMueble.Add(mb.ConvertVertex(verticeDerechaArribaMueble));
 
                             Model.ViewModels.Vector2 verticeDerechaAbajoMueble = new Model.ViewModels.Vector2();
                             verticeDerechaAbajoMueble.X = (double)mueble.VerticeDerechaAbajoX;
                             verticeDerechaAbajoMueble.Y = (double)mueble.VerticeDerechaAbajoY;
                             verticesMueble.Add(mb.ConvertVertex(verticeDerechaAbajoMueble));
 
-                            Model.ViewModels.Vector2 verticeDerechaArribaMueble = new Model.ViewModels.Vector2();
-                            verticeDerechaArribaMueble.X = (double)mueble.VerticeDerechaArribaX;
-                            verticeDerechaArribaMueble.Y = (double)mueble.VerticeDerechaArribaY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeDerechaArribaMueble));
+                            Model.ViewModels.Vector2 verticeIzqueirdaAbajoMueble = new Model.ViewModels.Vector2();
+                            verticeIzqueirdaAbajoMueble.X = (double)mueble.VerticeIzquierdaAbajoX;
+                            verticeIzqueirdaAbajoMueble.Y = (double)mueble.VerticeIzquierdaAbajoY;
+                            verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaAbajoMueble));
 
                             dxfFinal.AddEntity(new LwPolyline(verticesMueble, true));
                         }
