@@ -76,9 +76,11 @@ namespace IngematicaAngularBase.Bll
                 OptimizacionHistorialViewModel optimizacionHistorialViewModel = optimizacionHistorialDataAccess.GetById(id);
                 List<OptimizacionHistorialViewModel> optimizacionHistorialViewModelDos = optimizacionHistorialDataAccess.GetByIdSinAgrupar(id);
 
+                DateTime dateTimeNow = DateTime.Now;
+
                 foreach (OptimizacionHistorialViewModel historico in optimizacionHistorialViewModelDos)
                 {
-                    DateTime dateTimeNow = DateTime.Now;
+                    
                     string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
                     optimizacionHistorialViewModel.Paths.Add(pathTemp);
                     DxfDocument dxfFinal = new DxfDocument();

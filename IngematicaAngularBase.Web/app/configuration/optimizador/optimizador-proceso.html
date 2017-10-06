@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label class="control-label">Cantidad</label>
                     <input class="form-control text-right" name="Cantidad" ng-model="vm.cantidad" validate-numeric numeric-type="int64"
@@ -115,10 +115,10 @@
                 </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group">
                     <br />
-                    <p ng-class=" (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo && (vm.costoActual < vm.optimizacion.costoMaximo)) ? 'text-success' : 
+                    <p style="font-size: 20px" ng-class=" (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo && (vm.costoActual < vm.optimizacion.costoMaximo)) ? 'text-success' : 
                                     (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo && (vm.costoActual == vm.optimizacion.costoMaximo) ? 'text-warning'  :  
                                     (vm.optimizacion.optimizarCosto && vm.optimizacion.costoMaximo ? 'text-danger' : 'text-muted')
                        

@@ -149,7 +149,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double? VerticeDerechaAbajoX { get; set; }
         public double? VerticeDerechaAbajoY { get; set; }
 
-        public int IdMueble { get; set; }
+        //public int IdMueble { get; set; }
     }
 
     public class Vector2

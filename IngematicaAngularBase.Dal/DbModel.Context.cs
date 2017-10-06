@@ -16,6 +16,7 @@ namespace IngematicaAngularBase.Dal
     using System.Linq;
     using IngematicaAngularBase.Model.Entities;
 
+
     public partial class Entities : DbContext
     {
         public Entities()

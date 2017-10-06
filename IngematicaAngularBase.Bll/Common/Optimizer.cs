@@ -212,7 +212,7 @@ namespace IngematicaAngularBase.Bll.Common
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaAbajoY = mueble.VerticeIzquierdaAbajo.Y;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaX = mueble.VerticeIzquierdaArriba.X;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaY = mueble.VerticeIzquierdaArriba.Y;
-                        optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
+                        //optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
 
                         if (!mueble.Mueble.PoseeRadio)
                         {
@@ -455,7 +455,7 @@ namespace IngematicaAngularBase.Bll.Common
                 xMax = areaOptimizacion.MueblesList.Select(x => x.VerticeDerechaAbajo.X).Max();
 
                 // Checkear si la fila anterior es un pasillo, sino insertar uno
-                if (areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeDerechaAbajo.X == xMax).First().Largo != 0)
+                if (Math.Round(areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeDerechaAbajo.X == xMax).First().Largo,2) != Math.Round(areaOptimizacion.Largo,2))
                 {
                     // Checkeo para que no inserte celdas mas pequeñas q pasillos pegada a otra fila de celdas
                     if (!InsertarPasilloEnLargo(areaOptimizacion, anchoPasillos, xMax))
@@ -819,7 +819,7 @@ namespace IngematicaAngularBase.Bll.Common
                 yMin = areaOptimizacion.MueblesList.Select(y => y.VerticeIzquierdaAbajo.Y).Min();
 
                 // Checkear si la fila anterior es un pasillo, sino insertar uno
-                if (areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeIzquierdaAbajo.Y == yMin).First().Largo != 0)
+                if (Math.Round(areaOptimizacion.MueblesList.Select(mueble => mueble).Where(mueble => mueble.VerticeIzquierdaAbajo.Y == yMin).First().Ancho,2) != Math.Round(areaOptimizacion.Ancho,2))
                 {
                     if (!InsertarPasilloEnAncho(areaOptimizacion, anchoPasillos, yMin))
                         return;
@@ -965,6 +965,10 @@ namespace IngematicaAngularBase.Bll.Common
                 VerticeDerechaAbajo.Y = VerticeIzquierdaAbajo.Y;
                 VerticeDerechaAbajo.X = areaOptimizacion.VerticeDerechaArriba.X;
                 pasillo.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                pasillo.Largo = anchoPasillos;
+                pasillo.Ancho = Math.Abs(VerticeDerechaArriba.X - VerticeIzquierdaArriba.X);
+                pasillo.Area = pasillo.Ancho * pasillo.Largo;
 
                 areaOptimizacion.MueblesList.Add(pasillo);
 
