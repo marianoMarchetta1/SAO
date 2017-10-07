@@ -159,6 +159,10 @@
     <Content Include="app\configuration\rol\rol-factory.js" />
     <Content Include="app\configuration\rol\rol-list-controller.js" />
     <Content Include="app\configuration\rol\rol-list.html" />
+    <Content Include="app\configuration\user-log\user-log-config.js" />
+    <Content Include="app\configuration\user-log\user-log-factory.js" />
+    <Content Include="app\configuration\user-log\user-log-list-controller.js" />
+    <Content Include="app\configuration\user-log\user-log-list.html" />
     <Content Include="app\configuration\usuario\usuario-add-update-controller.js" />
     <Content Include="app\configuration\usuario\usuario-add-update.html" />
     <Content Include="app\configuration\usuario\usuario-config.js" />

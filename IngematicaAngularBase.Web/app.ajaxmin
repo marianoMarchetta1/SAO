@@ -69,6 +69,10 @@
     <input path="app\configuration\optimizacion-historial\optimizacion-historial-list-controller.js"/>
     <input path="app\configuration\optimizacion-historial\optimizacion-historial-detail-controller.js"/>
 
+    <input path="app\configuration\user-log\user-log-config.js"/>
+    <input path="app\configuration\user-log\user-log-factory.js"/>
+    <input path="app\configuration\user-log\user-log-list-controller.js"/>
+
     <input path="app\dxf\AutoCadColorIndex.js"/>
     <input path="app\dxf\browserify.js"/>
     <input path="app\dxf\dxf-parser.js"/>

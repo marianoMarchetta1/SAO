@@ -86,6 +86,7 @@
     <Compile Include="Controllers\OptimizadorController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\UserLogController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

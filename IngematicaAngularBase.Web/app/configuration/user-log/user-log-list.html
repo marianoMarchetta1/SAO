@@ -1,0 +1,83 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li class="active">Logs de Usuario</li>
+    </ol>
+    <form name="vm.userLogForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          list="vm.queryUI.search()"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Usuario</label>
+                    <input class="form-control" name="usuario" ng-model="vm.queryUI.query.usuario" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+        </div>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="reset" broadcast="vm.userLogForm" broadcast-arg="clear">Limpiar</button>
+                <button class="btn btn-primary" type="button" broadcast="vm.userLogForm" broadcast-arg="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row" ng-hide="vm.queryUI.isListEmpty()">
+        <div class="col-md-8 ">
+            <uib-pagination items-per-page="vm.queryUI.lastQuery.take"
+                            total-items="vm.queryUI.list.totalCount"
+                            ng-model="vm.queryUI.lastQuery.currentPage"
+                            ng-change="vm.queryUI.pageChanged()"
+                            num-pages="vm.queryUI.numPages">
+
+            </uib-pagination>
+        </div>
+        <div class="col-md-2">
+            <pre>Página: {{vm.queryUI.lastQuery.currentPage}} / {{vm.queryUI.numPages}} </pre>
+        </div>
+        <div class="col-md-2">
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Cantidad</span>
+                <select class="form-control" ng-model="vm.queryUI.query.take" ng-change="vm.queryUI.refresh()" ng-options="i for i in vm.queryUI.takeList"></select>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="vm.queryUI.isListEmpty()">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><orderby field="usuario" title="Usuario" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="descripcion" title="Descripcion" query-ui="vm.queryUI"></orderby></th>
+                    <th><orderby field="fecha" title="Fecha" query-ui="vm.queryUI"></orderby></th>
+                    <th class="size-4"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.queryUI.list.data">
+                    <td>{{item.usuario}}</td>
+                    <td>{{item.descripcion}}</td>
+                    <td>{{item.fecha | date:'dd/MM/yyyy'}}</td>
+                    <td class="text-right">
+                        <a ng-if="vm.rules.userLogCanDelete" href="" ng-click="vm.delete(item.idUserLog)" class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove  text-danger" aria-hidden="true"></span></a>
+                        <a ng-if="!vm.rules.userLogCanDelete" class="btn btn-sm btn-link disabled"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="vm.queryUI.isCleared()">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">
+
+            </span> No se han encontrado registros
+        </div>
+    </div>
+</div>
+

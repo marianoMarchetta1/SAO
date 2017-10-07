@@ -134,6 +134,7 @@
     <Compile Include="Specification\Usuario.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserLogDataAccess.cs" />
     <Compile Include="UsuarioDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>

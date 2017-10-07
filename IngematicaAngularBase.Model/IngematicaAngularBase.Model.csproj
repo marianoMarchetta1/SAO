@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\RolListViewModel.cs" />
     <Compile Include="ViewModels\RolViewModel.cs" />
     <Compile Include="ViewModels\SecurityRolViewModel.cs" />
+    <Compile Include="ViewModels\UserLogViewModel.cs" />
     <Compile Include="ViewModels\UsuarioListViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
     <Compile Include="ViewModels\vector2.cs" />

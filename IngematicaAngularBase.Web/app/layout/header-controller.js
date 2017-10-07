@@ -63,6 +63,7 @@ angular.module('appBase').controller('headerController', ['$scope', '$location',
             .addItem("seguridad", "Seguridad", "")
                 .addItem("usuarios", "Usuarios", "Usuario_CanList", "app.usuario-list").back()
                 .addItem("roles", "Roles", "Rol_CanList", "app.rol-list").back()
+                .addItem("userLog", "Logs de Usuario", "UserLog_CanList", "app.userLog-list").back()
                 .addItem("cambiarPassword", "Cambiar Password", "*", "app.cambiar-password").back();
         });
 
