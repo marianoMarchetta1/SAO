@@ -24,6 +24,7 @@ namespace IngematicaAngularBase.Model.Entities
         public float VerticeIzquierdaAbajoY { get; set; }
         public float VerticeDerechaAbajoX { get; set; }
         public float VerticeDerechaAbajoY { get; set; }
+        public Nullable<int> IdMueble { get; set; }
     
         public virtual OptimizacionHistorialArea OptimizacionHistorialArea { get; set; }
     }

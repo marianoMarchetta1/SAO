@@ -128,6 +128,9 @@
     <Compile Include="Specification\sysdiagrams.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>
+    <Compile Include="Specification\UserLog.cs">
+      <DependentUpon>DataAccess.Specification.tt</DependentUpon>
+    </Compile>
     <Compile Include="Specification\Usuario.cs">
       <DependentUpon>DataAccess.Specification.tt</DependentUpon>
     </Compile>

@@ -19,6 +19,7 @@ using System.Text;
 using netDxf;
 using netDxf.Entities;
 using IngematicaAngularBase.Bll.Common;
+using System.Security;
 
 namespace IngematicaAngularBase.Bll
 {
@@ -33,10 +34,12 @@ namespace IngematicaAngularBase.Bll
             }
         }
 
-        public List<string> Generate(OptimizadorOptimizacionViewModel file)
+        public List<string> Generate(OptimizadorOptimizacionViewModel file, int idUsuario)
         {
             using (var context = new Entities())
             {
+                Logger.Log(idUsuario, "El usuario ha generado una optimizaciòn.");
+
                 MuebleDataAccess muebleDataAcces = new MuebleDataAccess(context);
 
                 DxfDocument dxfInitial = DxfDocument.Load(file.Archivo.Path);

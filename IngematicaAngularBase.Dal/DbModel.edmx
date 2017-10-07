@@ -123,6 +123,7 @@
           <Property Name="VerticeIzquierdaAbajoY" Type="real" Nullable="false" />
           <Property Name="VerticeDerechaAbajoX" Type="real" Nullable="false" />
           <Property Name="VerticeDerechaAbajoY" Type="real" Nullable="false" />
+          <Property Name="IdMueble" Type="int" />
         </EntityType>
         <EntityType Name="OptimizacionMuebles">
           <Key>
@@ -223,6 +224,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="IdUserLog" />
+          </Key>
+          <Property Name="IdUserLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="IdUsuario" />
@@ -244,7 +254,7 @@
           <Property Name="IdUsuarioModificacion" Type="int" />
           <Property Name="Interno" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Optimizac__IdOpt__0559BDD1">
+        <Association Name="FK__Optimizac__IdOpt__0B129727">
           <End Role="OptimizacionHistorial" Type="Self.OptimizacionHistorial" Multiplicity="1" />
           <End Role="OptimizacionHistorialArea" Type="Self.OptimizacionHistorialArea" Multiplicity="*" />
           <ReferentialConstraint>
@@ -256,7 +266,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Optimizac__IdOpt__064DE20A">
+        <Association Name="FK__Optimizac__IdOpt__0C06BB60">
           <End Role="OptimizacionHistorialArea" Type="Self.OptimizacionHistorialArea" Multiplicity="1" />
           <End Role="OptimizacionHistorialAreaMueble" Type="Self.OptimizacionHistorialAreaMueble" Multiplicity="*" />
           <ReferentialConstraint>
@@ -268,7 +278,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Optimizac__IdOpt__092A4EB5">
+        <Association Name="FK__Optimizac__IdOpt__1C3D2329">
           <End Role="OptimizacionHistorial" Type="Self.OptimizacionHistorial" Multiplicity="1" />
           <End Role="OptimizacionMuebles" Type="Self.OptimizacionMuebles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -634,16 +644,17 @@
           <EntitySet Name="SecurityClient" EntityType="Self.SecurityClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SecurityRefreshToken" EntityType="Self.SecurityRefreshToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Optimizac__IdOpt__0559BDD1" Association="Self.FK__Optimizac__IdOpt__0559BDD1">
+          <AssociationSet Name="FK__Optimizac__IdOpt__0B129727" Association="Self.FK__Optimizac__IdOpt__0B129727">
             <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
           </AssociationSet>
-          <AssociationSet Name="FK__Optimizac__IdOpt__064DE20A" Association="Self.FK__Optimizac__IdOpt__064DE20A">
+          <AssociationSet Name="FK__Optimizac__IdOpt__0C06BB60" Association="Self.FK__Optimizac__IdOpt__0C06BB60">
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
             <End Role="OptimizacionHistorialAreaMueble" EntitySet="OptimizacionHistorialAreaMueble" />
           </AssociationSet>
-          <AssociationSet Name="FK__Optimizac__IdOpt__092A4EB5" Association="Self.FK__Optimizac__IdOpt__092A4EB5">
+          <AssociationSet Name="FK__Optimizac__IdOpt__1C3D2329" Association="Self.FK__Optimizac__IdOpt__1C3D2329">
             <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
             <End Role="OptimizacionMuebles" EntitySet="OptimizacionMuebles" />
           </AssociationSet>
@@ -837,6 +848,7 @@
           <EntitySet Name="SecurityClient" EntityType="Proyecto.FinalModel.SecurityClient" />
           <EntitySet Name="SecurityRefreshToken" EntityType="Proyecto.FinalModel.SecurityRefreshToken" />
           <EntitySet Name="sysdiagrams" EntityType="Proyecto.FinalModel.sysdiagrams" />
+          <EntitySet Name="UserLog" EntityType="Proyecto.FinalModel.UserLog" />
           <EntitySet Name="Usuario" EntityType="Proyecto.FinalModel.Usuario" />
           <AssociationSet Name="FK_Cliente_Localidades" Association="Proyecto.FinalModel.FK_Cliente_Localidades">
             <End Role="Localidad" EntitySet="Localidad" />
@@ -874,15 +886,15 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Mueble" EntitySet="Mueble" />
           </AssociationSet>
-          <AssociationSet Name="FK__Optimizac__IdOpt__0559BDD1" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__0559BDD1">
+          <AssociationSet Name="FK__Optimizac__IdOpt__0B129727" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__0B129727">
             <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
           </AssociationSet>
-          <AssociationSet Name="FK__Optimizac__IdOpt__092A4EB5" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__092A4EB5">
+          <AssociationSet Name="FK__Optimizac__IdOpt__1C3D2329" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329">
             <End Role="OptimizacionHistorial" EntitySet="OptimizacionHistorial" />
             <End Role="OptimizacionMuebles" EntitySet="OptimizacionMuebles" />
           </AssociationSet>
-          <AssociationSet Name="FK__Optimizac__IdOpt__064DE20A" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__064DE20A">
+          <AssociationSet Name="FK__Optimizac__IdOpt__0C06BB60" Association="Proyecto.FinalModel.FK__Optimizac__IdOpt__0C06BB60">
             <End Role="OptimizacionHistorialArea" EntitySet="OptimizacionHistorialArea" />
             <End Role="OptimizacionHistorialAreaMueble" EntitySet="OptimizacionHistorialAreaMueble" />
           </AssociationSet>
@@ -1073,8 +1085,8 @@
           <Property Name="Escala" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OptimizarCosto" Type="Boolean" />
           <Property Name="CostoMaximo" Type="Single" />
-          <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0559BDD1" FromRole="OptimizacionHistorial" ToRole="OptimizacionHistorialArea" />
-          <NavigationProperty Name="OptimizacionMuebles" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__092A4EB5" FromRole="OptimizacionHistorial" ToRole="OptimizacionMuebles" />
+          <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0B129727" FromRole="OptimizacionHistorial" ToRole="OptimizacionHistorialArea" />
+          <NavigationProperty Name="OptimizacionMuebles" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329" FromRole="OptimizacionHistorial" ToRole="OptimizacionMuebles" />
         </EntityType>
         <EntityType Name="OptimizacionHistorialArea">
           <Key>
@@ -1090,8 +1102,8 @@
           <Property Name="VerticeIzquierdaAbajoY" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoX" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoY" Type="Single" Nullable="false" />
-          <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0559BDD1" FromRole="OptimizacionHistorialArea" ToRole="OptimizacionHistorial" />
-          <NavigationProperty Name="OptimizacionHistorialAreaMueble" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__064DE20A" FromRole="OptimizacionHistorialArea" ToRole="OptimizacionHistorialAreaMueble" />
+          <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0B129727" FromRole="OptimizacionHistorialArea" ToRole="OptimizacionHistorial" />
+          <NavigationProperty Name="OptimizacionHistorialAreaMueble" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0C06BB60" FromRole="OptimizacionHistorialArea" ToRole="OptimizacionHistorialAreaMueble" />
         </EntityType>
         <EntityType Name="OptimizacionHistorialAreaMueble">
           <Key>
@@ -1107,7 +1119,8 @@
           <Property Name="VerticeIzquierdaAbajoY" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoX" Type="Single" Nullable="false" />
           <Property Name="VerticeDerechaAbajoY" Type="Single" Nullable="false" />
-          <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__064DE20A" FromRole="OptimizacionHistorialAreaMueble" ToRole="OptimizacionHistorialArea" />
+          <Property Name="IdMueble" Type="Int32" />
+          <NavigationProperty Name="OptimizacionHistorialArea" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__0C06BB60" FromRole="OptimizacionHistorialAreaMueble" ToRole="OptimizacionHistorialArea" />
         </EntityType>
         <EntityType Name="OptimizacionMuebles">
           <Key>
@@ -1117,7 +1130,7 @@
           <Property Name="IdOptimizacionHistorial" Type="Int32" Nullable="false" />
           <Property Name="Mueble" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__092A4EB5" FromRole="OptimizacionMuebles" ToRole="OptimizacionHistorial" />
+          <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329" FromRole="OptimizacionMuebles" ToRole="OptimizacionHistorial" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -1223,6 +1236,15 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="IdUserLog" />
+          </Key>
+          <Property Name="IdUserLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -1370,7 +1392,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Optimizac__IdOpt__0559BDD1">
+        <Association Name="FK__Optimizac__IdOpt__0B129727">
           <End Type="Proyecto.FinalModel.OptimizacionHistorial" Role="OptimizacionHistorial" Multiplicity="1" />
           <End Type="Proyecto.FinalModel.OptimizacionHistorialArea" Role="OptimizacionHistorialArea" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1382,7 +1404,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Optimizac__IdOpt__092A4EB5">
+        <Association Name="FK__Optimizac__IdOpt__1C3D2329">
           <End Type="Proyecto.FinalModel.OptimizacionHistorial" Role="OptimizacionHistorial" Multiplicity="1" />
           <End Type="Proyecto.FinalModel.OptimizacionMuebles" Role="OptimizacionMuebles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1394,7 +1416,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Optimizac__IdOpt__064DE20A">
+        <Association Name="FK__Optimizac__IdOpt__0C06BB60">
           <End Type="Proyecto.FinalModel.OptimizacionHistorialArea" Role="OptimizacionHistorialArea" Multiplicity="1" />
           <End Type="Proyecto.FinalModel.OptimizacionHistorialAreaMueble" Role="OptimizacionHistorialAreaMueble" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1745,6 +1767,7 @@
           <EntitySetMapping Name="OptimizacionHistorialAreaMueble">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.OptimizacionHistorialAreaMueble">
               <MappingFragment StoreEntitySet="OptimizacionHistorialAreaMueble">
+                <ScalarProperty Name="IdMueble" ColumnName="IdMueble" />
                 <ScalarProperty Name="VerticeDerechaAbajoY" ColumnName="VerticeDerechaAbajoY" />
                 <ScalarProperty Name="VerticeDerechaAbajoX" ColumnName="VerticeDerechaAbajoX" />
                 <ScalarProperty Name="VerticeIzquierdaAbajoY" ColumnName="VerticeIzquierdaAbajoY" />
@@ -1863,6 +1886,16 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLog">
+            <EntityTypeMapping TypeName="Proyecto.FinalModel.UserLog">
+              <MappingFragment StoreEntitySet="UserLog">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="IdUserLog" ColumnName="IdUserLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

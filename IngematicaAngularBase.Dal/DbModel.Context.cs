@@ -16,7 +16,6 @@ namespace IngematicaAngularBase.Dal
     using System.Linq;
     using IngematicaAngularBase.Model.Entities;
 
-
     public partial class Entities : DbContext
     {
         public Entities()
@@ -46,6 +45,7 @@ namespace IngematicaAngularBase.Dal
         public virtual DbSet<SecurityClient> SecurityClient { get; set; }
         public virtual DbSet<SecurityRefreshToken> SecurityRefreshToken { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<UserLog> UserLog { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     
         public virtual int ChangeUsuarioPassword(string nombreUsuario, string password, string passwordSalt)

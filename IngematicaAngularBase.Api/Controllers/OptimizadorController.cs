@@ -67,7 +67,7 @@ namespace IngematicaAngularBase.Api.Controllers
         public IHttpActionResult Generate(OptimizadorOptimizacionViewModel file)
         {
             OptimizadorBusiness optimizadorBusiness = new OptimizadorBusiness();
-            return Ok(optimizadorBusiness.Generate(file));
+            return Ok(optimizadorBusiness.Generate(file, SecurityManager.GetIdUsuario(User.Identity.Name)));
         }
     }
 }

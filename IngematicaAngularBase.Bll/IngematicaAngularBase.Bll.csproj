@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Cascade.cs" />
+    <Compile Include="Common\Logger.cs" />
     <Compile Include="Common\Optimizer.cs" />
     <Compile Include="ModuloBusiness.cs" />
     <Compile Include="LogBusiness.cs" />
