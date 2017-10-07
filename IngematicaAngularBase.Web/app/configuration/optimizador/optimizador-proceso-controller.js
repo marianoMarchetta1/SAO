@@ -115,8 +115,10 @@
                 blockUI.start();
                 optimizadorFactory.generate(vm.optimizacion)
                 .then(function (value) {
-                    var a;
-                    a = 0; //cargar el path resultado en una variable para mostrarlo
+                    if (value && value.length > 0)
+                        modalDialogService.showModalMessage('Los planos optimizados se han generado con exito y se encuentran en: ' + value[0]);
+                    else
+                        modalDialogService.showModalFormErrors(["Error al generar los archivos."]);
                 })
                 .catch(function (error) {
                     handleErrorService.handleErrorConfig(error);

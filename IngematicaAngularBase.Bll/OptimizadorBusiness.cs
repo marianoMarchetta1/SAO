@@ -60,7 +60,7 @@ namespace IngematicaAngularBase.Bll
                 foreach (DxfDocument dxf in dxfsFinals)
                 {
                     string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
-                    paths.Add(path);
+                    paths.Add(path + "\\temp");
                     dxf.Save(pathTemp);
                     dateTimeNow = dateTimeNow.AddSeconds(2);
                 }

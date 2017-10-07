@@ -13,6 +13,10 @@
             vm.target = {};
             vm.optimizacionHistorial = entity;
 
+            if (vm.optimizacionHistorial.paths && vm.optimizacionHistorial.paths.length > 0)
+                modalDialogService.showModalMessage('Los planos optimizados se han generado con exito y se encuentran en: ' + vm.optimizacionHistorial.paths[0]);
+            else
+                modalDialogService.showModalFormErrors(["Error al generar los archivos."]);
         };
 
         vm.init();
