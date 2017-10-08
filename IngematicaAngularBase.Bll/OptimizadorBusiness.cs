@@ -38,7 +38,8 @@ namespace IngematicaAngularBase.Bll
         {
             using (var context = new Entities())
             {
-                Logger.Log(idUsuario, "El usuario ha generado una optimizaciòn.");
+                // TODO: Descomentar
+                //Logger.Log(idUsuario, "El usuario ha generado una optimizaciòn.");
 
                 MuebleDataAccess muebleDataAcces = new MuebleDataAccess(context);
 

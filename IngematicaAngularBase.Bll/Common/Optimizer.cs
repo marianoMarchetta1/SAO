@@ -94,18 +94,8 @@ namespace IngematicaAngularBase.Bll.Common
 
                         if (index == -1)
                         {
-
-                            //if ((int)sentido == 2)
-                            //{
-                            //    foreach (AreaOptimizacion area in areaOptmizacion)
-                            //    {
                             // Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
                             hayEspacio = Compactar(areaOptmizacion, (int)sentido, muebleListTemp);
-                            //        hayEspacio = CompactarAncho(area, muebleListTemp);
-                            //    }
-                            //}
-                            //else
-                            //    hayEspacio = false;
 
                             if (!hayEspacio)
                                 break;
@@ -118,6 +108,7 @@ namespace IngematicaAngularBase.Bll.Common
                     plano.Add(areaOptmizacion);
                 }
 
+                // TODO: Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
                 finalFlat = GrabarPlano(plano);
                 finalFlats.Add(finalFlat);
                 finalFlat = new DxfDocument();
@@ -347,6 +338,7 @@ namespace IngematicaAngularBase.Bll.Common
             #endregion 
 
             int index = 0;
+            int countInicial = muebleList.Count();
             
             if(sentido == (int)SentidoPasillosEnum.Largo)
             {
@@ -370,9 +362,36 @@ namespace IngematicaAngularBase.Bll.Common
                 UbicarMueblesEnAncho(areaOptimizacion[index], muebleList, sentido, anchoPasillos, celda);
             }
 
+            if (muebleList.Count() == countInicial) // Hay espacio, pero no se insertaron muebles
+            {
+                //Insertar muebles en huecos
+                UbicarMueblesEnHuecos(areaOptimizacion[index], muebleList, celda);
+            }
             return index;
         }
 
+        public void UbicarMueblesEnHuecos(AreaOptimizacion areaOptimizacion, List<Mueble> muebleList, Celda celda)
+        {
+            if (areaOptimizacion.HuecosList.Count() > 0)
+            {
+                //Comparar tamaño celda con cada hueco
+                foreach (MueblesOptmizacion hueco in areaOptimizacion.HuecosList)
+                {
+                    if (muebleList.Count() == 0)
+                        break;
+
+                    if (hueco.Ancho >= celda.Ancho && hueco.Largo >= celda.Largo && hueco.Mueble == null)
+                    {
+                        Mueble mueble = new Mueble();
+                        mueble = muebleList.First();
+                        hueco.Mueble = mueble;
+                        hueco.Mueble.Activo = true;
+                        muebleList.RemoveAt(0);
+                    }
+                }
+            }
+        }
+        
         #region
         //Largo en Y
         //1. Obtengo el ultimo mueble. Valido si queda lugar en esa fila
@@ -1064,10 +1083,6 @@ namespace IngematicaAngularBase.Bll.Common
                     izquierdaAbajo  = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaAbajo).First();
                     izquierdaArriba = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaArriba).First();
                     
-                    //Si coinciden los vertices => el area esta llena => paso a la siguiente area.
-                    if (derechaAbajo == areaOptimizacion[i].VerticeDerechaAbajo)
-                        continue;
-
                     //if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
                     double areaRestoFila = (Math.Abs(derechaAbajo.X - izquierdaAbajo.X)) * (Math.Abs(derechaAbajo.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y));
                     bool   ultimaFila    = (Math.Abs(areaOptimizacion[i].VerticeDerechaAbajo.X - xMax)) < celda.Ancho;
@@ -1077,6 +1092,15 @@ namespace IngematicaAngularBase.Bll.Common
                             && (Math.Abs(derechaAbajo.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y)) >= celda.Largo)
                         || !ultimaFila)
                         return i;
+
+                    // Verificar lista de Huecos
+                    if (HayEspacioEnHuecos(areaOptimizacion[i].HuecosList, celda))
+                        return i;
+
+                    //Si coinciden los vertices => el area esta llena => paso a la siguiente area.
+                    if (derechaAbajo == areaOptimizacion[i].VerticeDerechaAbajo)
+                        continue;
+
                 }
                 else
                 {
@@ -1134,9 +1158,6 @@ namespace IngematicaAngularBase.Bll.Common
                     izquierdaAbajo  = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaAbajo).First();
                     izquierdaArriba = areaOptimizacion[i].MueblesList.Where(x => x.VerticeDerechaAbajo == derechaAbajo).Select(x => x.VerticeIzquierdaArriba).First();
 
-                    //Si coinciden los vertices => el area esta llena => paso a la siguiente area.
-                    if (derechaAbajo == areaOptimizacion[i].VerticeDerechaAbajo)
-                        continue;
 
                     //if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
                     
@@ -1149,6 +1170,14 @@ namespace IngematicaAngularBase.Bll.Common
                             && (Math.Abs(derechaAbajo.X - areaOptimizacion[i].VerticeDerechaAbajo.X)) >= celda.Ancho) 
                         || !ultimaFila)
                         return i;
+
+                    // Verificar lista de Huecos
+                    if (HayEspacioEnHuecos(areaOptimizacion[i].HuecosList, celda))
+                        return i;
+
+                    //Si coinciden los vertices => el area esta llena => paso a la siguiente area.
+                    if (derechaAbajo == areaOptimizacion[i].VerticeDerechaAbajo)
+                        continue;
                 }
                 else
                 {
@@ -1166,6 +1195,19 @@ namespace IngematicaAngularBase.Bll.Common
             return -1;
         }
 
+
+        public bool HayEspacioEnHuecos(List<MueblesOptmizacion> huecosList, Celda celda)
+        {
+            if (huecosList.Count() == 0)
+                return false;
+            foreach (MueblesOptmizacion hueco in huecosList)
+            {
+                //Comparar tamaño celda con cada hueco
+                if (hueco.Ancho >= celda.Ancho && hueco.Largo >= celda.Largo && hueco.Mueble == null)
+                    return true;
+            }
+            return false;
+        }
 
         #region
         //Metodo que retorna el tamaño de la celda.
@@ -1312,6 +1354,7 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
                 areaOptimizacion.VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
                 areaOptimizacion.MueblesList = new List<MueblesOptmizacion>();
+                areaOptimizacion.HuecosList = new List<MueblesOptmizacion>();
 
                 areaOptimizacion.VerticeIzquierdaArriba.X = IzquierdaArriba.X;
                 areaOptimizacion.VerticeIzquierdaArriba.Y = IzquierdaArriba.Y;
@@ -1341,6 +1384,7 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
                 areaOptimizacion.VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
                 areaOptimizacion.MueblesList = new List<MueblesOptmizacion>();
+                areaOptimizacion.HuecosList = new List<MueblesOptmizacion>();
 
                 areaOptimizacion.VerticeIzquierdaArriba.X = IzquierdaArriba.X;
                 areaOptimizacion.VerticeIzquierdaArriba.Y = IzquierdaArriba.Y;
@@ -1369,6 +1413,7 @@ namespace IngematicaAngularBase.Bll.Common
                 areaOptimizacion.VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
                 areaOptimizacion.VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
                 areaOptimizacion.MueblesList = new List<MueblesOptmizacion>();
+                areaOptimizacion.HuecosList  = new List<MueblesOptmizacion>();
 
                 areaOptimizacion.VerticeIzquierdaArriba.X = izquierdaAbajo.X;
                 areaOptimizacion.VerticeIzquierdaArriba.Y = centralMin.Y;
@@ -1532,17 +1577,33 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 if (Math.Round(areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.X, 2) < Math.Round(maximoX, 2))
                 {
-                    /*
                     // Guardar hueco
                     MueblesOptmizacion hueco = new MueblesOptmizacion();
-                    hueco.VerticeIzquierdaArriba  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
-                    hueco.VerticeDerechaArriba    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
-                    hueco.VerticeIzquierdaAbajo   = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
-                    hueco.VerticeIzquierdaAbajo.Y = minimoY;
-                    hueco.VerticeDerechaAbajo     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
-                    hueco.VerticeDerechaAbajo.Y   = minimoY;
-                    huecos.Add(hueco);
-                    */
+                    Model.ViewModels.Vector2 VerticeIzquierdaAbajo  = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeDerechaArriba   = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeDerechaAbajo    = new Model.ViewModels.Vector2();
+
+                    VerticeIzquierdaArriba.X  = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaArriba.X;
+                    VerticeIzquierdaArriba.Y  = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaArriba.Y;
+                    hueco.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
+
+                    VerticeIzquierdaAbajo.X   = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.X;
+                    VerticeIzquierdaAbajo.Y   = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y;
+                    hueco.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
+
+                    VerticeDerechaArriba.X    = maximoX;
+                    VerticeDerechaArriba.Y    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaArriba.Y;
+                    hueco.VerticeDerechaArriba = VerticeDerechaArriba;
+
+                    VerticeDerechaAbajo.X     = maximoX;
+                    VerticeDerechaAbajo.Y     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y;
+                    hueco.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                    hueco.Ancho = hueco.VerticeDerechaAbajo.X - hueco.VerticeIzquierdaAbajo.X;
+                    hueco.Largo = hueco.VerticeIzquierdaArriba.Y - hueco.VerticeIzquierdaAbajo.Y;
+                    areaOptimizacion.HuecosList.Add(hueco);
+                    
                     // Alisar fila
                     areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.X = maximoX;
                     areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaArriba.X = maximoX;
@@ -1553,7 +1614,7 @@ namespace IngematicaAngularBase.Bll.Common
 
         public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
         {
-            List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
+            //List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
             int index = -1;
             int ifila = 0;
             Celda celda = new Celda();
@@ -1598,7 +1659,7 @@ namespace IngematicaAngularBase.Bll.Common
                     }
                     muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
                     areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
-                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(ref muebleAux, maximoY);//TODO: revisar si esta bien
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarArriba(ref muebleAux, maximoY);
 
                     if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y)
                         minimoY = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.Y;
@@ -1608,8 +1669,6 @@ namespace IngematicaAngularBase.Bll.Common
                     // Termino la fila
                     AlisarAncho(areaOptimizacion, ifila, i, minimoY);
 
-                    // Comparar minimoY de la fila anterior con el primer elemento de esta
-                    //if (minimoY > areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y)
                     // Guardar FilaYOriginal
                     FilaYOriginal = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaArriba.Y;
                     // Mover el primer elemento
@@ -1637,6 +1696,7 @@ namespace IngematicaAngularBase.Bll.Common
             else
             {
                 // TODO: Verificar lista de huecos
+
                 return false;
             }
         }
@@ -1648,17 +1708,35 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 if (Math.Round(areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y, 2) > Math.Round(minimoY, 2))
                 {
-                    /*
+                    
                     // Guardar hueco
                     MueblesOptmizacion hueco = new MueblesOptmizacion();
-                    hueco.VerticeIzquierdaArriba  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
-                    hueco.VerticeDerechaArriba    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
-                    hueco.VerticeIzquierdaAbajo   = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo;
-                    hueco.VerticeIzquierdaAbajo.Y = minimoY;
-                    hueco.VerticeDerechaAbajo     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo;
-                    hueco.VerticeDerechaAbajo.Y   = minimoY;
-                    huecos.Add(hueco);
-                    */
+                    Model.ViewModels.Vector2 VerticeIzquierdaAbajo = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeIzquierdaArriba = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeDerechaArriba = new Model.ViewModels.Vector2();
+                    Model.ViewModels.Vector2 VerticeDerechaAbajo = new Model.ViewModels.Vector2();
+
+
+                    VerticeIzquierdaArriba.X  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.X;
+                    VerticeIzquierdaArriba.Y  = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.Y;
+                    hueco.VerticeIzquierdaArriba = VerticeIzquierdaArriba;
+
+                    VerticeDerechaArriba.X    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.X;
+                    VerticeDerechaArriba.Y    = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y;
+                    hueco.VerticeDerechaArriba = VerticeDerechaArriba;
+
+                    VerticeIzquierdaAbajo.X   = areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.X;
+                    VerticeIzquierdaAbajo.Y   = minimoY;
+                    hueco.VerticeIzquierdaAbajo = VerticeIzquierdaAbajo;
+
+                    VerticeDerechaAbajo.X     = areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.X;
+                    VerticeDerechaAbajo.Y     = minimoY;
+                    hueco.VerticeDerechaAbajo = VerticeDerechaAbajo;
+
+                    hueco.Ancho = hueco.VerticeDerechaAbajo.X - hueco.VerticeIzquierdaAbajo.X;
+                    hueco.Largo = hueco.VerticeIzquierdaArriba.Y - hueco.VerticeIzquierdaAbajo.Y;
+                    areaOptimizacion.HuecosList.Add(hueco);
+                    
                     // Alisar fila
                     areaOptimizacion.MueblesList.ElementAt(h).VerticeDerechaAbajo.Y = minimoY;
                     areaOptimizacion.MueblesList.ElementAt(h).VerticeIzquierdaAbajo.Y = minimoY;

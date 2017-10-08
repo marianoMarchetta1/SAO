@@ -61,6 +61,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double Ancho { get; set; }
 
         public List<MueblesOptmizacion> MueblesList { get; set; }
+        public List<MueblesOptmizacion> HuecosList  { get; set; }
     }
 
     public class MueblesOptmizacion
