@@ -102,13 +102,14 @@ namespace IngematicaAngularBase.Bll.Common
                         }                                                                     
                     }
 
+                    // TODO: Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
+                    UnificarMueblesYHuecos(areaOptmizacion, (int)sentido);
                     #region
                     //Inserto cada polyline o area luego de insertar todos los muebles que pueda, las compactaciones, etc.
                     #endregion
                     plano.Add(areaOptmizacion);
                 }
 
-                // TODO: Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
                 finalFlat = GrabarPlano(plano);
                 finalFlats.Add(finalFlat);
                 finalFlat = new DxfDocument();
@@ -116,6 +117,34 @@ namespace IngematicaAngularBase.Bll.Common
 
             return finalFlats;
         }
+
+        public void UnificarMueblesYHuecos(List<AreaOptimizacion> areaOptmizacion, int sentido)
+        {
+            MueblesOptmizacion muebleAux = new MueblesOptmizacion();
+            MuebleBusiness mb = new MuebleBusiness();
+
+            // Des-Alisar muebles
+            foreach (AreaOptimizacion area in areaOptmizacion)
+            {
+                for (int i = 0; i < area.MueblesList.Count(); i++)
+                {
+                    muebleAux = area.MueblesList.ElementAt(i);
+                    area.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
+                }
+            }
+
+            foreach (AreaOptimizacion area in areaOptmizacion)
+            {
+                foreach (MueblesOptmizacion hueco in area.HuecosList)
+                {
+                    if (hueco.Mueble != null)
+                    {
+                        area.MueblesList.Add(hueco);
+                    }
+                }
+            }
+        }
+
 
         public DxfDocument GrabarPlano(List<List<AreaOptimizacion>> areaOptimizacion)
         {            
@@ -1502,6 +1531,10 @@ namespace IngematicaAngularBase.Bll.Common
                 else
                     return false;
             }
+
+            // Borrar lista de Huecos
+            if (areaOptimizacion.HuecosList.Count() > 0)
+                areaOptimizacion.HuecosList.Clear();
             
             // Primer mueble
             muebleAux = areaOptimizacion.MueblesList.First();
@@ -1527,7 +1560,7 @@ namespace IngematicaAngularBase.Bll.Common
                     }
                     muebleAux = areaOptimizacion.MueblesList.ElementAt(i);
                     areaOptimizacion.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
-                    areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(ref muebleAux, minimoX);//TODO: revisar si esta bien
+                    areaOptimizacion.MueblesList[i] = mb.DesplazarIzquierda(ref muebleAux, minimoX);
 
                     if (maximoX < areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.X)
                         maximoX = areaOptimizacion.MueblesList.ElementAt(i).VerticeDerechaAbajo.X;
@@ -1565,7 +1598,6 @@ namespace IngematicaAngularBase.Bll.Common
             }
             else
             {
-                // TODO: Verificar lista de huecos
                 return false;
             }
         }
@@ -1635,6 +1667,10 @@ namespace IngematicaAngularBase.Bll.Common
                     return false;
             }
 
+            // Borrar lista de Huecos
+            if (areaOptimizacion.HuecosList.Count() > 0)
+                areaOptimizacion.HuecosList.Clear();
+
             // Primer mueble
             muebleAux = areaOptimizacion.MueblesList.First();
             areaOptimizacion.MueblesList[0] = mb.AjustarTamanio(ref muebleAux);
@@ -1695,8 +1731,6 @@ namespace IngematicaAngularBase.Bll.Common
             }
             else
             {
-                // TODO: Verificar lista de huecos
-
                 return false;
             }
         }
