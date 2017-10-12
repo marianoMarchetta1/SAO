@@ -102,7 +102,7 @@ namespace IngematicaAngularBase.Bll.Common
                         }                                                                     
                     }
 
-                    // TODO: Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
+                    // Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
                     UnificarMueblesYHuecos(areaOptmizacion, (int)sentido);
                     #region
                     //Inserto cada polyline o area luego de insertar todos los muebles que pueda, las compactaciones, etc.
@@ -401,7 +401,8 @@ namespace IngematicaAngularBase.Bll.Common
 
         public void UbicarMueblesEnHuecos(AreaOptimizacion areaOptimizacion, List<Mueble> muebleList, Celda celda)
         {
-            if (areaOptimizacion.HuecosList.Count() > 0)
+            int countInicial = areaOptimizacion.HuecosList.Count();
+            if (countInicial > 0)
             {
                 //Comparar tamaño celda con cada hueco
                 foreach (MueblesOptmizacion hueco in areaOptimizacion.HuecosList)
@@ -416,6 +417,9 @@ namespace IngematicaAngularBase.Bll.Common
                         hueco.Mueble = mueble;
                         hueco.Mueble.Activo = true;
                         muebleList.RemoveAt(0);
+
+                        //TODO: Comparar Ancho y Largo del Hueco con el del mueble
+                        //      Si queda espacio -> Guardo un nuevo hueco y ajusto el actual 
                     }
                 }
             }
