@@ -68,6 +68,7 @@ namespace IngematicaAngularBase.Bll.Common
             int index;
             int factorEscala;
             int countInicial = 0;
+            bool indicaInvertir = false;
             factorEscala = GetEscala();
             #region
             //Cada mueble se tiene que repetir la cantidad de veces que este en muebleCantidadList
@@ -87,21 +88,27 @@ namespace IngematicaAngularBase.Bll.Common
                     hayEspacio = true;
                     List<AreaOptimizacion> areaOptmizacion = GetSubAreas(vertices);
 
-                    while (muebleListTemp.Count > 0 && hayEspacio)
+                    while (muebleListTemp.Count > 0)// && hayEspacio)
                     {
-                        celda = GetTamañoMaximoCelda(muebleListTemp, (int)sentido);
+                        celda = GetTamañoMaximoCelda(muebleListTemp, (int)sentido, indicaInvertir);
                         index = UbicarMuebles(areaOptmizacion, muebleListTemp, (int)sentido, anchoPasillos, celda);
 
                         if (index == -1)
                         {
                             // Compacta la lista de zonasOcupadas y retorna si queda lugar libre en algun subarea
-                            hayEspacio = Compactar(areaOptmizacion, (int)sentido, muebleListTemp);
-                            
-                            if (!hayEspacio) // || (countInicial > 0 && muebleListTemp.Count() == countInicial) )
-                                break;
-                            //countInicial = muebleListTemp.Count();
+                            hayEspacio = Compactar(areaOptmizacion, (int)sentido, muebleListTemp, indicaInvertir);
+
+                            if (!hayEspacio)
+                            {
+                                if (!indicaInvertir) // Se intenta ubicar los muebles mas pequeños antes de terminar
+                                    indicaInvertir = true;
+                                else
+                                {
+                                    indicaInvertir = false;
+                                    break;
+                                }
+                            }
                         }
-                        
                     }
                     if (muebleListTemp.Count() > 0) // Quedan muebles
                     {
@@ -249,6 +256,16 @@ namespace IngematicaAngularBase.Bll.Common
                             lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
                             lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
                             dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
+
+
+                            //// Test Image
+                            //netDxf.Vector2 verticeIzquierdaArriba = new netDxf.Vector2();
+                            //verticeIzquierdaArriba.X = mueble.VerticeIzquierdaArriba.X;
+                            //verticeIzquierdaArriba.Y = mueble.VerticeIzquierdaArriba.Y;
+                            //netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Temp\\Muebles\\test_imagen.PNG");
+                            //Image imagen = new Image(imageDefinition, verticeIzquierdaArriba, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                            //dxfFinal.AddEntity(imagen);
+
 
                         }
                         else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
@@ -623,11 +640,28 @@ namespace IngematicaAngularBase.Bll.Common
 
         public void IncertarMuebleCelda(MueblesOptmizacion celda, List<Mueble> muebleList, AreaOptimizacion areaOptimizacion)
         {
+
+            int i = 0;
+
             if (muebleList.Any())
             {
-                celda.Mueble = muebleList.First();
+                Mueble mueble = muebleList.First();
+                decimal Largo = (decimal)celda.Largo;
+                if (mueble.Largo > Largo)
+                {
+                    i = muebleList.FindIndex(x => x.Largo == Largo);
+                    celda.Mueble = muebleList[i];
+                    //celda.Mueble = muebleList.Select(x => x).Where(x => x.Largo == Largo).First();
+                }
+                else
+                {
+                    celda.Mueble = muebleList.First();
+                    i = 0;
+                }
                 areaOptimizacion.MueblesList.Add(celda);
-                muebleList.RemoveAt(0);
+                muebleList.RemoveAt(i);
+
+
             }
         }
 
@@ -662,8 +696,10 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                 celdaMueble.Mueble = new Mueble();
-                celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                //celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                //celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                 celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                 celdaList.Add(celdaMueble);
@@ -694,8 +730,10 @@ namespace IngematicaAngularBase.Bll.Common
                     celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                     celdaMueble.Mueble = new Mueble();
-                    celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                    celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    //celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    //celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                     celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                     celdaList.Add(celdaMueble);      
@@ -741,8 +779,10 @@ namespace IngematicaAngularBase.Bll.Common
                     celdaMueble.VerticeDerechaAbajo = VerticeDerechaAbajo;
 
                     celdaMueble.Mueble = new Mueble();
-                    celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
-                    celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    //celdaMueble.Largo = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    //celdaMueble.Ancho = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
+                    celdaMueble.Ancho = Math.Abs(VerticeDerechaAbajo.X - VerticeIzquierdaAbajo.X);
+                    celdaMueble.Largo = Math.Abs(VerticeDerechaArriba.Y - VerticeDerechaAbajo.Y);
                     celdaMueble.Area = celdaMueble.Largo * celdaMueble.Ancho;
 
                     celdaList.Add(celdaMueble);
@@ -1209,7 +1249,7 @@ namespace IngematicaAngularBase.Bll.Common
         //Recibe el sentido en que se ponen los muebles, porque si algun mueble posee radio mayor, 
         //se considera en el sentido de recorrido del plano.
         #endregion
-        public Celda GetTamañoMaximoCelda(List<Mueble> muebles, int sentido)
+        public Celda GetTamañoMaximoCelda(List<Mueble> muebles, int sentido, bool invertido)
         {
             Celda celda = new Celda();
             decimal? Largo = 0;
@@ -1217,11 +1257,21 @@ namespace IngematicaAngularBase.Bll.Common
             decimal? RadioMayor = 0;
             decimal? RadioMenor = 0;
 
-            Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
-            Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
-            RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
-            RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
-
+            if (!invertido)
+            {
+                Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+                Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+                RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+                RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+            }
+            else
+            {
+                Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
+                Ancho = muebles.Select(x => x).Where(x => x.Largo == Largo).First().Ancho;
+//                Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
+//                RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+//                RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
+            }
             switch (sentido){
 
                 case 1:
@@ -1455,17 +1505,17 @@ namespace IngematicaAngularBase.Bll.Common
             return 0;
         }
 
-        public bool Compactar(List<AreaOptimizacion> areaOptimizacion, int sentido, List<Mueble> muebleListTemp)
+        public bool Compactar(List<AreaOptimizacion> areaOptimizacion, int sentido, List<Mueble> muebleListTemp, bool invertirCelda)
         {
             bool hayEspacio = false;
 
             foreach (AreaOptimizacion area in areaOptimizacion)
             {
                 if ((int)sentido == 2)
-                    hayEspacio = CompactarAncho(area, muebleListTemp);
+                    hayEspacio = CompactarAncho(area, muebleListTemp, invertirCelda);
                 else
                 { 
-                    hayEspacio = CompactarLargo(area, muebleListTemp);
+                    hayEspacio = CompactarLargo(area, muebleListTemp, invertirCelda);
                     //hayEspacio = false;
                 }
                 if (hayEspacio)
@@ -1475,7 +1525,7 @@ namespace IngematicaAngularBase.Bll.Common
             return hayEspacio;
         }
 
-        public bool CompactarLargo(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
+        public bool CompactarLargo(AreaOptimizacion areaOptimizacion, List<Mueble> muebles, bool invertirCelda)
         {
             List<MueblesOptmizacion> huecos = new List<MueblesOptmizacion>();
             int index = -1;
@@ -1488,7 +1538,7 @@ namespace IngematicaAngularBase.Bll.Common
             MueblesOptmizacion muebleAux;
 
             // Checkear si el area esta vacía y entra una celda
-            celda = GetTamañoMaximoCelda(muebles, 1);
+            celda = GetTamañoMaximoCelda(muebles, 1, invertirCelda);
 
             if (areaOptimizacion.MueblesList.Count() == 0)
             {
@@ -1617,7 +1667,7 @@ namespace IngematicaAngularBase.Bll.Common
             huecosList.Add(hueco);
         }
 
-        public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles)
+        public bool CompactarAncho(AreaOptimizacion areaOptimizacion, List<Mueble> muebles, bool invertirCelda)
         {
             //List<MueblesOptmizacion> huecos   = new List<MueblesOptmizacion>();
             int index = -1;
@@ -1630,7 +1680,7 @@ namespace IngematicaAngularBase.Bll.Common
             MueblesOptmizacion muebleAux;
 
             // Checkear si el area esta vacía y entra una celda
-            celda = GetTamañoMaximoCelda(muebles, 1);
+            celda = GetTamañoMaximoCelda(muebles, 1, invertirCelda);
 
             if (areaOptimizacion.MueblesList.Count() == 0)
             {
