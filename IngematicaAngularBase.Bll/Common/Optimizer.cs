@@ -439,10 +439,24 @@ namespace IngematicaAngularBase.Bll.Common
                         if (areaOptimizacion[j].HuecosList.ElementAt(i).Ancho >= celda.Ancho && areaOptimizacion[j].HuecosList.ElementAt(i).Largo >= celda.Largo && areaOptimizacion[j].HuecosList.ElementAt(i).Mueble == null)
                         {
                             Mueble mueble = new Mueble();
+                            decimal Largo = (decimal)celda.Largo;
+                            int h = 0;
                             mueble = muebleList.First();
+
+                            // Depende que celda estoy usando
+                            if (mueble.Largo > Largo)
+                            {
+                                h = muebleList.FindIndex(x => x.Largo == Largo);
+                                mueble = muebleList[h];
+                            }
+                            else
+                                h = 0;
+
                             areaOptimizacion[j].HuecosList.ElementAt(i).Mueble = mueble;
                             areaOptimizacion[j].HuecosList.ElementAt(i).Mueble.Activo = true;
-                            muebleList.RemoveAt(0);
+
+                            muebleList.RemoveAt(h);
+
 
                             // Comparar Ancho y Largo del Hueco con el del mueble
                             if (Math.Round(areaOptimizacion[j].HuecosList.ElementAt(i).Ancho, 2) > Math.Round(celda.Ancho, 2))
@@ -478,6 +492,7 @@ namespace IngematicaAngularBase.Bll.Common
             Model.ViewModels.Vector2 derechaAbajo = new Model.ViewModels.Vector2();
             double xMax;
             double xMaxArea;
+            decimal Largo = (decimal)celda.Largo;
 
             xMaxArea = areaOptimizacion.VerticeDerechaAbajo.X;
 
@@ -518,7 +533,8 @@ namespace IngematicaAngularBase.Bll.Common
                             if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X &&
                                 izquierdaAbajo.Y - celda.Largo > areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
-                                celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y);
+
+                                celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
 
                                 #region
                                 //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
@@ -576,7 +592,7 @@ namespace IngematicaAngularBase.Bll.Common
                     //Genera una nueva fila de celdas
                     //usa xMax porque en caso de que quede formato cerrucho x compactacion, se desprecia una pequeña parte del plano
                     #endregion
-                    celdaList = GetCeldaList(xMaxArea, celda, xMax, areaOptimizacion);
+                    celdaList = GetCeldaList(xMaxArea, celda, xMax, areaOptimizacion, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
 
                     #region
                     //tanto GetCeldaList como InsertarPasillo validan no pasarse del limite del subarea
@@ -665,12 +681,12 @@ namespace IngematicaAngularBase.Bll.Common
             }
         }
 
-        public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, double xMax, AreaOptimizacion areaOptimizacion)
+        public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, double xMax, AreaOptimizacion areaOptimizacion, int maximaCant)
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
 
 
-            if (xMax + celda.Ancho <= xMaxArea)
+            if (xMax + celda.Ancho <= xMaxArea && celdaList.Count() < maximaCant)
             {
 
                 MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
@@ -705,7 +721,7 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaList.Add(celdaMueble);
 
 
-                while (celdaMueble.VerticeIzquierdaAbajo.Y - celda.Largo >= areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                while (celdaMueble.VerticeIzquierdaAbajo.Y - celda.Largo >= areaOptimizacion.VerticeIzquierdaAbajo.Y && celdaList.Count() < maximaCant)
                 {
                     celdaMueble = new MueblesOptmizacion();
 
@@ -748,12 +764,12 @@ namespace IngematicaAngularBase.Bll.Common
         //Recibe el xMaxArea, este caso se da solo despues de una compactacion => el tamaño de la celda puede ser distinto al que se venia trabajando
         //en la iteracion anterior => tengo que validar no excederme de las dimenciones del plano.
         #endregion
-        public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaAbajo, double limiteInferior)
+        public List<MueblesOptmizacion> GetCeldaList(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaAbajo, double limiteInferior, int maximaCant)
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
             if (izquierdaAbajo.X + celda.Ancho <= xMaxArea)
             {
-                while (izquierdaAbajo.Y - celda.Largo >= limiteInferior)
+                while (izquierdaAbajo.Y - celda.Largo >= limiteInferior && celdaList.Count() < maximaCant)
                 {
                     MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
 
@@ -801,6 +817,7 @@ namespace IngematicaAngularBase.Bll.Common
             Model.ViewModels.Vector2 izquierdaArriba = new Model.ViewModels.Vector2();
             double yMin;
             double xMaxArea;
+            decimal Largo = (decimal)celda.Largo;
 
             xMaxArea = areaOptimizacion.VerticeDerechaAbajo.X;
 
@@ -844,7 +861,7 @@ namespace IngematicaAngularBase.Bll.Common
                             if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X &&
                                 izquierdaAbajo.Y > areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
-                                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba);
+                                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
 
                                 #region
                                 //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
@@ -897,7 +914,7 @@ namespace IngematicaAngularBase.Bll.Common
                     //Genera una nueva fila de celdas
                     //usa xMax porque en caso de que quede formato cerrucho x compactacion, se desprecia una pequeña parte del plano
                     #endregion
-                    celdaList = GetCeldaListHorizontal(celda, yMin, areaOptimizacion);
+                    celdaList = GetCeldaListHorizontal(celda, yMin, areaOptimizacion, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
 
                     #region
                     //tanto GetCeldaList como InsertarPasillo validan no pasarse del limite del subarea
@@ -920,11 +937,11 @@ namespace IngematicaAngularBase.Bll.Common
             }
         }
 
-        public List<MueblesOptmizacion> GetCeldaListHorizontal(Celda celda, double yMin, AreaOptimizacion areaOptimizacion)
+        public List<MueblesOptmizacion> GetCeldaListHorizontal(Celda celda, double yMin, AreaOptimizacion areaOptimizacion, int maximaCant)
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
 
-            if (yMin - celda.Largo >= areaOptimizacion.VerticeDerechaAbajo.Y)
+            if (yMin - celda.Largo >= areaOptimizacion.VerticeDerechaAbajo.Y && celdaList.Count() < maximaCant)
             {
                 MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
 
@@ -956,7 +973,7 @@ namespace IngematicaAngularBase.Bll.Common
                 celdaList.Add(celdaMueble);
 
 
-                while (celdaMueble.VerticeDerechaAbajo.X + celda.Ancho <= areaOptimizacion.VerticeDerechaAbajo.X)
+                while (celdaMueble.VerticeDerechaAbajo.X + celda.Ancho <= areaOptimizacion.VerticeDerechaAbajo.X && celdaList.Count() < maximaCant)
                 {
                     celdaMueble = new MueblesOptmizacion();
 
@@ -1032,11 +1049,11 @@ namespace IngematicaAngularBase.Bll.Common
                 return false;
         }
 
-        public List<MueblesOptmizacion> GetCeldaListHorizontal(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaArriba)
+        public List<MueblesOptmizacion> GetCeldaListHorizontal(double xMaxArea, Celda celda, Model.ViewModels.Vector2 izquierdaArriba, int maximaCant)
         {
             List<MueblesOptmizacion> celdaList = new List<MueblesOptmizacion>();
 
-            while (izquierdaArriba.X + celda.Ancho <= xMaxArea)
+            while (izquierdaArriba.X + celda.Ancho <= xMaxArea && celdaList.Count() < maximaCant)
             {
 
                 MueblesOptmizacion celdaMueble = new MueblesOptmizacion();
@@ -1121,11 +1138,12 @@ namespace IngematicaAngularBase.Bll.Common
                     //if ((areaOptimizacion[i].Area - areaOptimizacion[i].MueblesList.Sum(x => x.Area)) > (celda.Ancho * celda.Largo))
                     double areaRestoFila = (Math.Abs(derechaAbajo.X - izquierdaAbajo.X)) * (Math.Abs(derechaAbajo.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y));
                     bool   ultimaFila    = (Math.Abs(areaOptimizacion[i].VerticeDerechaAbajo.X - xMax)) < celda.Ancho;
+                    bool   esPasillo     = (Math.Round(areaOptimizacion[i].MueblesList.Last().Largo, 2) == Math.Round(areaOptimizacion[i].Largo, 2));
 
                     if (((areaRestoFila > (celda.Ancho * celda.Largo))
                             && Math.Abs(izquierdaAbajo.X - derechaAbajo.X) >= celda.Ancho
                             && (Math.Abs(derechaAbajo.Y - areaOptimizacion[i].VerticeDerechaAbajo.Y)) >= celda.Largo)
-                        || !ultimaFila)
+                        || (!(ultimaFila) && esPasillo))
                         return i;
 
                     //// Verificar lista de Huecos
