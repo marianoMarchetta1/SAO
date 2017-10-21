@@ -5,25 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="84e7ca87f57142f5a075114c2fda873d" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Cliente" Width="1.5" PointX="8.25" PointY="13" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Localidad" Width="1.5" PointX="5.25" PointY="17.5" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Cliente" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Localidad" Width="1.5" PointX="8.25" PointY="13.5" />
         <EntityTypeShape EntityType="Proyecto.FinalModel.Log" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Proyecto.FinalModel.Modulo" Width="1.5" PointX="1.5" PointY="4.625" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Mueble" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Mueble" Width="1.5" PointX="5.25" PointY="24.125" />
         <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionHistorial" Width="1.5" PointX="3.75" PointY="2.875" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionHistorialArea" Width="1.5" PointX="6" PointY="3.875" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionHistorialAreaMueble" Width="1.5" PointX="8.25" PointY="3.875" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionMuebles" Width="1.5" PointX="6" PointY="1.125" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Pais" Width="1.5" PointX="5.25" PointY="26" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Provincia" Width="1.5" PointX="7.5" PointY="18.625" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Regla" Width="1.5" PointX="0.75" PointY="7.375" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Rol" Width="1.5" PointX="0.75" PointY="10.75" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.RolRegla" Width="1.5" PointX="3" PointY="8.5" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityClient" Width="1.5" PointX="7.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityRefreshToken" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.UserLog" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Proyecto.FinalModel.Usuario" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionHistorialArea" Width="1.5" PointX="6" PointY="1.125" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionHistorialAreaMueble" Width="1.5" PointX="8.25" PointY="1.125" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.OptimizacionMuebles" Width="1.5" PointX="6" PointY="5.25" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Pais" Width="1.5" PointX="5.25" PointY="20.375" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Provincia" Width="1.5" PointX="7.5" PointY="17.875" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Regla" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Rol" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.RolRegla" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityClient" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.SecurityRefreshToken" Width="1.5" PointX="5.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.UserLog" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Proyecto.FinalModel.Usuario" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Localidades" />
         <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario" />
         <AssociationConnector Association="Proyecto.FinalModel.FK_Cliente_Usuario1" />

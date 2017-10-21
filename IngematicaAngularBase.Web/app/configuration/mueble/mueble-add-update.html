@@ -117,60 +117,77 @@
                 <img class="preview" style="width: 300px; height: 300px;" flow-img="image" /><br>
             </div>
         </div>-->
+        <div class="col-md-4">
+            <div flow-init="{target: '/upload', singleFile : 'true'}"
+                 flow-files-submitted="$flow.upload()"
+                 flow-file-success="$file.msg = $message"
+                 flow-files-added="vm.processFiles($files)">
 
-        <div flow-init="{target: '/upload', singleFile : 'true'}"
-             flow-files-submitted="$flow.upload()"
-             flow-file-success="$file.msg = $message"
-             flow-files-added="vm.processFiles($files)">
+                <button flow-btn class="btn btn-primary" type="file">Seleccionar Imagen</button>
+                <br>
 
-            <button flow-btn class="btn btn-primary" type="file">Seleccionar Imagen</button>
-            <br>
+            </div>
 
+            <img style="width: 300px; height: 300px;" ng-if="vm.mueble.imagen.length > 0" data-ng-src="{{vm.mueble.imagen}}" />
         </div>
 
-        <img style="width: 300px; height: 300px;" ng-if="vm.mueble.imagen.length > 0" data-ng-src="{{vm.mueble.imagen}}" />
+        <div class="col-md-4">
+            <div flow-init="{target: '/upload', singleFile : 'true'}"
+                 flow-files-submitted="$flow.upload()"
+                 flow-file-success="$file.msg = $message"
+                 flow-files-added="vm.processFiles2($files)">
 
-        <div ng-show="vm.mode == 'update'">
-            <h4>Auditoría</h4>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Usuario Alta</label>
-                        <input class="form-control" value="{{vm.mueble.usuarioAlta}}" readonly="readonly" tabindex="-1">
+                <button flow-btn class="btn btn-primary" type="file">Seleccionar Imagen Para Plano</button>
+                <br>
+
+            </div>
+
+            <img style="width: 300px; height: 300px;" ng-if="vm.mueble.imagenMueble.length > 0" data-ng-src="{{vm.mueble.imagenMueble}}" />
+        </div>
+
+        <div class="col-md-12">
+            <div ng-show="vm.mode == 'update'">
+                <h4>Auditoría</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Usuario Alta</label>
+                            <input class="form-control" value="{{vm.mueble.usuarioAlta}}" readonly="readonly" tabindex="-1">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Usuario Últ Modificación</label>
-                        <input class="form-control" value="{{vm.mueble.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Usuario Últ Modificación</label>
+                            <input class="form-control" value="{{vm.mueble.usuarioModificacion}}" readonly="readonly" tabindex="-1">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">Fecha de Alta</label>
-                        <input class="form-control" value="{{vm.mueble.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Fecha de Alta</label>
+                            <input class="form-control" value="{{vm.mueble.fechaAlta | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Fecha Última Modificación</label>
-                    <input class="form-control" value="{{vm.mueble.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="control-label">ID</label>
-                        <input class="form-control text-right" value="{{vm.mueble.idMueble}}" readonly="readonly" tabindex="-1">
+                    <div class="col-md-4">
+                        <label class="control-label">Fecha Última Modificación</label>
+                        <input class="form-control" value="{{vm.mueble.fechaModificacion | date:'dd/MM/yyyy'}}" readonly="readonly" tabindex="-1">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">ID</label>
+                            <input class="form-control text-right" value="{{vm.mueble.idMueble}}" readonly="readonly" tabindex="-1">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="nav navBorder">
-            <div class="navbar-right">
-                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = false">Guardar</button>
-                <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = true" ng-show="vm.mode == 'add'">Guardar y agregar nuevo</button>
-                <button class="btn btn-primary" type="button" go-state="app.mueble-list">Cancelar</button>
+            <div class="nav navBorder">
+                <div class="navbar-right">
+                    <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = false">Guardar</button>
+                    <button class="btn btn-primary" type="button" broadcast="vm.muebleForm" broadcast-arg="submit" ng-click="vm.saveAndNew = true" ng-show="vm.mode == 'add'">Guardar y agregar nuevo</button>
+                    <button class="btn btn-primary" type="button" go-state="app.mueble-list">Cancelar</button>
+                </div>
             </div>
         </div>
-    </form>
+</form>
 </div>
 
 

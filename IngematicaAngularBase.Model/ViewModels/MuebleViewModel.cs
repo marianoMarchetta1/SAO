@@ -24,6 +24,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public DateTime? FechaAlta { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public string Imagen { get; set; }
+        public string ImagenMueble { get; set; }
         public string Codigo { get; set; }
 
         [Required]

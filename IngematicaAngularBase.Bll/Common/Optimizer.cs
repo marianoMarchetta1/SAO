@@ -267,6 +267,39 @@ namespace IngematicaAngularBase.Bll.Common
                             //dxfFinal.AddEntity(imagen);
 
 
+                            //// Test Image
+                            //netDxf.Vector2 verticeIzquierdaArriba = new netDxf.Vector2();
+                            //verticeIzquierdaArriba.X = mueble.VerticeIzquierdaArriba.X;
+                            //verticeIzquierdaArriba.Y = mueble.VerticeIzquierdaArriba.Y;
+                            //netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Temp\\Muebles\\test_imagen.PNG");
+                            //Image imagen = new Image(imageDefinition, verticeIzquierdaArriba, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                            //dxfFinal.AddEntity(imagen);
+
+                            /****************************
+                            netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Users\\Usuario\\Downloads\\21107733_336392926784075_6154084554823958528_a.jpg");
+                            Image image = new Image(imageDefinition, Vector3.Zero, imageDefinition.Width, imageDefinition.Height);
+                            dxfFinal.AddEntity(image);
+                            *************************************/
+
+                            /*****************************************
+
+
+                            netDxf.Objects.ImageDefinition imageDef2 = new netDxf.Objects.ImageDefinition("C:\\Users\\Usuario\\Downloads\\21107733_336392926784075_6154084554823958528_a.jpg", "MyImage");
+                            Image image2 = new Image(imageDef2, new Vector3(0, 500, 0), 100, 100);
+                            Image image3 = new Image(imageDef2, new Vector3(500, 500, 0), 100, 100);
+
+                            Block block = new Block("ImageBlock");
+                            block.Entities.Add(image2);
+                            block.Entities.Add(image3);
+                            Insert insert = new Insert(block, new Vector3(0, 100, 0));
+
+                            
+
+                            dxfFinal.AddEntity(insert);
+
+
+                            /*****************************************************************/
+
                         }
                         else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
                         {

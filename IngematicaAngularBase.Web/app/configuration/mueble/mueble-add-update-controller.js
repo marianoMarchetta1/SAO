@@ -59,6 +59,20 @@
            });
         };
 
+        vm.imageStrings = [];
+        vm.processFiles2 = function (files) {
+            angular.forEach(files, function (flowFile, i) {
+                var fileReader = new FileReader();
+                fileReader.onload = function (event) {
+                    var uri = event.target.result;
+                    vm.imageStrings[i] = uri;
+                    vm.mueble.imagenMueble = uri;
+
+                };
+                fileReader.readAsDataURL(flowFile.file);
+            });
+        };
+
         vm.init();
     }]);
 

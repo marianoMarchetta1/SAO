@@ -82,6 +82,7 @@
           <Property Name="Imagen" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DistanciaParedes" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="OrdenDePrioridad" Type="int" />
+          <Property Name="ImagenMueble" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="OptimizacionHistorial">
           <Key>
@@ -1072,6 +1073,7 @@
           <Property Name="Imagen" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DistanciaParedes" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="OrdenDePrioridad" Type="Int32" />
+          <Property Name="ImagenMueble" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Usuario" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario" FromRole="Mueble" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="Proyecto.FinalModel.FK_Mueble_Usuario1" FromRole="Mueble" ToRole="Usuario" />
         </EntityType>
@@ -1715,6 +1717,7 @@
           <EntitySetMapping Name="Mueble">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.Mueble">
               <MappingFragment StoreEntitySet="Mueble">
+                <ScalarProperty Name="ImagenMueble" ColumnName="ImagenMueble" />
                 <ScalarProperty Name="OrdenDePrioridad" ColumnName="OrdenDePrioridad" />
                 <ScalarProperty Name="DistanciaParedes" ColumnName="DistanciaParedes" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />

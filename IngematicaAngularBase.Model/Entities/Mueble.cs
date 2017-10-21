@@ -32,6 +32,7 @@ namespace IngematicaAngularBase.Model.Entities
         public string Imagen { get; set; }
         public decimal DistanciaParedes { get; set; }
         public Nullable<int> OrdenDePrioridad { get; set; }
+        public string ImagenMueble { get; set; }
     
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }

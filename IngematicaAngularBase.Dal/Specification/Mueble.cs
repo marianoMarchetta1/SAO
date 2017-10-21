@@ -249,5 +249,22 @@ namespace IngematicaAngularBase.Dal.Specification
 			
 			return source;
 		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithImagenMueble(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.ImagenMueble == value);
+			
+			return source;
+		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.Mueble> WithContainsImagenMueble(this IQueryable<IngematicaAngularBase.Model.Entities.Mueble> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.ImagenMueble.Contains(value));
+			
+			return source;
+		}
+
 	}
 }

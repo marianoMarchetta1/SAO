@@ -62,6 +62,7 @@ namespace IngematicaAngularBase.Dal
                              IdUsuarioAlta = mueble.IdUsuarioAlta,
                              UsuarioAlta = (usuarioalta.Nombre != null && usuarioalta.Apellido != null ? usuarioalta.Apellido + ", " + usuarioalta.Nombre : string.Empty),
                              Imagen = mueble.Imagen,
+                             ImagenMueble = mueble.ImagenMueble,
                              Codigo = mueble.Codigo,
                              Nombre = mueble.Nombre,
                              Activo = mueble.Activo,
