@@ -530,8 +530,8 @@ namespace IngematicaAngularBase.Bll.Common
                             //izquierdaArriba.Y = areaOptimizacion.MueblesList[i - 1].VerticeDerechaArriba.Y;
 
                             // Completar fila
-                            if (izquierdaAbajo.X + celda.Ancho < areaOptimizacion.VerticeDerechaAbajo.X &&
-                                izquierdaAbajo.Y - celda.Largo > areaOptimizacion.VerticeIzquierdaAbajo.Y)
+                            if (izquierdaAbajo.X + celda.Ancho <= areaOptimizacion.VerticeDerechaAbajo.X &&
+                                izquierdaAbajo.Y - celda.Largo >= areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
 
                                 celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
