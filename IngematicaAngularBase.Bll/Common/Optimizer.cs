@@ -18,6 +18,8 @@ using System.Security.Cryptography;
 using System.Text;
 using netDxf;
 using netDxf.Entities;
+using netDxf.Tables;
+using netDxf.Collections;
 using AutoMapper;
 
 namespace IngematicaAngularBase.Bll.Common
@@ -194,6 +196,13 @@ namespace IngematicaAngularBase.Bll.Common
                 LwPolyline lwplClon = (LwPolyline)lwpl.Clone(); 
                 dxfFinal.AddEntity(lwplClon);
             }
+
+            foreach (Dimension dim in initialFlat.Dimensions)
+            {
+                Dimension dimClon = (Dimension)dim.Clone();
+                dxfFinal.AddEntity(dimClon);
+            }
+
 
             OptimizacionHistorialViewModel optimizacionHistorialViewModel = new OptimizacionHistorialViewModel();
             optimizacionHistorialViewModel.CantidadPersonas = this.cantidadPersonas;
