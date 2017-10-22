@@ -1,0 +1,151 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- InstanceBeginEditable name="doctitle" -->
+    <title>SAO Instructivo</title>
+    <!-- InstanceEndEditable -->
+    <!-- InstanceBeginEditable name="head" -->
+    <!-- InstanceEndEditable -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/bootstrap-custom.css" />
+    <link rel="stylesheet" href="../scripts/angular-block-ui/angular-block-ui.css" />
+    <link rel="stylesheet" href="../scripts/ui-grid/ui-grid.css" />
+    <link rel="stylesheet" href="../scripts/code-mirror/codemirror.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+</head>
+
+<body class="instructivo">
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header"> <a class="navbar-brand" href="index.html">Instructivo SAO</a> </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+
+
+        <h3 class="border">Instrucciones de Uso</h3>
+        <h4 style="text-decoration: underline">Optimizador > Optimizador</h4>
+        <h5><strong>Nombre:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Denominación descriptiva para el Plano que se va a optimizar.
+                Este nombre se persistirá en la base datos, en la parte de “Optimizador > Historial de Optimización”, explicada mas adelante, siempre y cuando se marque el checkbox “Registrar en Historial”. Permitirá buscar los planos optimizados en el historial con este nombre.
+            </p>
+        </div>
+
+        <h5><strong>Cantidad de personas:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Se debe ingresar la cantidad de personas que se estima que trabajaran en la oficina.
+                Este parámetro se utiliza para calcular el ancho de los pasillos, basado en el cálculo del código de construcción de la ciudad de Buenos Aires, art. 1º pto Anexo de la Ley Nº962 BOCBA 1607 del 13/01/2003.
+            </p>
+        </div> 
+
+        <h5><strong>Escala:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Escala del plano ingresado.
+                La escala se utiliza para ajustar la escala de los muebles a la del plano.
+            </p>
+        </div> 
+
+        <h5><strong>Registrar en Historial:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Si se marca este checkbox, se persistirá en base de datos los parámetros y los planos generados optimizados.
+                El historial se puede consultar en la opción del menú “Optimizador  Historial de Optimización”.
+            </p>
+        </div> 
+
+        <h5><strong>Optimizar costo:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Si se marca este checkbox, se habilita el campo “Costo máximo” para ingresar un presupuesto.
+                En la parte derecha de la pantalla se muestra el costo calculado, sumatoria del costo de todos los muebles que se ingresen en la lista de Muebles, en base al presupuesto ingresado en “Costo máximo”, el costo se mostrará en verde si no se superó el “Costo máximo” o rojo si se superó.
+            </p>
+        </div> 
+
+        <h5><strong>Seleccionar plano:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Este botón abre una ventana para elegir el plano de la oficina a optimizar.
+                El plano debe residir en el directorio que se seteó en el archivo de configuración, o un directorio interno de este.
+            </p>
+        </div> 
+
+        <h5><strong>Mueble:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Lista desplegable que permite elegir un mueble de la base de datos para ingresarlo en la lista de muebles que se desean ubicar en la oficina.
+            </p>
+        </div> 
+        
+        <h5><strong>Cantidad:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Debe ingresarse la cantidad de muebles de el tipo ingresado en “Mueble” que se desea ubicar en la oficina.
+            </p>
+        </div> 
+
+        <h5><strong>Agregar:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Inserta el mueble elegido, con la cantidad indicada, en la lista de muebles para optimizar.
+                La lista se irá actualizando y mostrando debajo, con las columnas:
+                <ul>
+                    <li>Mueble</li>
+                    <li>Cantidad</li>
+                    <li>Eliminar</li>
+                </ul>
+            </p>
+        </div> 
+
+        <h5><strong>Generar Resultado:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Ejecuta el proceso de optimización de muebles en la oficina, generando los planos optimizados.
+                Se ofrecerán dos opciones de planos optimizados, uno con los pasillos en largo, otro con los pasillos en ancho. Ambos planos quedarán guardados en el directorio previamente seteado en el archivo de configuración.
+            </p>
+        </div> 
+
+
+        <h4 style="text-decoration: underline">Optimizador > Historial de Optimización</h4>
+        <h5><strong>Nombre:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Con este parámetro se buscará en la base de datos el plano optimizado deseado, debe coincidir con el nombre con el que se grabó previamente.
+                Si se deja vacío, se devuelve el historial completo.
+            </p>
+        </div>
+
+        <h5><strong>Buscar:</strong><br /></h5>
+        <div class="row">
+            <p>
+                Busca en el historial los planos optimizados, utilizando el parámetro “Nombre” y devuelve una lista con los resultados:
+                <ul>
+                    <li>Nombre</li>
+                    <li>Cantidad de personas</li>
+                    <li>Escala</li>
+                    <li>Costo máximo</li>
+                    <li>Visualizar/Eliminar</li>
+                </ul>
+                Al hacer click en el botón “Visualizar” con forma de lupa, se obtienen los planos optimizados correspondientes al historial.
+                Los planos quedan grabados en el directorio previamente seteado en el archivo de configuración.
+            </p>
+        </div>
+
+
+    </div>
+</body>
+<!-- InstanceEnd -->
+</html>
+
+
+

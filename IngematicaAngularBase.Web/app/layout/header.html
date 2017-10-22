@@ -4,7 +4,10 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<div class="pull-left h4"><img src="images/logo.png" width="100px" height="40px" /></div>
 				<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
-					<ul class="nav navbar-nav pull-right">
+                    <ul class="nav navbar-nav navbar-right pull-right">
+                        <li><a href="../instructivo/index.html" target="_blank" class="instructivo"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
 						<li class="uib-dropdown" uib-dropdown ng-repeat="pitem in menu.items" ng-if="pitem.visible">
 							<a ng-if="pitem.items.length > 0" href="" data-toggle="dropdown" uib-dropdown-toggle>{{pitem.title}}<b class="caret"></b></a>
 							<a ng-if="pitem.items.length == 0" ng-click="routeTo(pitem.action)">{{pitem.title}}</a>
