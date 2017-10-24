@@ -262,32 +262,37 @@ namespace IngematicaAngularBase.Bll.Common
                         //optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
 
                         if (!mueble.Mueble.PoseeRadio)
-                        {
-                            List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
-                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaAbajo));
-                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaArriba));
-                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
-                            lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
-                            dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
+                        {                            
+                            if (mueble.Mueble.ImagenMueble != null)
+                            {
+                                dateTimeNow = dateTimeNow.AddSeconds(2);
+                                string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
 
+                                byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
+                                MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+                                ms.Write(imageBytes, 0, imageBytes.Length);
+                                System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+                                image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                            //if(mueble.Mueble.ImagenMueble != null)
-                            //{
-                            //    dateTimeNow = dateTimeNow.AddSeconds(2);
-                            //    string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
+                                Vector3 vector3 = new Vector3();
+                                vector3.Z = 0;
+                                vector3.X = mueble.VerticeIzquierdaAbajo.X;
+                                vector3.Y = mueble.VerticeIzquierdaAbajo.Y;
 
-                            //    byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
-                            //    MemoryStream ms = new MemoryStream(imageBytes, 0,imageBytes.Length);
-                            //    ms.Write(imageBytes, 0, imageBytes.Length);
-                            //    System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
-                            //    image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                            //    netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTemp);
-                            //    netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, Vector3.Zero, imageDefinition.Width, imageDefinition.Height);
-                            //    dxfFinal.AddEntity(imageToSave);
-                            //}
+                                netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTemp);
+                                netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                                dxfFinal.AddEntity(imageToSave);
+                            }else
+                            {
+                                List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
+                                lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaAbajo));
+                                lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaArriba));
+                                lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
+                                lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
+                                dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
+                            }
                         }
-                            else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
+                        else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
                         {
                             Circle circulo = new Circle();
                             circulo.Radius = mueble.Mueble.RadioMayor != null ? System.Convert.ToDouble(mueble.Mueble.RadioMayor) : System.Convert.ToDouble(mueble.Mueble.RadioMenor);
