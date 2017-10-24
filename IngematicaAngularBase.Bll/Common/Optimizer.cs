@@ -21,6 +21,8 @@ using netDxf.Entities;
 using netDxf.Tables;
 using netDxf.Collections;
 using AutoMapper;
+using System.IO;
+using System.Drawing;
 
 namespace IngematicaAngularBase.Bll.Common
 {
@@ -224,6 +226,8 @@ namespace IngematicaAngularBase.Bll.Common
             }
 
             optimizacionHistorialViewModel.OptimizacionMuebles = listMuebles;
+            string path = System.Configuration.ConfigurationManager.AppSettings["TmpImageFiles"];
+            DateTime dateTimeNow = DateTime.Now;
 
             foreach (List<AreaOptimizacion> areaList in areaOptimizacion)
             {
@@ -267,50 +271,23 @@ namespace IngematicaAngularBase.Bll.Common
                             dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
 
 
-                            //// Test Image
-                            //netDxf.Vector2 verticeIzquierdaArriba = new netDxf.Vector2();
-                            //verticeIzquierdaArriba.X = mueble.VerticeIzquierdaArriba.X;
-                            //verticeIzquierdaArriba.Y = mueble.VerticeIzquierdaArriba.Y;
-                            //netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Temp\\Muebles\\test_imagen.PNG");
-                            //Image imagen = new Image(imageDefinition, verticeIzquierdaArriba, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
-                            //dxfFinal.AddEntity(imagen);
+                            //if(mueble.Mueble.ImagenMueble != null)
+                            //{
+                            //    dateTimeNow = dateTimeNow.AddSeconds(2);
+                            //    string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
 
+                            //    byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
+                            //    MemoryStream ms = new MemoryStream(imageBytes, 0,imageBytes.Length);
+                            //    ms.Write(imageBytes, 0, imageBytes.Length);
+                            //    System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+                            //    image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                            //// Test Image
-                            //netDxf.Vector2 verticeIzquierdaArriba = new netDxf.Vector2();
-                            //verticeIzquierdaArriba.X = mueble.VerticeIzquierdaArriba.X;
-                            //verticeIzquierdaArriba.Y = mueble.VerticeIzquierdaArriba.Y;
-                            //netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Temp\\Muebles\\test_imagen.PNG");
-                            //Image imagen = new Image(imageDefinition, verticeIzquierdaArriba, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
-                            //dxfFinal.AddEntity(imagen);
-
-                            /****************************
-                            netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition("C:\\Users\\Usuario\\Downloads\\21107733_336392926784075_6154084554823958528_a.jpg");
-                            Image image = new Image(imageDefinition, Vector3.Zero, imageDefinition.Width, imageDefinition.Height);
-                            dxfFinal.AddEntity(image);
-                            *************************************/
-
-                            /*****************************************
-
-
-                            netDxf.Objects.ImageDefinition imageDef2 = new netDxf.Objects.ImageDefinition("C:\\Users\\Usuario\\Downloads\\21107733_336392926784075_6154084554823958528_a.jpg", "MyImage");
-                            Image image2 = new Image(imageDef2, new Vector3(0, 500, 0), 100, 100);
-                            Image image3 = new Image(imageDef2, new Vector3(500, 500, 0), 100, 100);
-
-                            Block block = new Block("ImageBlock");
-                            block.Entities.Add(image2);
-                            block.Entities.Add(image3);
-                            Insert insert = new Insert(block, new Vector3(0, 100, 0));
-
-                            
-
-                            dxfFinal.AddEntity(insert);
-
-
-                            /*****************************************************************/
-
+                            //    netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTemp);
+                            //    netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, Vector3.Zero, imageDefinition.Width, imageDefinition.Height);
+                            //    dxfFinal.AddEntity(imageToSave);
+                            //}
                         }
-                        else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
+                            else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
                         {
                             Circle circulo = new Circle();
                             circulo.Radius = mueble.Mueble.RadioMayor != null ? System.Convert.ToDouble(mueble.Mueble.RadioMayor) : System.Convert.ToDouble(mueble.Mueble.RadioMenor);
@@ -415,6 +392,7 @@ namespace IngematicaAngularBase.Bll.Common
                     muebleCopy.Largo                  = muebleCopy.Largo * factorEscala;
                     muebleCopy.RadioMayor             = muebleCopy.RadioMayor * factorEscala;
                     muebleCopy.RadioMenor             = muebleCopy.RadioMenor * factorEscala;
+                    muebleCopy.ImagenMueble           = muebleCopy.ImagenMueble;
                     mueblesReplicados.Add(muebleCopy);
                 }
             }

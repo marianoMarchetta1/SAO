@@ -102,6 +102,7 @@ namespace IngematicaAngularBase.Bll
             entityClone.RadioMenor             = entity.RadioMenor;
             entityClone.Usuario                = entity.Usuario;
             entityClone.Usuario1               = entity.Usuario1;
+            entityClone.ImagenMueble           = entity.ImagenMueble;
             return entityClone;
 
         }
