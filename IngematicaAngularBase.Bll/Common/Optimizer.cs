@@ -272,15 +272,28 @@ namespace IngematicaAngularBase.Bll.Common
                                 MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
                                 ms.Write(imageBytes, 0, imageBytes.Length);
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+                                //escalar img
+                                //int escalaFinal = Convert.ToInt32(escala.Trim(':')[0]);
+                                //var ratioX = ((mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X)) / image.Width;
+                                //var ratioY = (mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y) / image.Height;
+                                //var ratio = Math.Min(ratioX,ratioY);
+                                //var newImage = new Bitmap(Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
+
+                                //using (var graphics = Graphics.FromImage(newImage))
+                                //    graphics.DrawImage(image, 0, 0, Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
+
+                                //newImage.Save(pathTemp);
+                                //
                                 image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                                 Vector3 vector3 = new Vector3();
                                 vector3.Z = 0;
                                 vector3.X = mueble.VerticeIzquierdaAbajo.X;
                                 vector3.Y = mueble.VerticeIzquierdaAbajo.Y;
-
+                                
                                 netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTemp);
-                                netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                                //netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                                netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, imageDefinition.Width, imageDefinition.Height);
                                 dxfFinal.AddEntity(imageToSave);
                             }else
                             {
