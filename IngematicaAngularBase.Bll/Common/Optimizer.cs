@@ -25,6 +25,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using Svg;
 
 namespace IngematicaAngularBase.Bll.Common
 {
@@ -267,28 +268,50 @@ namespace IngematicaAngularBase.Bll.Common
                         {                            
                             if (mueble.Mueble.ImagenMueble != null)
                             {
+
                                 dateTimeNow = dateTimeNow.AddSeconds(2);
                                 string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
 
+                                /* // Comentado para probar SVG
                                 byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
                                 MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
                                 ms.Write(imageBytes, 0, imageBytes.Length);
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+                                
                                 //escalar img
                                 //int escalaFinal = Convert.ToInt32(escala.Trim(':')[0]);
                                 var ratioX = ((mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X)) / image.Width;
                                 var ratioY = (mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y) / image.Height;
                                 var ratio = Math.Min(ratioX, ratioY);
+                                */
+
                                 //var newImage = new Bitmap(Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
 
                                 //using (var graphics = Graphics.FromImage(newImage))
                                 //    graphics.DrawImage(image, 0, 0, Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
 
                                 //newImage.SetResolution((float)(image.HorizontalResolution / ratio), (float)(image.VerticalResolution / ratio));
-                                var newImage = ResizeImage(image, (int)(image.Width * ratio), (int)(image.Height * ratio));
 
+                                /* // Comentado para probar SVG
+                                var newImage = ResizeImage(image, (int)(image.Width * ratio), (int)(image.Height * ratio));
                                 newImage.Save(pathTemp);
+                                */
+
                                 //
+                                //image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                                // Para testear SVG, levanto archivo del path directo
+                                SvgDocument svgDocument = SvgDocument.Open("C:\\Temp\\Muebles\\svg\\Escritorio_2.svg");
+                                                                
+                                if (svgDocument.Height > (int)(mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y))
+                                {
+                                    svgDocument.Width = (int)(mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X); // ((svgDocument.Width / (double)svgDocument.Height) * alturaAjuste);
+                                    svgDocument.Height = (int)(mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
+                                }
+                                
+                                var image = svgDocument.Draw();
+
+                                image.Save(pathTemp);
                                 //image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                                 Vector3 vector3 = new Vector3();
