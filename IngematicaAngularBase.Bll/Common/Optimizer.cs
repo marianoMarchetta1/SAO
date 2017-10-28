@@ -23,6 +23,8 @@ using netDxf.Collections;
 using AutoMapper;
 using System.IO;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace IngematicaAngularBase.Bll.Common
 {
@@ -274,17 +276,20 @@ namespace IngematicaAngularBase.Bll.Common
                                 System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
                                 //escalar img
                                 //int escalaFinal = Convert.ToInt32(escala.Trim(':')[0]);
-                                //var ratioX = ((mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X)) / image.Width;
-                                //var ratioY = (mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y) / image.Height;
-                                //var ratio = Math.Min(ratioX,ratioY);
+                                var ratioX = ((mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X)) / image.Width;
+                                var ratioY = (mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y) / image.Height;
+                                var ratio = Math.Min(ratioX, ratioY);
                                 //var newImage = new Bitmap(Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
 
                                 //using (var graphics = Graphics.FromImage(newImage))
                                 //    graphics.DrawImage(image, 0, 0, Convert.ToInt32(image.Width * ratio), Convert.ToInt32(image.Height * ratio));
 
-                                //newImage.Save(pathTemp);
+                                //newImage.SetResolution((float)(image.HorizontalResolution / ratio), (float)(image.VerticalResolution / ratio));
+                                var newImage = ResizeImage(image, (int)(image.Width * ratio), (int)(image.Height * ratio));
+
+                                newImage.Save(pathTemp);
                                 //
-                                image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                //image.Save(pathTemp, System.Drawing.Imaging.ImageFormat.Jpeg);
 
                                 Vector3 vector3 = new Vector3();
                                 vector3.Z = 0;
@@ -333,6 +338,38 @@ namespace IngematicaAngularBase.Bll.Common
                 GrabarHistorial(optimizacionHistorialViewModel);
 
             return dxfFinal;
+        }
+
+        /// <summary>
+        /// Resize the image to the specified width and height.
+        /// </summary>
+        /// <param name="image">The image to resize.</param>
+        /// <param name="width">The width to resize to.</param>
+        /// <param name="height">The height to resize to.</param>
+        /// <returns>The resized image.</returns>
+        public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
         public void GrabarHistorial(OptimizacionHistorialViewModel optimizacionHistorialViewModel)
