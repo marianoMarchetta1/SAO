@@ -117,20 +117,20 @@ namespace IngematicaAngularBase.Bll
         {
             if (muebleOpt.Mueble.Activo)
             {
-                double dif = muebleOpt.Ancho - System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
+                double dif = muebleOpt.Ancho - System.Convert.ToDouble(muebleOpt.Mueble.Ancho + muebleOpt.Mueble.DistanciaParedes);
 
                 if ( dif > 0)
                 {
-                    muebleOpt.Ancho = System.Convert.ToDouble(muebleOpt.Mueble.Ancho);
+                    muebleOpt.Ancho = System.Convert.ToDouble(muebleOpt.Mueble.Ancho + muebleOpt.Mueble.DistanciaParedes);
                     muebleOpt.VerticeDerechaArriba.X -= dif;
                     muebleOpt.VerticeDerechaAbajo.X  -= dif;
                 }
 
-                dif = muebleOpt.Largo - System.Convert.ToDouble(muebleOpt.Mueble.Largo);
+                dif = muebleOpt.Largo - System.Convert.ToDouble(muebleOpt.Mueble.Largo + muebleOpt.Mueble.DistanciaParedes);
 
                 if (dif > 0)
                 {
-                    muebleOpt.Largo = System.Convert.ToDouble(muebleOpt.Mueble.Largo);
+                    muebleOpt.Largo = System.Convert.ToDouble(muebleOpt.Mueble.Largo + muebleOpt.Mueble.DistanciaParedes);
                     muebleOpt.VerticeIzquierdaAbajo.Y += dif;
                     muebleOpt.VerticeDerechaAbajo.Y   += dif;
                 }

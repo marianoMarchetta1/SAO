@@ -141,7 +141,7 @@ namespace IngematicaAngularBase.Bll.Common
 
         public void UnificarMueblesYHuecos(List<AreaOptimizacion> areaOptmizacion, int sentido)
         {
-            MueblesOptmizacion muebleAux = new MueblesOptmizacion();
+            
             MuebleBusiness mb = new MuebleBusiness();
 
             // Des-Alisar muebles
@@ -149,6 +149,7 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 for (int i = 0; i < area.MueblesList.Count(); i++)
                 {
+                    MueblesOptmizacion muebleAux = new MueblesOptmizacion();
                     muebleAux = area.MueblesList.ElementAt(i);
                     area.MueblesList[i] = mb.AjustarTamanio(ref muebleAux);
                 }
@@ -269,7 +270,7 @@ namespace IngematicaAngularBase.Bll.Common
                             if (mueble.Mueble.ImagenMueble != null)
                             {
 
-                                dateTimeNow = dateTimeNow.AddSeconds(2);
+                                dateTimeNow = dateTimeNow.AddSeconds(mueble.numeroInsercion);
                                 string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
 
 
@@ -293,15 +294,25 @@ namespace IngematicaAngularBase.Bll.Common
                                 netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTemp);
                                 //netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X, mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
                                 netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, imageDefinition.Width, imageDefinition.Height);
+
+                                //imageToSave.Layer.Linetype = new netDxf.Tables.Linetype("Dashed");
+                                //imageToSave.Linetype = new netDxf.Tables.Linetype("Dashed");
+                                //Linetype linetype = new Linetype("MiSuperLinea");
+                                //linetype.Segments.AddRange(new[] { 0.0, 0.0 });
+                                //imageToSave.Linetype = linetype;
+                                //imageToSave.Lineweight = 0;
+
                                 dxfFinal.AddEntity(imageToSave);
                             }else
                             {
+                                /*
                                 List<LwPolylineVertex> lpVertex = new List<LwPolylineVertex>();
                                 lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaAbajo));
                                 lpVertex.Add(mb.ConvertVertex(mueble.VerticeIzquierdaArriba));
                                 lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaArriba));
                                 lpVertex.Add(mb.ConvertVertex(mueble.VerticeDerechaAbajo));
                                 dxfFinal.AddEntity(new LwPolyline(lpVertex, true));
+                                */
                             }
                         }
                         else if(mueble.Mueble.RadioMayor == null || mueble.Mueble.RadioMenor == null)
@@ -513,9 +524,9 @@ namespace IngematicaAngularBase.Bll.Common
                             mueble = muebleList.First();
 
                             // Depende que celda estoy usando
-                            if (mueble.Largo > Largo)
+                            if (mueble.Largo + mueble.DistanciaParedes + mueble.DistanciaProximoMueble > Largo)
                             {
-                                h = muebleList.FindIndex(x => x.Largo == Largo);
+                                h = muebleList.FindIndex(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble == Largo);
                                 mueble = muebleList[h];
                             }
                             else
@@ -732,9 +743,10 @@ namespace IngematicaAngularBase.Bll.Common
             {
                 Mueble mueble = muebleList.First();
                 decimal Largo = (decimal)celda.Largo;
-                if (mueble.Largo > Largo)
+                if (mueble.Largo + mueble.DistanciaParedes + mueble.DistanciaProximoMueble > Largo)
                 {
-                    i = muebleList.FindIndex(x => x.Largo == Largo);
+                    i = muebleList.FindIndex(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble == Largo);
+
                     celda.Mueble = muebleList[i];
                     //celda.Mueble = muebleList.Select(x => x).Where(x => x.Largo == Largo).First();
                 }
@@ -1354,7 +1366,7 @@ namespace IngematicaAngularBase.Bll.Common
             else
             {
                 Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
-                Ancho = muebles.Select(x => x).Where(x => x.Largo == Largo).First().Ancho;
+                Ancho = muebles.Select(x => x).Where(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble == Largo).First().Ancho;
 //                Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
 //                RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
 //                RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();

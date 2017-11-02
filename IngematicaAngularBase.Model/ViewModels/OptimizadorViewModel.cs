@@ -89,9 +89,19 @@ namespace IngematicaAngularBase.Model.ViewModels
 
         public double? VerticeDerechaAbajoX { get; set; }
         public double? VerticeDerechaAbajoY { get; set; }
+
+        private static int countM = 0;
+        public int numeroInsercion { get; set; }
+
+        public MueblesOptmizacion()
+        {
+            this.numeroInsercion = System.Threading.Interlocked.Increment(ref countM);
+        }
     }
 
-    public class OptimizacionHistorialViewModel
+
+
+        public class OptimizacionHistorialViewModel
     {
         public int IdOptimizacionHistorial { get; set; }
         public string Nombre { get; set; }
