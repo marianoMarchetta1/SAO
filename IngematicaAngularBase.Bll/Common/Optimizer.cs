@@ -120,7 +120,7 @@ namespace IngematicaAngularBase.Bll.Common
                     if (muebleListTemp.Count() > 0) // Quedan muebles
                     {
                         //Insertar muebles en huecos
-                        UbicarMueblesEnHuecos(areaOptmizacion, muebleListTemp, celda);
+                        UbicarMueblesEnHuecos(areaOptmizacion, muebleListTemp, celda, (int)sentido);
                     }
 
                     // Des-Alisar celdas y agregar los muebles de la lista de huecos a la de muebles
@@ -498,7 +498,7 @@ namespace IngematicaAngularBase.Bll.Common
             return index;
         }
 
-        public void UbicarMueblesEnHuecos(List<AreaOptimizacion> areaOptimizacion, List<Mueble> muebleList, Celda celda)
+        public void UbicarMueblesEnHuecos(List<AreaOptimizacion> areaOptimizacion, List<Mueble> muebleList, Celda celda, int sentido)
         {
             MueblesOptmizacion muebleAux = new MueblesOptmizacion();
             MuebleBusiness mb = new MuebleBusiness();
@@ -515,6 +515,7 @@ namespace IngematicaAngularBase.Bll.Common
                     {
                         if (muebleList.Count() == 0)
                             break;
+                        celda = GetTamañoMaximoCelda(muebleList, sentido, true);
 
                         if (areaOptimizacion[j].HuecosList.ElementAt(i).Ancho >= celda.Ancho && areaOptimizacion[j].HuecosList.ElementAt(i).Largo >= celda.Largo && areaOptimizacion[j].HuecosList.ElementAt(i).Mueble == null)
                         {
@@ -573,6 +574,7 @@ namespace IngematicaAngularBase.Bll.Common
             double xMax;
             double xMaxArea;
             decimal Largo = (decimal)celda.Largo;
+            decimal Ancho = (decimal)celda.Ancho;
 
             xMaxArea = areaOptimizacion.VerticeDerechaAbajo.X;
 
@@ -614,7 +616,7 @@ namespace IngematicaAngularBase.Bll.Common
                                 izquierdaAbajo.Y - celda.Largo >= areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
 
-                                celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
+                                celdaList = GetCeldaList(xMaxArea, celda, izquierdaAbajo, areaOptimizacion.VerticeDerechaAbajo.Y, muebleList.Select(x => x).Where(x => (x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble) <= Largo && (x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble) <= Ancho).Count());
 
                                 #region
                                 //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
@@ -672,7 +674,7 @@ namespace IngematicaAngularBase.Bll.Common
                     //Genera una nueva fila de celdas
                     //usa xMax porque en caso de que quede formato cerrucho x compactacion, se desprecia una pequeña parte del plano
                     #endregion
-                    celdaList = GetCeldaList(xMaxArea, celda, xMax, areaOptimizacion, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
+                    celdaList = GetCeldaList(xMaxArea, celda, xMax, areaOptimizacion, muebleList.Select(x => x).Where(x => (x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble) <= Largo && (x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble) <= Ancho).Count());
 
                     #region
                     //tanto GetCeldaList como InsertarPasillo validan no pasarse del limite del subarea
@@ -899,6 +901,7 @@ namespace IngematicaAngularBase.Bll.Common
             double yMin;
             double xMaxArea;
             decimal Largo = (decimal)celda.Largo;
+            decimal Ancho = (decimal)celda.Ancho;
 
             xMaxArea = areaOptimizacion.VerticeDerechaAbajo.X;
 
@@ -942,7 +945,7 @@ namespace IngematicaAngularBase.Bll.Common
                             if (izquierdaAbajo.X + celda.Ancho <= areaOptimizacion.VerticeDerechaAbajo.X &&
                                 izquierdaAbajo.Y >= areaOptimizacion.VerticeIzquierdaAbajo.Y)
                             {
-                                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
+                                celdaList = GetCeldaListHorizontal(xMaxArea, celda, izquierdaArriba, muebleList.Select(x => x).Where(x => (x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble) <= Largo && (x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble) <= Ancho).Count());
 
                                 #region
                                 //verificar que muebleList y areaOptimizacion se esten pasando por referencia.
@@ -995,7 +998,7 @@ namespace IngematicaAngularBase.Bll.Common
                     //Genera una nueva fila de celdas
                     //usa xMax porque en caso de que quede formato cerrucho x compactacion, se desprecia una pequeña parte del plano
                     #endregion
-                    celdaList = GetCeldaListHorizontal(celda, yMin, areaOptimizacion, muebleList.Select(x => x.Largo).Where(x => x <= Largo).Count());
+                    celdaList = GetCeldaListHorizontal(celda, yMin, areaOptimizacion, muebleList.Select(x => x).Where(x => (x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble) <= Largo && (x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble) <= Ancho).Count());
 
                     #region
                     //tanto GetCeldaList como InsertarPasillo validan no pasarse del limite del subarea
@@ -1355,6 +1358,8 @@ namespace IngematicaAngularBase.Bll.Common
             decimal? Ancho = 0;
             decimal? RadioMayor = 0;
             decimal? RadioMenor = 0;
+            Mueble muebleAux = new Mueble();
+            
 
             if (!invertido)
             {
@@ -1366,7 +1371,11 @@ namespace IngematicaAngularBase.Bll.Common
             else
             {
                 Largo = muebles.Select(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
-                Ancho = muebles.Select(x => x).Where(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble == Largo).First().Ancho;
+                muebleAux = muebles.Select(x => x).Where(x => x.Largo + x.DistanciaParedes + x.DistanciaProximoMueble == Largo).First();
+                Ancho = muebleAux.Ancho + muebleAux.DistanciaParedes + muebleAux.DistanciaProximoMueble;
+
+
+                
 //                Ancho = muebles.Select(x => x.Ancho + x.DistanciaParedes + x.DistanciaProximoMueble).Min();
 //                RadioMayor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
 //                RadioMenor = muebles.Select(x => x.RadioMayor + x.DistanciaParedes + x.DistanciaProximoMueble).Max();
