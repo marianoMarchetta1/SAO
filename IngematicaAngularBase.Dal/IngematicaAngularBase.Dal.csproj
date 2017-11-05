@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EnvioMailDataAccess.cs" />
     <Compile Include="LinqExtensions.cs" />
     <Compile Include="LogDataAccess.cs" />
     <Compile Include="MuebleDataAccess.cs" />

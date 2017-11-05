@@ -81,6 +81,7 @@
     <Compile Include="Common\AuthorizeRule.cs" />
     <Compile Include="Common\CacheManager.cs" />
     <Compile Include="Common\HandleApiExceptionAttribute.cs" />
+    <Compile Include="Controllers\EnvioMailController.cs" />
     <Compile Include="Controllers\MuebleController.cs" />
     <Compile Include="Controllers\OptimizacionHistorialController.cs" />
     <Compile Include="Controllers\OptimizadorController.cs" />

@@ -73,6 +73,10 @@
     <input path="app\configuration\user-log\user-log-factory.js"/>
     <input path="app\configuration\user-log\user-log-list-controller.js"/>
 
+    <input path="app\configuration\envio-mail\envio-mail-config.js"/>
+    <input path="app\configuration\envio-mail\envio-mail-factory.js"/>
+    <input path="app\configuration\envio-mail\envio-mail-controller.js"/>
+
     <input path="app\dxf\AutoCadColorIndex.js"/>
     <input path="app\dxf\browserify.js"/>
     <input path="app\dxf\dxf-parser.js"/>

@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.home">Inicio</a></li>
+        <li class="active">Envìo de Mail</li>
+    </ol>
+    <form name="vm.envioMailForm" novalidate
+          custom-submit
+          mode="vm.mode"
+          list="vm.queryUI.search()"
+          set-default-model="vm.setDefaultModel()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" name="nombre" ng-model="vm.mail.nombre" ng-model-options="{ updateOn: 'blur' }" focus-me="true">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label name="lblComentario" class="control-label">Comentario</label>
+                    <!--<input class="form-control" lblMessage="lblCodigo" name="Codigo" ng-model="vm.queryUI.query.codigo" maxlength="256" ng-model-options="{ updateOn: 'blur' }">-->
+                    <textarea class="form-control" rows="10" ng-model="vm.mail.comentario" ng-model-options="{ updateOn: 'blur' }"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="nav navBorder">
+            <div class="navbar-right">
+                <button class="btn btn-primary" type="button" ng-click="vm.send()">Enviar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
