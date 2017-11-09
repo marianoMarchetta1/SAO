@@ -270,9 +270,9 @@ namespace IngematicaAngularBase.Bll.Common
                             if (mueble.Mueble.ImagenMueble != null)
                             {
 
-                                dateTimeNow = dateTimeNow.AddSeconds(mueble.numeroInsercion);
-                                string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
-
+                                // dateTimeNow = dateTimeNow.AddSeconds(mueble.numeroInsercion);
+                                // string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
+                                string pathTemp = path + "\\temp " + mueble.Mueble.IdMueble;
 
                                 byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
                                 MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
