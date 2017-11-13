@@ -34,7 +34,7 @@ namespace IngematicaAngularBase.Bll
             }
         }
 
-        public List<string> Generate(OptimizadorOptimizacionViewModel file, int idUsuario)
+        public RespuestaServidor Generate(OptimizadorOptimizacionViewModel file, int idUsuario)
         {
             using (var context = new Entities())
             {
@@ -61,15 +61,34 @@ namespace IngematicaAngularBase.Bll
                 List<string> paths = new List<string>();
                 DateTime dateTimeNow = DateTime.Now;
 
+                RespuestaServidor result = new RespuestaServidor();
+                result.MuebleArray = new List<MuebleArray>();
+                result.PlanoArrayList = new List<PlanoArray>();
+
                 foreach (DxfDocument dxf in dxfsFinals)
                 {
                     string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
                     paths.Add(path + "\\temp");
                     dxf.Save(pathTemp);
                     dateTimeNow = dateTimeNow.AddSeconds(2);
+
+                    PlanoArray planoArray = new PlanoArray();
+                    planoArray.Path = pathTemp;
+
+                    result.PlanoArrayList.Add(planoArray);
                 }
 
-                return paths;
+                optimizer.PathsImagenes = optimizer.PathsImagenes.Select(x => x).Distinct().ToList();
+
+                foreach (string pathT in optimizer.PathsImagenes)
+                {
+                    MuebleArray muebleArray = new MuebleArray();
+                    muebleArray.Path = pathT;
+
+                    result.MuebleArray.Add(muebleArray);
+                }
+
+                return result;
             }
         }
            

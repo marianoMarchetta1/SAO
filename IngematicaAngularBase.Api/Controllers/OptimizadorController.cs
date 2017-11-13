@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -21,6 +22,7 @@ namespace IngematicaAngularBase.Api.Controllers
     [HandleApiException]
     public class OptimizadorController : ApiController
     {
+
         [AuthorizeRule(Rule = "Optimizador_CanAdd")]
         [Route("api/optimizador/getParamsList")]
         [HandleApiException]
@@ -30,6 +32,40 @@ namespace IngematicaAngularBase.Api.Controllers
             Dictionary<string, object> result = new Dictionary<string, object>();
             result.Add("muebleList", bs.GetMuebleList(true));
             return Ok(result);
+        }
+
+        public class PathFromCliente {
+            public string Path { get; set; }
+        }
+
+        [Route("api/optimizador/postFileToBlob")]
+        public HttpResponseMessage PostFileToBlob(PathFromCliente pathFromClient)
+        {
+            HttpResponseMessage result = null;
+            var info = System.IO.File.GetAttributes(pathFromClient.Path);
+            result = Request.CreateResponse(HttpStatusCode.OK);
+            result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            //result.Content.Headers.Add("x-filename", "");
+            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(35, pathFromClient.Path.Length - 35);
+
+            return result;
+        }
+
+        [Route("api/optimizador/postFileToBlobImage")]
+        public HttpResponseMessage PostFileToBlobImage(PathFromCliente pathFromClient)
+        {
+            HttpResponseMessage result = null;
+            var info = System.IO.File.GetAttributes(pathFromClient.Path);
+            result = Request.CreateResponse(HttpStatusCode.OK);
+            result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("'application/octet-stream'");
+            //result.Content.Headers.Add("x-filename", "");
+            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(42, pathFromClient.Path.Length - 42);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+
+            return result;
         }
 
         [HttpPost]
@@ -67,7 +103,10 @@ namespace IngematicaAngularBase.Api.Controllers
         public IHttpActionResult Generate(OptimizadorOptimizacionViewModel file)
         {
             OptimizadorBusiness optimizadorBusiness = new OptimizadorBusiness();
-            return Ok(optimizadorBusiness.Generate(file, SecurityManager.GetIdUsuario(User.Identity.Name)));
+            RespuestaServidor rta = new RespuestaServidor();
+            rta = optimizadorBusiness.Generate(file, SecurityManager.GetIdUsuario(User.Identity.Name));
+
+            return Ok(rta);
         }
     }
 }

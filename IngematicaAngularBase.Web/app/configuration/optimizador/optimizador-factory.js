@@ -43,6 +43,28 @@ angular.module('appBase').factory('optimizadorFactory', ['$http', '$q', 'handleE
             return deferred.promise;
         };
 
+        optimizadorFactory.getBlob = function (path, i) {
+            var deferred = $q.defer();
+            $http.post(urlBase + '/' + 'postFileToBlob', {path : path})
+                .then(function (response) {
+                    deferred.resolve({ data: response.data, i: i });
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
+            return deferred.promise;
+        }
+
+        optimizadorFactory.getBlobImage = function (path, j) {
+            var deferred = $q.defer();
+            $http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
+                .then(function (response) {
+                    deferred.resolve({ data: response.data, j : j });
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
+            return deferred.promise;
+        }
+
         //optimizadorFactory.add = function (model) {
         //    var postModel = angular.copy(model);
         //    entityUI.preparePost(postModel);

@@ -115,10 +115,35 @@
                 blockUI.start();
                 optimizadorFactory.generate(vm.optimizacion)
                 .then(function (value) {
-                    if (value && value.length > 0)
-                        modalDialogService.showModalMessage('Los planos optimizados se han generado con exito y se encuentran en: ' + value[0]);
-                    else
-                        modalDialogService.showModalFormErrors(["Error al generar los archivos."]);
+                    //if (value && value.length > 0)
+                    //    modalDialogService.showModalMessage('Los planos optimizados se han generado con exito y se encuentran en: ' + value[0]);
+                    //else
+                    //    modalDialogService.showModalFormErrors(["Error al generar los archivos."]);
+
+                    for (var i = 0; i < value.planoArrayList.length; i++) {
+                        optimizadorFactory.getBlob(value.planoArrayList[i].path, i).then(function (value2) {
+                            var blob = new Blob([value2.data], { type: 'application/octet-stream' });
+                            var name = value.planoArrayList[value2.i].path.substring(35, value.planoArrayList[value2.i].path.length);
+                            if (navigator.msSaveBlob)
+                                navigator.msSaveBlob(blob, name);
+                        })
+                    }
+
+                    for (var j = 0; j < value.muebleArray.length; j++) {
+                        optimizadorFactory.getBlobImage(value.muebleArray[j].path, j).then(function (value3) {
+                            var blob = new Blob([value3.data], { type: 'application/octet-stream' });
+                            var name = value.muebleArray[value3.j].path.substring(42, value.muebleArray[value3.j].path.length);
+                            if (navigator.msSaveBlob)
+                                navigator.msSaveBlob(blob, name);
+                               // navigator.msSaveBlob(blob, name + ".jpg");
+                        })
+                    }
+
+                    //for (var i = 0; i < value.length; i++) {
+                    //    var blob = new Blob([value[i]], { type: 'application/octet-stream' });
+                    //if (navigator.msSaveBlob)
+                    //    navigator.msSaveBlob(blob, '');
+                    //}
                 })
                 .catch(function (error) {
                     handleErrorService.handleErrorConfig(error);

@@ -175,4 +175,22 @@ namespace IngematicaAngularBase.Model.ViewModels
         Ancho = 2/*,
         Cruzado = 3*/
     }
+
+    public class RespuestaServidor
+    {
+        public List<PlanoArray> PlanoArrayList { get; set; }
+        public List<MuebleArray> MuebleArray { get; set; }
+    }
+
+    public class PlanoArray
+    {
+        public byte[] Bytes { get; set; }
+        public string Path { get; set; }
+    }
+
+    public class MuebleArray
+    {
+        public byte[] Bytes { get; set; }
+        public string Path { get; set; }
+    }
 }

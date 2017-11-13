@@ -40,6 +40,7 @@ namespace IngematicaAngularBase.Bll.Common
         public int? cantidadPersonas;
         public bool registrarEnHistorial;
         public string Nombre;
+        public List<string> PathsImagenes;
 
         public Optimizer(DxfDocument dxfDocument, bool optimizarCostoParam, double costoMaximoParam, List<OptimizacionMueble> muebleCantidadListParam, List<Mueble> muebleListParam, string escalaParam, int? cantidadPersonasParam, bool pRegistrarEnHistorial, string pNombre)
         {
@@ -65,6 +66,7 @@ namespace IngematicaAngularBase.Bll.Common
             //Considero que la cantida de muebles solicitados es para el total de regiones que esten en el dxf
             #endregion
 
+            this.PathsImagenes = new List<string>();
             List<DxfDocument> finalFlats = new List<DxfDocument>();
             DxfDocument finalFlat = new DxfDocument();
             List<LwPolylineVertex> vertices = new List<LwPolylineVertex>();
@@ -265,6 +267,8 @@ namespace IngematicaAngularBase.Bll.Common
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaY = mueble.VerticeIzquierdaArriba.Y;
                         //optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
 
+                        
+
                         if (!mueble.Mueble.PoseeRadio)
                         {                            
                             if (mueble.Mueble.ImagenMueble != null)
@@ -285,6 +289,7 @@ namespace IngematicaAngularBase.Bll.Common
                                 var newImage = ResizeImage(image, Width, Height);
                                 newImage.Save(pathTemp);
 
+                                this.PathsImagenes.Add(pathTemp);
 
                                 Vector3 vector3 = new Vector3();
                                 vector3.Z = 0;

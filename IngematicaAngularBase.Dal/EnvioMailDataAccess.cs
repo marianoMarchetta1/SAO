@@ -5,6 +5,7 @@ using IngematicaAngularBase.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,9 +22,20 @@ namespace IngematicaAngularBase.Dal
 
         public void SendMail(string subject, string mailFrom, string mailTo, string body)
         {
-           // SecurityDataAccess.SendMail(subject, mailFrom, mailTo, body);
+            SmtpClient client = new SmtpClient();
+            MailAddress from = new MailAddress(mailFrom);
+            MailAddress to = new MailAddress(mailTo);
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Contacto SAO";
+            message.Body = body;
 
+            client.UseDefaultCredentials = true;
+            //client.Credentials = new System.Net.NetworkCredential("mariano.marchetta1@gmail.com", "tuyu745y98pA");
+            //client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            //client.EnableSsl = true;
 
+            client.Send(message);
         }
     }
 }
