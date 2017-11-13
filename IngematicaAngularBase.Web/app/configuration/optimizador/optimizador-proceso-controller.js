@@ -131,7 +131,7 @@
 
                     for (var j = 0; j < value.muebleArray.length; j++) {
                         optimizadorFactory.getBlobImage(value.muebleArray[j].path, j).then(function (value3) {
-                            var blob = new Blob([value3.data], { type: 'application/octet-stream' });
+                            var blob = new Blob([value3.data], { type: 'image/jpeg' });//'application/octet-stream' });
                             var name = value.muebleArray[value3.j].path.substring(42, value.muebleArray[value3.j].path.length);
                             if (navigator.msSaveBlob)
                                 navigator.msSaveBlob(blob, name);

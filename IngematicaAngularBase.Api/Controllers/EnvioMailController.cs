@@ -22,8 +22,8 @@ namespace IngematicaAngularBase.Api.Controllers
         [HandleApiException]
         public IHttpActionResult Generate(MailViewModel mail)
         {
-            string mailFrom = System.Configuration.ConfigurationManager.AppSettings["Mail.From"] != null ? System.Configuration.ConfigurationManager.AppSettings["Mail.From"].ToString() : "mariano.marchetta@hotmail.com";
-            string mailTo = System.Configuration.ConfigurationManager.AppSettings["Mail.To"] != null ? System.Configuration.ConfigurationManager.AppSettings["Mail.To"].ToString() : "mariano.marchetta@hotmail.com";
+            string mailFrom = System.Configuration.ConfigurationManager.AppSettings["Mail.From"] != null ? System.Configuration.ConfigurationManager.AppSettings["Mail.From"].ToString() : "sao.arquitectura2017@gmail.com";
+            string mailTo = System.Configuration.ConfigurationManager.AppSettings["Mail.To"] != null ? System.Configuration.ConfigurationManager.AppSettings["Mail.To"].ToString() : "mastronardi.romina@gmail.com";
             string body = mail.Comentario;
             string subject = "El usuario " + mail.Nombre + " envio un comentario";
 

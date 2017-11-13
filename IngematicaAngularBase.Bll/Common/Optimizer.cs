@@ -276,7 +276,7 @@ namespace IngematicaAngularBase.Bll.Common
 
                                 // dateTimeNow = dateTimeNow.AddSeconds(mueble.numeroInsercion);
                                 // string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss");
-                                string pathTemp = path + "\\temp " + mueble.Mueble.IdMueble;
+                                string pathTemp = path + "\\temp " + mueble.Mueble.IdMueble + ".jpg";
 
                                 byte[] imageBytes = Convert.FromBase64String(mueble.Mueble.ImagenMueble.Split(',')[1]);
                                 MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
@@ -287,7 +287,7 @@ namespace IngematicaAngularBase.Bll.Common
                                 int Width = (int)(mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X); 
                                 int Height = (int)(mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
                                 var newImage = ResizeImage(image, Width, Height);
-                                newImage.Save(pathTemp);
+                                newImage.Save(pathTemp, ImageFormat.Jpeg);
 
                                 this.PathsImagenes.Add(pathTemp);
 
