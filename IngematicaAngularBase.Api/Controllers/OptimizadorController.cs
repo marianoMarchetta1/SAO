@@ -6,6 +6,8 @@ using IngematicaAngularBase.Model.Entities;
 using IngematicaAngularBase.Model.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -48,7 +50,7 @@ namespace IngematicaAngularBase.Api.Controllers
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             //result.Content.Headers.Add("x-filename", "");
             result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(35, pathFromClient.Path.Length - 35);
+            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(pathFromClient.Path.Length - 23, 23);
 
             return result;
         }
@@ -56,14 +58,37 @@ namespace IngematicaAngularBase.Api.Controllers
         [Route("api/optimizador/postFileToBlobImage")]
         public HttpResponseMessage PostFileToBlobImage(PathFromCliente pathFromClient)
         {
-            HttpResponseMessage result = null;
-            var info = System.IO.File.GetAttributes(pathFromClient.Path);
-            result = Request.CreateResponse(HttpStatusCode.OK);
-            result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");  //("'application/octet-stream'");
-            //result.Content.Headers.Add("x-filename", "");
-            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(42, pathFromClient.Path.Length - 42);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+            //HttpResponseMessage result = null;
+            //var info = System.IO.File.GetAttributes(pathFromClient.Path);
+            //result = Request.CreateResponse(HttpStatusCode.OK);
+            //result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");  //("'application/octet-stream'");
+            ////result.Content.Headers.Add("x-filename", "");
+            //result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            //result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(pathFromClient.Path.Length - 10, 10);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+
+            //string filePath = pathFromClient.Path;
+            //var result = new HttpResponseMessage(HttpStatusCode.OK);
+            //FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            //Image image = Image.FromStream(fileStream);
+            //MemoryStream memoryStream = new MemoryStream();
+            //image.Save(memoryStream, ImageFormat.Jpeg);
+            //result.Content = new ByteArrayContent(memoryStream.ToArray());
+            //result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            //result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(pathFromClient.Path.Length - 10, 10);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            String filePath = pathFromClient.Path;
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            Image image = Image.FromStream(fileStream);
+            MemoryStream memoryStream = new MemoryStream();
+            image.Save(memoryStream, ImageFormat.Jpeg);
+            var byteArrayContent = new ByteArrayContent(memoryStream.ToArray());
+            byteArrayContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            byteArrayContent.Headers.ContentLength = memoryStream.Length;
+            result.Content = byteArrayContent;
 
             return result;
         }
