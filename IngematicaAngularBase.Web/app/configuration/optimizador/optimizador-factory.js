@@ -56,9 +56,11 @@ angular.module('appBase').factory('optimizadorFactory', ['$http', '$q', 'handleE
 
         optimizadorFactory.getBlobImage = function (path, j) {
             var deferred = $q.defer();
+            //$http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
             $http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
                 .then(function (response) {
                     deferred.resolve({ data: response.data, j : j });
+                    //deferred.resolve({ data: response, j: j });
                 }).catch(function (response) {
                     deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
                 });

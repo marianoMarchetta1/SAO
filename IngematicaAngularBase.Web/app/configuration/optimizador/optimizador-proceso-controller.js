@@ -123,7 +123,7 @@
                     for (var i = 0; i < value.planoArrayList.length; i++) {
                         optimizadorFactory.getBlob(value.planoArrayList[i].path, i).then(function (value2) {
                             var blob = new Blob([value2.data], { type: 'application/octet-stream' });
-                            var name = value.planoArrayList[value2.i].path.substring(35, value.planoArrayList[value2.i].path.length);
+                            var name = value.planoArrayList[value2.i].path.substring(8, value.planoArrayList[value2.i].path.length);
                             if (navigator.msSaveBlob)
                                 navigator.msSaveBlob(blob, name);
                         })
@@ -131,8 +131,11 @@
 
                     for (var j = 0; j < value.muebleArray.length; j++) {
                         optimizadorFactory.getBlobImage(value.muebleArray[j].path, j).then(function (value3) {
-                            var blob = new Blob([value3.data], { type: 'image/jpeg' });//'application/octet-stream' });
-                            var name = value.muebleArray[value3.j].path.substring(42, value.muebleArray[value3.j].path.length);
+                            //var blob = new Blob([value3.data], { type: 'application/octet-stream'});//'application/octet-stream' });
+                            var name = "test.jpg";//value.muebleArray[value3.j].path.substring(8, value.muebleArray[value3.j].path.length);
+
+                            var blob = b64toBlob(value3.data.base64, null, null);
+
                             if (navigator.msSaveBlob)
                                 navigator.msSaveBlob(blob, name);
                                // navigator.msSaveBlob(blob, name + ".jpg");
@@ -153,6 +156,30 @@
                 });
             }
         };
+
+        function b64toBlob(b64Data, contentType, sliceSize) {   //<- esto explota
+            contentType = contentType || '';
+            sliceSize = sliceSize || 512;
+
+            var byteCharacters = atob(b64Data);
+            var byteArrays = [];
+
+            for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            var blob = new Blob(byteArrays, { type: contentType });
+            return blob;
+        }
 
         vm.init();
     }]);

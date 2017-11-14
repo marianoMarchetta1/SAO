@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.IO.Compression;
 
 
 namespace IngematicaAngularBase.Api.Controllers
@@ -48,24 +49,59 @@ namespace IngematicaAngularBase.Api.Controllers
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             //result.Content.Headers.Add("x-filename", "");
             result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(35, pathFromClient.Path.Length - 35);
+            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(8, pathFromClient.Path.Length - 8);
 
             return result;
         }
 
-        [Route("api/optimizador/postFileToBlobImage")]
-        public HttpResponseMessage PostFileToBlobImage(PathFromCliente pathFromClient)
+        public class Fuck
         {
-            HttpResponseMessage result = null;
-            var info = System.IO.File.GetAttributes(pathFromClient.Path);
-            result = Request.CreateResponse(HttpStatusCode.OK);
-            result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");  //("'application/octet-stream'");
-            //result.Content.Headers.Add("x-filename", "");
-            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-            result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(42, pathFromClient.Path.Length - 42);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+            public string Base64 { get; set; }
+        }
 
-            return result;
+        [Route("api/optimizador/postFileToBlobImage")]
+        public IHttpActionResult PostFileToBlobImage(PathFromCliente pathFromClient)
+        {
+
+            //string startPath = @"C:\Temp";
+            //string zipPath = @"C:\Users\Romina\Desktop\AAA\aaa.zip";
+
+            //ZipFile.CreateFromDirectory(startPath, zipPath, CompressionLevel.Fastest, true);
+
+
+            //var localFilePath = pathFromClient.Path;
+            //HttpResponseMessage result = null;
+            //result = Request.CreateResponse(HttpStatusCode.OK);
+            //FileStream stream = new FileStream(zipPath, FileMode.Open, FileAccess.Read);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //result.Content = new StreamContent(new FileStream(zipPath, FileMode.Open, FileAccess.Read));
+            //result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            //result.Content.Headers.ContentDisposition.FileName = "LPM";
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            //        result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+
+
+            //    HttpResponseMessage result = null;
+            //var info = System.IO.File.GetAttributes(pathFromClient.Path);
+            //result = Request.CreateResponse(HttpStatusCode.OK);
+            //result.Content = new StreamContent(new FileStream(pathFromClient.Path, FileMode.Open, FileAccess.Read));
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");  //("'application/octet-stream'");
+            ////result.Content.Headers.Add("x-filename", "");
+            //result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            //result.Content.Headers.ContentDisposition.FileName = pathFromClient.Path.Substring(8, pathFromClient.Path.Length - 8);//TODO: pathFromClient.Path.Substring(40, pathFromClient.Path.Length - 1);
+
+            System.Drawing.Image image = System.Drawing.Image.FromFile(pathFromClient.Path);           
+            MemoryStream m = new MemoryStream();
+                
+            image.Save(m, image.RawFormat);
+            byte[] imageBytes = m.ToArray();
+
+            // Convert byte[] to Base64 String
+            Fuck fuck = new Fuck();
+            fuck.Base64 = Convert.ToBase64String(imageBytes);
+            return Ok(fuck);
+                
+            
         }
 
         [HttpPost]
