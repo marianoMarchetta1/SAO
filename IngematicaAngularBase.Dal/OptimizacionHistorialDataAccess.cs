@@ -113,6 +113,7 @@ namespace IngematicaAngularBase.Dal
 
             var mueblesResult = from optimizacionHistorial in tOptimizacionHistorial
                                 join optimizacionMuebles in tOptimizacionMuebles on optimizacionHistorial.IdOptimizacionHistorial equals optimizacionMuebles.IdOptimizacionHistorial
+                                where idsOptimizacionHistorial.Contains(optimizacionHistorial.IdOptimizacionHistorial)
                                 select new OptimizacionMueblesViewModel()
                                 {
                                     Cantidad = optimizacionMuebles.Cantidad,
