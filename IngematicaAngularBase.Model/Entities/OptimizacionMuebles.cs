@@ -18,6 +18,8 @@ namespace IngematicaAngularBase.Model.Entities
         public int IdOptimizacionHistorial { get; set; }
         public string Mueble { get; set; }
         public int Cantidad { get; set; }
+        public Nullable<int> IdMueble { get; set; }
+        public string Imagen { get; set; }
     
         public virtual OptimizacionHistorial OptimizacionHistorial { get; set; }
     }

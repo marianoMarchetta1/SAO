@@ -31,6 +31,8 @@ namespace IngematicaAngularBase.Model.ViewModels
         //public int IdOptimizacionMueble { get; set; }
         public int IdMueble { get; set; }
         public int Cantidad { get; set; }
+        public string Imagen { get; set; }
+        public int IdOptimizacionHistorial { get; set; }
     }
 
     public class PlanoData
@@ -114,6 +116,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public List<OptimizacionMueblesViewModel> OptimizacionMuebles { get; set; }
 
         public List<string> Paths { get; set; }
+        public List<string> PathsImages { get; set; }
     }
 
     public class OptimizacionMueblesViewModel{
@@ -121,6 +124,8 @@ namespace IngematicaAngularBase.Model.ViewModels
         public string Mueble { get; set; }
         public int IdOptimizacionHistorial { get; set; }
         public int IdOptimizacionMuebles { get; set; }
+        public int? IdMueble { get; set; }
+        public string Imagen { get; set; }
     }
 
     public class OptimizacionHistorialAreaViewModel
@@ -160,7 +165,7 @@ namespace IngematicaAngularBase.Model.ViewModels
         public double? VerticeDerechaAbajoX { get; set; }
         public double? VerticeDerechaAbajoY { get; set; }
 
-        //public int IdMueble { get; set; }
+        public int? IdMueble { get; set; }
     }
 
     public class Vector2

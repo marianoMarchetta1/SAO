@@ -7,6 +7,10 @@ using netDxf.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,13 +79,14 @@ namespace IngematicaAngularBase.Bll
                 OptimizacionHistorialDataAccess optimizacionHistorialDataAccess = new OptimizacionHistorialDataAccess(context);
                 OptimizacionHistorialViewModel optimizacionHistorialViewModel = optimizacionHistorialDataAccess.GetById(id);
                 List<OptimizacionHistorialViewModel> optimizacionHistorialViewModelDos = optimizacionHistorialDataAccess.GetByIdSinAgrupar(id);
-
+                optimizacionHistorialViewModel.PathsImages = new List<string>();
                 DateTime dateTimeNow = DateTime.Now;
 
                 foreach (OptimizacionHistorialViewModel historico in optimizacionHistorialViewModelDos)
                 {
                     
                     string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
+                    string pathImage = System.Configuration.ConfigurationManager.AppSettings["TmpImageFiles"];
                     optimizacionHistorialViewModel.Paths.Add(pathTemp);
                     DxfDocument dxfFinal = new DxfDocument();
 
@@ -113,29 +118,61 @@ namespace IngematicaAngularBase.Bll
 
                         foreach(OptimizacionHistorialAreaMuebleViewModel mueble in optimizacionHistorialAreaViewModel.OptimizacionHistorialAreaMueble)
                         {
-                            List<LwPolylineVertex> verticesMueble = new List<LwPolylineVertex>();
+                            OptimizacionMueblesViewModel muebleImg = historico.OptimizacionMuebles.Select(x => x).Where(x => x.IdMueble == mueble.IdMueble).FirstOrDefault();
 
-                            Model.ViewModels.Vector2 verticeIzqueirdaArribaMueble = new Model.ViewModels.Vector2();
-                            verticeIzqueirdaArribaMueble.X = (double)mueble.VerticeIzquierdaArribaX;
-                            verticeIzqueirdaArribaMueble.Y = (double)mueble.VerticeIzquierdaArribaY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaArribaMueble));
+                            if (muebleImg != null && muebleImg.Imagen != null && muebleImg.Imagen.Length > 0)
+                            {
+                                string pathTempImage = pathImage + "\\temp " + muebleImg.IdMueble + ".jpg";
 
-                            Model.ViewModels.Vector2 verticeDerechaArribaMueble = new Model.ViewModels.Vector2();
-                            verticeDerechaArribaMueble.X = (double)mueble.VerticeDerechaArribaX;
-                            verticeDerechaArribaMueble.Y = (double)mueble.VerticeDerechaArribaY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeDerechaArribaMueble));
+                                byte[] imageBytes = Convert.FromBase64String(muebleImg.Imagen.Split(',')[1]);
+                                MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+                                ms.Write(imageBytes, 0, imageBytes.Length);
+                                System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
 
-                            Model.ViewModels.Vector2 verticeDerechaAbajoMueble = new Model.ViewModels.Vector2();
-                            verticeDerechaAbajoMueble.X = (double)mueble.VerticeDerechaAbajoX;
-                            verticeDerechaAbajoMueble.Y = (double)mueble.VerticeDerechaAbajoY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeDerechaAbajoMueble));
 
-                            Model.ViewModels.Vector2 verticeIzqueirdaAbajoMueble = new Model.ViewModels.Vector2();
-                            verticeIzqueirdaAbajoMueble.X = (double)mueble.VerticeIzquierdaAbajoX;
-                            verticeIzqueirdaAbajoMueble.Y = (double)mueble.VerticeIzquierdaAbajoY;
-                            verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaAbajoMueble));
+                                int Width = (int)(mueble.VerticeDerechaArribaX - mueble.VerticeIzquierdaArribaX);
+                                int Height = (int)(mueble.VerticeIzquierdaArribaY - mueble.VerticeIzquierdaAbajoY);
+                                var newImage = ResizeImage(image, Width, Height);
+                                newImage.Save(pathTempImage, ImageFormat.Jpeg);
 
-                            dxfFinal.AddEntity(new LwPolyline(verticesMueble, true));
+                                optimizacionHistorialViewModel.PathsImages.Add(pathTempImage);
+
+                                Vector3 vector3 = new Vector3();
+                                vector3.Z = 0;
+                                vector3.X =(double)mueble.VerticeIzquierdaAbajoX;
+                                vector3.Y = (double)mueble.VerticeIzquierdaAbajoY;
+
+                                netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTempImage);
+                                netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, imageDefinition.Width, imageDefinition.Height);
+
+                                dxfFinal.AddEntity(imageToSave);
+                            }
+                            else
+                            {
+                                List<LwPolylineVertex> verticesMueble = new List<LwPolylineVertex>();
+
+                                Model.ViewModels.Vector2 verticeIzqueirdaArribaMueble = new Model.ViewModels.Vector2();
+                                verticeIzqueirdaArribaMueble.X = (double)mueble.VerticeIzquierdaArribaX;
+                                verticeIzqueirdaArribaMueble.Y = (double)mueble.VerticeIzquierdaArribaY;
+                                verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaArribaMueble));
+
+                                Model.ViewModels.Vector2 verticeDerechaArribaMueble = new Model.ViewModels.Vector2();
+                                verticeDerechaArribaMueble.X = (double)mueble.VerticeDerechaArribaX;
+                                verticeDerechaArribaMueble.Y = (double)mueble.VerticeDerechaArribaY;
+                                verticesMueble.Add(mb.ConvertVertex(verticeDerechaArribaMueble));
+
+                                Model.ViewModels.Vector2 verticeDerechaAbajoMueble = new Model.ViewModels.Vector2();
+                                verticeDerechaAbajoMueble.X = (double)mueble.VerticeDerechaAbajoX;
+                                verticeDerechaAbajoMueble.Y = (double)mueble.VerticeDerechaAbajoY;
+                                verticesMueble.Add(mb.ConvertVertex(verticeDerechaAbajoMueble));
+
+                                Model.ViewModels.Vector2 verticeIzqueirdaAbajoMueble = new Model.ViewModels.Vector2();
+                                verticeIzqueirdaAbajoMueble.X = (double)mueble.VerticeIzquierdaAbajoX;
+                                verticeIzqueirdaAbajoMueble.Y = (double)mueble.VerticeIzquierdaAbajoY;
+                                verticesMueble.Add(mb.ConvertVertex(verticeIzqueirdaAbajoMueble));
+
+                                dxfFinal.AddEntity(new LwPolyline(verticesMueble, true));
+                            }
                         }
                     }
 
@@ -143,8 +180,34 @@ namespace IngematicaAngularBase.Bll
                     dateTimeNow = dateTimeNow.AddSeconds(2);
                 }
 
+                optimizacionHistorialViewModel.PathsImages = optimizacionHistorialViewModel.PathsImages.Distinct().ToList();
                 return optimizacionHistorialViewModel;
             }
+        }
+
+        public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 }

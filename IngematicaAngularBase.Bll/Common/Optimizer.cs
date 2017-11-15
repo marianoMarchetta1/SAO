@@ -228,6 +228,8 @@ namespace IngematicaAngularBase.Bll.Common
                 optMueblView.IdOptimizacionMuebles = -1;
                 optMueblView.Cantidad = optMueble.Cantidad;
                 optMueblView.Mueble = (muebleList.Where(x => x.IdMueble == optMueble.IdMueble).First()).Nombre;
+                optMueblView.IdMueble = optMueble.IdMueble;
+                optMueblView.Imagen = (muebleList.Where(x => x.IdMueble == optMueble.IdMueble).First()).ImagenMueble;
                 listMuebles.Add(optMueblView);
             }
 
@@ -265,7 +267,7 @@ namespace IngematicaAngularBase.Bll.Common
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaAbajoY = mueble.VerticeIzquierdaAbajo.Y;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaX = mueble.VerticeIzquierdaArriba.X;
                         optimizacionHistorialAreaMuebleViewModel.VerticeIzquierdaArribaY = mueble.VerticeIzquierdaArriba.Y;
-                        //optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
+                        optimizacionHistorialAreaMuebleViewModel.IdMueble = mueble.Mueble.IdMueble;
 
                         
 

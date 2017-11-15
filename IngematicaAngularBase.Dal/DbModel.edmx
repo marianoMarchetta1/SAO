@@ -134,6 +134,8 @@
           <Property Name="IdOptimizacionHistorial" Type="int" Nullable="false" />
           <Property Name="Mueble" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="IdMueble" Type="int" />
+          <Property Name="Imagen" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -1132,6 +1134,8 @@
           <Property Name="IdOptimizacionHistorial" Type="Int32" Nullable="false" />
           <Property Name="Mueble" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="IdMueble" Type="Int32" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OptimizacionHistorial" Relationship="Proyecto.FinalModel.FK__Optimizac__IdOpt__1C3D2329" FromRole="OptimizacionMuebles" ToRole="OptimizacionHistorial" />
         </EntityType>
         <EntityType Name="Pais">
@@ -1787,6 +1791,8 @@
           <EntitySetMapping Name="OptimizacionMuebles">
             <EntityTypeMapping TypeName="Proyecto.FinalModel.OptimizacionMuebles">
               <MappingFragment StoreEntitySet="OptimizacionMuebles">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="IdMueble" ColumnName="IdMueble" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Mueble" ColumnName="Mueble" />
                 <ScalarProperty Name="IdOptimizacionHistorial" ColumnName="IdOptimizacionHistorial" />

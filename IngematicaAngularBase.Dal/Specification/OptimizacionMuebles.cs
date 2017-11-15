@@ -59,5 +59,30 @@ namespace IngematicaAngularBase.Dal.Specification
 			
 			return source;
 		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> WithIdMueble(this IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> source, int? value)
+		{
+			if (value != null)
+				return source.Where(p => p.IdMueble == value);
+			
+			return source;
+		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> WithImagen(this IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Imagen == value);
+			
+			return source;
+		}
+
+		public static IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> WithContainsImagen(this IQueryable<IngematicaAngularBase.Model.Entities.OptimizacionMuebles> source, string value)
+		{
+			if (value != null)
+				return source.Where(p => p.Imagen.Contains(value));
+			
+			return source;
+		}
+
 	}
 }

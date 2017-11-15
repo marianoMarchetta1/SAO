@@ -100,7 +100,8 @@ namespace IngematicaAngularBase.Dal
                                                                 VerticeIzquierdaAbajoX = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoX,
                                                                 VerticeIzquierdaAbajoY = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoY,
                                                                 VerticeIzquierdaArribaX = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaX,
-                                                                VerticeIzquierdaArribaY = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaY
+                                                                VerticeIzquierdaArribaY = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaY,
+                                                                IdMueble = optimizacionHistorialAreaMueble.IdMueble
                                                             };
 
                 optimizacionHistorialArea.OptimizacionHistorialAreaMueble = resultOptimizacionHistorialAreaMueble.ToList();
@@ -115,7 +116,10 @@ namespace IngematicaAngularBase.Dal
                                 select new OptimizacionMueblesViewModel()
                                 {
                                     Cantidad = optimizacionMuebles.Cantidad,
-                                    Mueble = optimizacionMuebles.Mueble
+                                    Mueble = optimizacionMuebles.Mueble,
+                                    IdMueble = optimizacionMuebles.IdMueble,
+                                    Imagen = optimizacionMuebles.Imagen,
+                                    IdOptimizacionHistorial = 0
                                 };
 
             rta.OptimizacionMuebles = mueblesResult.Distinct().ToList();
@@ -129,6 +133,7 @@ namespace IngematicaAngularBase.Dal
             IQueryable<OptimizacionHistorial> tOptimizacionHistorial = context.Set<OptimizacionHistorial>().AsNoTracking();
             IQueryable<OptimizacionHistorialArea> tOptimizacionHistorialArea = context.Set<OptimizacionHistorialArea>().AsNoTracking();
             IQueryable<OptimizacionHistorialAreaMueble> tOptimizacionHistorialAreaMueble = context.Set<OptimizacionHistorialAreaMueble>().AsNoTracking();
+            IQueryable<OptimizacionMuebles> tOptimizacionMueble = context.Set<OptimizacionMuebles>().AsNoTracking();
 
 
             var result = from optimizacionHistorial in tOptimizacionHistorial
@@ -172,9 +177,18 @@ namespace IngematicaAngularBase.Dal
                                                  VerticeIzquierdaArribaY = optimizacionHistorialArea.VerticeIzquierdaArribaY
                                              };
 
-                optHistVm.OptimizacionHistorialArea = resultOptimizacionArea.ToList();
+                var resultOptimizacionMueble = from optimizacionMueble in tOptimizacionMueble
+                                               where optimizacionMueble.IdOptimizacionHistorial == opt.IdOptimizacionHistorial
+                                                 select new OptimizacionMueblesViewModel
+                                                 {
+                                                     IdMueble = optimizacionMueble.IdMueble,
+                                                     Imagen = optimizacionMueble.Imagen
+                                                 };
 
-                foreach(OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel in optHistVm.OptimizacionHistorialArea)
+                optHistVm.OptimizacionHistorialArea = resultOptimizacionArea.ToList();
+                optHistVm.OptimizacionMuebles = resultOptimizacionMueble.ToList();
+
+                foreach (OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel in optHistVm.OptimizacionHistorialArea)
                 {
                     optimizacionHistorialAreaViewModel.OptimizacionHistorialAreaMueble = new List<OptimizacionHistorialAreaMuebleViewModel>();
 
@@ -193,7 +207,8 @@ namespace IngematicaAngularBase.Dal
                                                                     VerticeIzquierdaAbajoX = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoX,
                                                                     VerticeIzquierdaAbajoY = optimizacionHistorialAreaMueble.VerticeIzquierdaAbajoY,
                                                                     VerticeIzquierdaArribaX = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaX,
-                                                                    VerticeIzquierdaArribaY = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaY
+                                                                    VerticeIzquierdaArribaY = optimizacionHistorialAreaMueble.VerticeIzquierdaArribaY,
+                                                                    IdMueble = optimizacionHistorialAreaMueble.IdMueble
                                                                 };
 
                     optimizacionHistorialAreaViewModel.OptimizacionHistorialAreaMueble = resultOptimizacionHistorialAreaMueble.ToList();
