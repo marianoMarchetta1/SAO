@@ -147,7 +147,7 @@ namespace IngematicaAngularBase.Bll
 
                                 dxfFinal.AddEntity(imageToSave);
                             }
-                            else
+                            else if(muebleImg != null)
                             {
                                 List<LwPolylineVertex> verticesMueble = new List<LwPolylineVertex>();
 
