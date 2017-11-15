@@ -72,5 +72,27 @@ angular.module('appBase').factory('optimizacionHistorialFactory', ['$http', '$q'
             return deferred.promise;
         };
 
+        optimizacionHistorialFactory.getBlob = function (path, i) {
+            var deferred = $q.defer();
+            $http.post(urlBase + '/' + 'postFileToBlob', { path: path })
+                .then(function (response) {
+                    deferred.resolve({ data: response.data, i: i });
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
+            return deferred.promise;
+        }
+
+        optimizacionHistorialFactory.getBlobImage = function (path, j) {
+            var deferred = $q.defer();
+            $http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
+                .then(function (response) {
+                    deferred.resolve({ data: response.data, j: j });
+                }).catch(function (response) {
+                    deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
+                });
+            return deferred.promise;
+        }
+
         return optimizacionHistorialFactory;
     }]);

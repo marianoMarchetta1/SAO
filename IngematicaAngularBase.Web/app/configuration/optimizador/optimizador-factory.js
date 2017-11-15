@@ -56,41 +56,14 @@ angular.module('appBase').factory('optimizadorFactory', ['$http', '$q', 'handleE
 
         optimizadorFactory.getBlobImage = function (path, j) {
             var deferred = $q.defer();
-            //$http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
             $http.post(urlBase + '/' + 'postFileToBlobImage', { path: path })
                 .then(function (response) {
                     deferred.resolve({ data: response.data, j : j });
-                    //deferred.resolve({ data: response, j: j });
                 }).catch(function (response) {
                     deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
                 });
             return deferred.promise;
         }
-
-        //optimizadorFactory.add = function (model) {
-        //    var postModel = angular.copy(model);
-        //    entityUI.preparePost(postModel);
-        //    var deferred = $q.defer();
-        //    $http.post(urlBase, postModel)
-        //        .then(function (response) {
-        //            deferred.resolve(response.data);
-        //        }).catch(function (response) {
-        //            deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-        //        });
-        //    return deferred.promise;
-        //};
-
-        //optimizadorFactory.get = function (id) {
-        //    var deferred = $q.defer();
-        //    $http.get(urlBase + '/' + id)
-        //        .then(function (response) {
-        //            deferred.resolve(response.data);
-        //        })
-        //        .catch(function (response) {
-        //            deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
-        //        });
-        //    return deferred.promise;
-        //};
 
         return optimizadorFactory;
     }]);

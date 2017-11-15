@@ -82,7 +82,7 @@ namespace IngematicaAngularBase.Bll
                 {
                     
                     string pathTemp = path + "\\temp " + dateTimeNow.ToString("yyyyMMddHHmmss") + ".dxf";
-                    optimizacionHistorialViewModel.Paths.Add(path + "\\temp");
+                    optimizacionHistorialViewModel.Paths.Add(pathTemp);
                     DxfDocument dxfFinal = new DxfDocument();
 
                     foreach (OptimizacionHistorialAreaViewModel optimizacionHistorialAreaViewModel in historico.OptimizacionHistorialArea)
