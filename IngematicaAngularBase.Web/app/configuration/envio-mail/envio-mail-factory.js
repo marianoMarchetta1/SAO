@@ -9,7 +9,7 @@ angular.module('appBase').factory('envioMailFactory', ['$http', '$q', 'handleErr
             var deferred = $q.defer();
             $http.post(urlBase + '/' + 'send', mail)
                 .then(function (response) {
-                    deferred.resolve({ list: response.data, query: postQUery });
+                    deferred.resolve({ list: response.data });
                 }).catch(function (response) {
                     deferred.reject(handleErrorService.rejectHttpError(response.data, response.status));
                 });

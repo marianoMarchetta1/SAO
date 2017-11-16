@@ -133,7 +133,9 @@ namespace IngematicaAngularBase.Bll
                                 int Width = (int)(mueble.VerticeDerechaArribaX - mueble.VerticeIzquierdaArribaX);
                                 int Height = (int)(mueble.VerticeIzquierdaArribaY - mueble.VerticeIzquierdaAbajoY);
                                 var newImage = ResizeImage(image, Width, Height);
-                                newImage.Save(pathTempImage, ImageFormat.Jpeg);
+
+                                if (!File.Exists(pathTempImage))
+                                    newImage.Save(pathTempImage, ImageFormat.Jpeg);
 
                                 optimizacionHistorialViewModel.PathsImages.Add(pathTempImage);
 
@@ -144,6 +146,10 @@ namespace IngematicaAngularBase.Bll
 
                                 netDxf.Objects.ImageDefinition imageDefinition = new netDxf.Objects.ImageDefinition(pathTempImage);
                                 netDxf.Entities.Image imageToSave = new netDxf.Entities.Image(imageDefinition, vector3, imageDefinition.Width, imageDefinition.Height);
+
+                                image.Dispose();
+                                newImage.Dispose();
+                                ms.Dispose();
 
                                 dxfFinal.AddEntity(imageToSave);
                             }

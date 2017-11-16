@@ -76,6 +76,8 @@ namespace IngematicaAngularBase.Bll
                     planoArray.Path = pathTemp;
 
                     result.PlanoArrayList.Add(planoArray);
+
+
                 }
 
                 optimizer.PathsImagenes = optimizer.PathsImagenes.Select(x => x).Distinct().ToList();

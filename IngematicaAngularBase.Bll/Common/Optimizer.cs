@@ -289,7 +289,9 @@ namespace IngematicaAngularBase.Bll.Common
                                 int Width = (int)(mueble.VerticeDerechaArriba.X - mueble.VerticeIzquierdaArriba.X); 
                                 int Height = (int)(mueble.VerticeIzquierdaArriba.Y - mueble.VerticeIzquierdaAbajo.Y);
                                 var newImage = ResizeImage(image, Width, Height);
-                                newImage.Save(pathTemp, ImageFormat.Jpeg);
+
+                                if(!File.Exists(pathTemp))
+                                    newImage.Save(pathTemp, ImageFormat.Jpeg);
 
                                 this.PathsImagenes.Add(pathTemp);
 
@@ -308,6 +310,9 @@ namespace IngematicaAngularBase.Bll.Common
                                 //linetype.Segments.AddRange(new[] { 0.0, 0.0 });
                                 //imageToSave.Linetype = linetype;
                                 //imageToSave.Lineweight = 0;
+                                image.Dispose();
+                                newImage.Dispose();
+                                ms.Dispose();
 
                                 dxfFinal.AddEntity(imageToSave);
                             }else

@@ -1,5 +1,5 @@
-﻿angular.module('appBase').controller('envioMailController', ['$scope', 'entityUI', 'envioMailFactory', 'parameters','blockUI',
-    function ($scope, entityUI, envioMailFactory, parameters,blockUI) {
+﻿angular.module('appBase').controller('envioMailController', ['$scope', 'entityUI', 'envioMailFactory', 'parameters', 'blockUI','modalDialogService',
+    function ($scope, entityUI, envioMailFactory, parameters, blockUI, modalDialogService) {
 
         var vm = this;
 
@@ -14,7 +14,7 @@
                 blockUI.start();
                 envioMailFactory.send(vm.mail)
                 .then(function (value) {
-                    if (value && value == "1"){
+                    if (value && value.list && value.list == "1"){
                         modalDialogService.showModalMessage('El mail ha sido enviado exitosamente.');
                         vm.mail.nombre = '';
                         vm.mail.comentario = '';

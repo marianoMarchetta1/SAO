@@ -105,11 +105,9 @@
             } else if (vm.optimizacion.optimizarCosto && vm.costoActual > vm.optimizacion.costoMaximo){
                 modalDialogService.showModalFormErrors(["El costo actual supera el limite marcado, le aconsejamos cambiar alguno de los muebles para abaratar costos."]);
                 return;           
-            }else if (vm.optimizacion.optimizarCosto) {
-                 if (!vm.optimizacion.costoMaximo) {
-                    modalDialogService.showModalFormErrors(["Debe ingresar el presupuesto máximo."]);
-                    return
-                }
+            } else if (vm.optimizacion.optimizarCosto && !vm.optimizacion.costoMaximo) {
+                modalDialogService.showModalFormErrors(["Debe ingresar el presupuesto máximo."]);
+                return;
             } else {
 
                 blockUI.start();

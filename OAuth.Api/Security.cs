@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -338,14 +339,23 @@ namespace OAuth.Api
 
         public static void SendMail(string subject, string From, string To, string body)
         {
-            Ingematica.MailService.Contract.Mail m = new Ingematica.MailService.Contract.Mail();
-            m.Asunto = subject;
-            Ingematica.MailService.Contract.MailAddress de = Ingematica.MailService.Contract.MailAddress.Parse(From);
-            m.De = de;
-            m.Para = Ingematica.MailService.Contract.MailAddress.ParseGroup(To);
-            m.Cuerpo = body;
-            MailServiceClient Client = new MailServiceClient(ConfigurationManager.AppSettings["Ingematica.MailService.Service.MailServiceURI"]);
-            m = Client.Add(m);
+            System.Net.Mail.MailAddress from = new System.Net.Mail.MailAddress(From);
+            System.Net.Mail.MailAddress to = new System.Net.Mail.MailAddress(To);
+            MailMessage message = new MailMessage(from, to);
+            message.Body = body;
+            message.BodyEncoding = UTF8Encoding.UTF8;
+            message.Subject = subject;
+            message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("sao.arquitectura2017@gmail.com", "sao.arquitectura");
+            client.Send(message);
         }
 
         /* Tokens */
